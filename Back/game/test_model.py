@@ -3,44 +3,44 @@ from django.db import models
 import game_settings as constant
 
 
-class Resources:
-    def __init__(self):
-        self.um = constant.UM_INITIAL_STOCK
-        self.hydrocarbons = constant.HYDROCARBONS_INITIAL_STOCK
-        self.pollution = constant.POLLUTION_INITIAL_STOCK
+class Resources(models.Model):
+    um = models.IntegerField(default=constant.UM_INITIAL_STOCK)
+    hydrocarbons = models.IntegerField(default=constant.HYDROCARBONS_INITIAL_STOCK)
+    pollution = models.IntegerField(default=constant.POLLUTION_INITIAL_STOCK)
 
 
-class Production:
-    def __init__(self):
-        self.um = constant.UM_INITIAL_PRODUCTION
-        self.hydrocarbons = constant.HYDROCARBONS_INITIAL_PRODUCTION
-        self.food = constant.FOOD_INITIAL_PRODUCTION
-        self.electricity = constant.ELECTRICITY_INITIAL_PRODUCTION
-        self.pollution = constant.POLLUTION_INITIAL_PRODUCTION
-        self.waste = constant.WASTE_INITIAL_PRODUCTION
+class Production(models.Model):
+    um = models.IntegerField(default=constant.UM_INITIAL_PRODUCTION)
+    hydrocarbons = models.IntegerField(default=constant.HYDROCARBONS_INITIAL_PRODUCTION)
+    food = models.IntegerField(default=constant.FOOD_INITIAL_PRODUCTION)
+    electricity = models.IntegerField(default=constant.ELECTRICITY_INITIAL_PRODUCTION)
+    pollution = models.IntegerField(default=constant.POLLUTION_INITIAL_PRODUCTION)
+    waste = models.IntegerField(default=constant.WASTE_INITIAL_PRODUCTION)
 
 
-class States:
-    def __init__(self):
-        self.economical = constant.ECONOMICAL_INITIAL_VALUE
-        self.social = constant.SOCIAL_INITIAL_VALUE
-        self.environmental = constant.ENVIRONMENTAL_INITIAL_VALUE
+class States(models.Model):
+    economical = models.IntegerField(default=constant.ECONOMICAL_INITIAL_VALUE)
+    social = models.IntegerField(default=constant.SOCIAL_INITIAL_VALUE)
+    environmental = models.IntegerField(default=constant.ENVIRONMENTAL_INITIAL_VALUE)
 
     def green_income(self):
         return self.environmental // constant.ENVIRONMENTAL_REGENERATION_LEVEL
 
 
-class Player:
+class Player(models.Model):
     """
     Classe principale joueur
     """
-    def __init__(self, name):
-        self.name = name
-        self.resources = Resources()
-        self.states = States()
-        self.production = Production()
-        self.technologies = 0  # encore a traiter
-        self.builded = 0  # encore a traiter
+    name = models.CharField(max_length=100)
+    resources = models.OneToOneField(Resources, on_delete=models.CASCADE)
+    
+    world = models.ForeignKey(World, on_delete=models.CASCADE)
+    production = models.OneToOneField(Production, on_delete=models.CASCADE)
+    states = models.OneToOneField(States, on_delete=models.CASCADE)
+
+    # Encore a traiter vv
+    technologies = models.IntegerField(default=0)
+    buildes = models.IntegerField(default=0)
 
     def earn_income(self, hydrocarbon_stock):
         """
@@ -53,8 +53,19 @@ class Player:
         self.resources.hydrocarbons += self.production.hydrocarbons * hydrocarbon_stock.multiplier()
         hydrocarbon_stock.decrease(self.production.hydrocarbons)
 
+# A renommer
+class Hydrocarbon_stock(models.Model):
+    stock = models.IntegerField(default=0)
+    multiplier = models.IntegerField(default=0)
+    index = models.IntegerField()
+    stock_list = models.ForeignKey(Hydrocarbon_stocks, on_delete=models.CASCADE)
 
-class Hydrocarbon_stock:
+    def decrease(self, diminution):
+        """ Diminue le stock de diminution """
+        self.stocks -= diminution
+
+
+class Hydrocarbon_stocks(models.Model):
     """
     Reserves mondiales d'hydrocarbures
 
@@ -93,7 +104,7 @@ class Hydrocarbon_stock:
         self.stocks_piles_list[self.current_multiplier_index] -= diminution
 
 
-class World:
+class World(models.Model):
     """ Monde/jeu """
     def __init__(self):
         """ Construction d'un monde vide """
@@ -116,4 +127,3 @@ class World:
 
     def main_phase(self):
         pass
-

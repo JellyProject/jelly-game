@@ -2,7 +2,7 @@ import math
 
 """ Parametres """
 # hydrocarbures a ajouter a chaque pile pour chaque joueur
-HYDROCARBON_STOCKS_PER_PLAYER = Hydrocarbon_stock((10, 3), (15, 2), (inf, 1))
+HYDROCARBON_STOCKS_PER_PLAYER = [(10, 3), (15, 2), (math.inf, 1)]
 
 MAX_STATE_VALUE = 100
 ENVIRONMENTAL_REGENERATION_LEVEL = 30
