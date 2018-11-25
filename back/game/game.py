@@ -1,4 +1,4 @@
-import models
+import game.models as models
 
 
 class Game():

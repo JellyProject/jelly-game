@@ -91,6 +91,9 @@ class Player(models.Model):
         self.resources.hydrocarbons += self.production.hydrocarbons * hydrocarbon_stock.multiplier()
         hydrocarbon_stock.decrease(self.production.hydrocarbons)
 
+    def green_income(self):
+        return self.states.green_income()
+
 
 class HydrocarbonSupplyPile(models.Model):
     """
