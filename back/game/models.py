@@ -157,6 +157,13 @@ class Player(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        if self.resources is None:
+            self.resources = Resources.objects.create()    # Resources with default attributes
+        if self.production is None:
+            self.production = Production.objects.create()    # Production with default attributes
+        super(Player, self).save(*args, **kwargs)
+
     def earn_income(self, hydrocarbon_stock):
         """
         Gain des revenus : um, hydrocarbures, pollution, et regeneration de l'envirronement
@@ -180,7 +187,7 @@ class HydrocarbonSupplyPile(models.Model):
         stocks : quantite d'hydrocarbures restant dans la pile
         multipliers : rendement de la pile
         index : numero de la pile
-        #supply_list : reserve generale dans laquelle se situe la pile
+        supply_list : reserve generale dans laquelle se situe la pile
     """
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="hydrocarbon_piles")
     stock_amount = models.FloatField(default=0)
