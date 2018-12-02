@@ -93,15 +93,19 @@ class Game(models.Model):
     def new_player(self, name):
         """ Add a player in the world, and hydrocarbon supply in consequence """
         # creation d'un nouveau joueur s'il n'existe pas encore
-        player = Player.objects.get_or_create(name=name, game=self)
+        try:
+            self.players.get(name=name)
+        except:
+            player = Player(name=name, game=self)
+            player.resources = Resources.objects.create()
+            player.production = Production.objects.create()
+            player.state = States.objects.create()
+            player.save()
 
-        if not player[1]:
-            print("!! joueur déjà existant !!")
-
-        # ajustement du d'un stock mondial d'hydrocarbures en consequence
-        const = constant.HYDROCARBON_STOCKS_PER_PLAYER
-        for pile_index in range(len(const)):
-            self.hydrocarbon_piles.get(index=pile_index).stock_amount += const[pile_index][0]
+            # ajustement du d'un stock mondial d'hydrocarbures en consequence
+            const = constant.HYDROCARBON_STOCKS_PER_PLAYER
+            for pile_index in range(len(const)):
+                self.hydrocarbon_piles.get(index=pile_index).stock_amount += const[pile_index][0]
 
     def update_index_pile(self):
         """ Update the index of the current pile """
@@ -142,9 +146,9 @@ class Player(models.Model):
     """
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="players")
     name = models.CharField(max_length=100, default="Anne O'NYME")
-    resources = models.OneToOneField(Resources, default=Resources.objects.create(), on_delete=models.CASCADE)
-    production = models.OneToOneField(Production, default=Production.objects.create(), on_delete=models.CASCADE)
-    states = models.OneToOneField(States, default=States.objects.create(), on_delete=models.CASCADE)
+    resources = models.OneToOneField(Resources, on_delete=models.CASCADE)
+    production = models.OneToOneField(Production, on_delete=models.CASCADE)
+    states = models.OneToOneField(States, on_delete=models.CASCADE)
 
     # Encore a traiter vv
     technologies = models.IntegerField(default=0)

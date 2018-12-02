@@ -23,3 +23,8 @@ def test_game_model(request):
     player = game.players[0]
     green_income = player.green_income()
     return render(request, 'back/test.html', locals())
+
+
+def test():
+    game = Game.objects.get_or_create(name='aa')[0]
+    game.new_player('Miguela')
