@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect
 from datetime import datetime
 
 import game.models as models
-from game.game import Game
 
 
 # Create your views here.
