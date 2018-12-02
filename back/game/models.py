@@ -71,16 +71,20 @@ class Game(models.Model):
     name = models.CharField(default="a", max_length=20)
     current_index_pile = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.name
+
     def _init_supply(self):
         """ Initialize the hydrocarbon supply piles """
         const = constant.HYDROCARBON_STOCKS_PER_PLAYER
         for pile_index in range(len(const)):
-            models.HydrocarbonSupplyPile.objects.create(stock_amount=const[pile_index][0],
+            HydrocarbonSupplyPile.objects.get_or_create(stock_amount=const[pile_index][0],
                                                         multiplier=const[pile_index][1],
                                                         index=pile_index, game=self)
 
     def save_game(self):
-        """ Save the game state in the data base """
+        """ Save the game state in the data base
+        inutile ?? """
         for player in self.players:
             player.save()
         for pile in self.hydrocarbon_piles:
@@ -88,9 +92,12 @@ class Game(models.Model):
 
     def new_player(self, name):
         """ Add a player in the world, and hydrocarbon supply in consequence """
-        # creation d'un nouveau joueur
-        player = models.Player.objects.create(name=name, resources=Resources(),
-                                              production=Production(), states=States, game=self)
+        # creation d'un nouveau joueur s'il n'existe pas encore
+        player = Player.objects.get_or_create(name=name, game=self)
+
+        if not player[1]:
+            print("!! joueur déjà existant !!")
+
         # ajustement du d'un stock mondial d'hydrocarbures en consequence
         const = constant.HYDROCARBON_STOCKS_PER_PLAYER
         for pile_index in range(len(const)):
@@ -133,15 +140,18 @@ class Player(models.Model):
         builded (OneToOneField?): building builded (not implemented yet)
 
     """
-    name = models.CharField(max_length=100)
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="players")
-    resources = models.OneToOneField(Resources, on_delete=models.CASCADE)
-    production = models.OneToOneField(Production, on_delete=models.CASCADE)
-    states = models.OneToOneField(States, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, default="Anne O'NYME")
+    resources = models.OneToOneField(Resources, default=Resources.objects.create(), on_delete=models.CASCADE)
+    production = models.OneToOneField(Production, default=Production.objects.create(), on_delete=models.CASCADE)
+    states = models.OneToOneField(States, default=States.objects.create(), on_delete=models.CASCADE)
 
     # Encore a traiter vv
     technologies = models.IntegerField(default=0)
     builded = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
 
     def earn_income(self, hydrocarbon_stock):
         """
@@ -169,9 +179,12 @@ class HydrocarbonSupplyPile(models.Model):
         #supply_list : reserve generale dans laquelle se situe la pile
     """
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="hydrocarbon_piles")
-    stock_amount = models.IntegerField(default=0)
+    stock_amount = models.FloatField(default=0)
     multiplier = models.IntegerField(default=0)
     index = models.IntegerField()
+
+    def __str__(self):
+        return str(self.index)
 
     def decrease(self, diminution):
         """ Diminue le stock de diminution """
