@@ -1,0 +1,2 @@
+- Gérer la modification des modèles avec des bases de données déjà remplies (ne pas perdre les données, mais pouvoir altérer les tables)
+- Diviser en plusieurs fichiers les modèles
