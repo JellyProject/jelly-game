@@ -14,7 +14,7 @@ class Resources(models.Model):
     """
     um = models.IntegerField(default=constant.UM_INITIAL_STOCK)
     hydrocarbons = models.IntegerField(default=constant.HYDROCARBONS_INITIAL_STOCK)
-    pollution = models.IntegerField(default=constant.POLLUTION_INITIAL_STOCK)
+    # pollution = models.IntegerField(default=constant.POLLUTION_INITIAL_STOCK)
 
 
 class Production(models.Model):
@@ -170,7 +170,7 @@ class Player(models.Model):
         Gain des revenus : um, hydrocarbures, pollution, et regeneration de l'envirronement
         """
         self.resources.um += self.production.um
-        self.resources.pollution += self.production.pollution
+        self.states.environmental -= self.production.pollution
         self.states.environmental += self.green_income()
         # Cas des hydrocarbures
         self.resources.hydrocarbons += self.production.hydrocarbons * hydrocarbon_stock.multiplier
@@ -201,3 +201,4 @@ class HydrocarbonSupplyPile(models.Model):
     def decrease(self, diminution):
         """ Diminue le stock de diminution """
         self.stock_amount -= diminution
+        self.save()
