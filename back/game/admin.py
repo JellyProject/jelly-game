@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Player, Resources, Production, HydrocarbonSupplyPile, States
+from .models import Game, Player, Resources, Production, HydrocarbonSupplyPile, States
 
+admin.site.register(Game)
 admin.site.register(Player)
 admin.site.register(States)
 admin.site.register(Resources)

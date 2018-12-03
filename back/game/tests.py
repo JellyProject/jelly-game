@@ -1,30 +1,30 @@
-from django.test import TestCase  # faudrait regerder ce que c'est
+from django.test import TestCase
+# faudrait regerder ce que c'est ^^
+# oui c'est vrai
 
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from datetime import datetime
-
-import game.models as models
 from game.models import Game, Player, HydrocarbonSupplyPile, Resources, Production, States
 
 
-# Create your views here.
-def view_game(request):
-    players = models.Player.objects.all()
-    player = models.Player(name='Miguel de Patatas', resources=models.Resources(), production=models.Production(),
-                           states=models.States())
+def test_player_model(request):
+    players = Player.objects.all()
+    player = Player(
+        name='Miguel de Patatas',
+        resources=Resources(),
+        production=Production(),
+        states=States())
     green_income = player.green_income()
     return render(request, 'back/test.html', locals())
 
 
 def test_game_model(request):
-    game = Game.objects.get_or_create(name="AAA")[0]
-    game.new_player("Miguel")
-    player = game.players[0]
+    game = Game.objects.get_or_create(name='AAA')[0]
+    game._init_supply()
+    # game.add_player('Miguel')
+    game.income_phase()
+    player = game.players.get(name='Miguel')
+    print(player.resources.pollution)
     green_income = player.green_income()
     return render(request, 'back/test.html', locals())
-
-
-def test():
-    game = Game.objects.get_or_create(name='aa')[0]
-    game.new_player('Miguela')
