@@ -101,7 +101,8 @@ class Game(models.Model):
                 name=name,
                 resources=Resources.objects.create(),
                 production=Production.objects.create(),
-                states=States.objects.create())
+                states=States.objects.create(),
+                )
             # ajustement du stock mondial d'hydrocarbures
             const = constant.HYDROCARBON_STOCKS_PER_PLAYER
             for pile_index in range(len(const)):
@@ -126,7 +127,6 @@ class Game(models.Model):
         # income for each player
         for player in self.players.all():
             player.earn_income(self.hydrocarbon_piles.get(index=self.current_index_pile))
-            player.save()
         # update of the current pile index
         self.update_index_pile()
 
@@ -160,11 +160,6 @@ class Player(models.Model):
     def __str__(self):
         return self.name
 
-    def save(self):
-        self.resources.save()
-        self.production.save()
-        self.states.save()
-
     def earn_income(self, hydrocarbon_stock):
         """
         Gain des revenus : um, hydrocarbures, pollution, et regeneration de l'envirronement
@@ -175,6 +170,8 @@ class Player(models.Model):
         # Cas des hydrocarbures
         self.resources.hydrocarbons += self.production.hydrocarbons * hydrocarbon_stock.multiplier
         hydrocarbon_stock.decrease(self.production.hydrocarbons)
+        self.resources.save()
+        self.states.save()
 
     def green_income(self):
         return self.states.green_income()
