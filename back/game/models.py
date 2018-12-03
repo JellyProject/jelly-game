@@ -74,7 +74,6 @@ class Game(models.Model):
     def __str__(self):
         return self.name
 
-
     def _init_supply(self):
         """ Initialize the hydrocarbon supply piles """
         const = constant.HYDROCARBON_STOCKS_PER_PLAYER
@@ -98,19 +97,17 @@ class Game(models.Model):
         # Check if a player already has this name
         if not Player.objects.filter(game__name=self.name, name=name):
             Player.objects.create(
-                game = self,
-                name = name,
-                resources = Resources.objects.create(),
-                production = Production.objects.create(),
-                states = States.objects.create(),
-                )
+                game=self,
+                name=name,
+                resources=Resources.objects.create(),
+                production=Production.objects.create(),
+                states=States.objects.create())
             # ajustement du stock mondial d'hydrocarbures
             const = constant.HYDROCARBON_STOCKS_PER_PLAYER
             for pile_index in range(len(const)):
                 self.hydrocarbon_piles.get(index=pile_index).stock_amount += const[pile_index][0]
         else:    # For debugging purposes, should be deleted or modified
             print("A player already has this name, sorry!")    # Print in console
-
 
     def update_index_pile(self):
         """ Update the index of the current pile """
@@ -121,13 +118,15 @@ class Game(models.Model):
             hydrocarbon_piles[self.current_index_pile].stock_amount -= \
                 hydrocarbon_piles[self.current_index_pile].stock_amount
             hydrocarbon_piles[self.current_index_pile - 1].stock_amount = 0
-        hydrocarbon_piles.save()
+        for pile in hydrocarbon_piles:
+            pile.save()
 
     def income_phase(self):
         """ Income phase : each player gain his income """
         # income for each player
-        for player in self.players:
-            player.earn_income()
+        for player in self.players.all():
+            player.earn_income(self.hydrocarbon_piles.get(index=self.current_index_pile))
+            player.save()
         # update of the current pile index
         self.update_index_pile()
 
@@ -167,9 +166,9 @@ class Player(models.Model):
         """
         self.resources.um += self.production.um
         self.resources.pollution += self.production.pollution
-        self.states.environmental += self.states.environmental.green_income()
+        self.states.environmental += self.green_income()
         # Cas des hydrocarbures
-        self.resources.hydrocarbons += self.production.hydrocarbons * hydrocarbon_stock.multiplier()
+        self.resources.hydrocarbons += self.production.hydrocarbons * hydrocarbon_stock.multiplier
         hydrocarbon_stock.decrease(self.production.hydrocarbons)
 
     def green_income(self):
