@@ -160,6 +160,11 @@ class Player(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self):
+        self.resources.save()
+        self.production.save()
+        self.states.save()
+
     def earn_income(self, hydrocarbon_stock):
         """
         Gain des revenus : um, hydrocarbures, pollution, et regeneration de l'envirronement

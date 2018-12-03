@@ -22,7 +22,7 @@ def test_player_model(request):
 def test_game_model(request):
     game = Game.objects.get_or_create(name='AAA')[0]
     game._init_supply()
-    game.add_player('Miguel')
+    # game.add_player('Miguel')
     game.income_phase()
     player = game.players.get(name='Miguel')
     print(player.resources.pollution)
