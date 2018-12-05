@@ -119,10 +119,10 @@ class Game(models.Model):
             hydrocarbon_piles[self.current_index_pile].stock_amount += \
                 hydrocarbon_piles[self.current_index_pile - 1].stock_amount
             hydrocarbon_piles[self.current_index_pile - 1].stock_amount = 0
-            print(hydrocarbon_piles[self.current_index_pile - 1].stock_amount)
+            # print(hydrocarbon_piles[self.current_index_pile - 1].stock_amount)
             hydrocarbon_piles[self.current_index_pile].save()
             hydrocarbon_piles[self.current_index_pile - 1].save()
-        print(hydrocarbon_piles[1].stock_amount)
+        # print(hydrocarbon_piles[1].stock_amount)
         self.save()
 
     def income_phase(self):
