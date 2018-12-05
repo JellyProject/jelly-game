@@ -101,8 +101,7 @@ class Game(models.Model):
                 name=name,
                 resources=Resources.objects.create(),
                 production=Production.objects.create(),
-                states=States.objects.create(),
-                )
+                states=States.objects.create(),)
             # ajustement du stock mondial d'hydrocarbures
             const = constant.HYDROCARBON_STOCKS_PER_PLAYER
             for pile_index in range(len(const)):
