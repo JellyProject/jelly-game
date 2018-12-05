@@ -116,11 +116,14 @@ class Game(models.Model):
         hydrocarbon_piles = self.hydrocarbon_piles.order_by('index')
         while hydrocarbon_piles[self.current_index_pile].stock_amount <= 0:
             self.current_index_pile += 1
-            hydrocarbon_piles[self.current_index_pile].stock_amount -= \
-                hydrocarbon_piles[self.current_index_pile].stock_amount
+            hydrocarbon_piles[self.current_index_pile].stock_amount += \
+                hydrocarbon_piles[self.current_index_pile - 1].stock_amount
             hydrocarbon_piles[self.current_index_pile - 1].stock_amount = 0
-        for pile in hydrocarbon_piles:
-            pile.save()
+            print(hydrocarbon_piles[self.current_index_pile - 1].stock_amount)
+            hydrocarbon_piles[self.current_index_pile].save()
+            hydrocarbon_piles[self.current_index_pile - 1].save()
+        print(hydrocarbon_piles[1].stock_amount)
+        self.save()
 
     def income_phase(self):
         """ Income phase : each player gain his income """
@@ -197,5 +200,5 @@ class HydrocarbonSupplyPile(models.Model):
 
     def decrease(self, diminution):
         """ Diminue le stock de diminution """
-        self.stock_amount -= diminution
+        self.stock_amount -= diminution * self.multiplier
         self.save()

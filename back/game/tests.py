@@ -20,11 +20,14 @@ def test_player_model(request):
 
 
 def test_game_model(request):
-    game, created = Game.objects.get_or_create(name='AAA')
+    game, created = Game.objects.get_or_create(name='lame')
     if created:
         game._init_supply()
     game.add_player('Miguel')
     game.income_phase()
     player = game.players.get(name='Miguel')
     green_income = player.green_income()
+    stock0 = game.hydrocarbon_piles.get(index=0).stock_amount
+    stock1 = game.hydrocarbon_piles.get(index=1).stock_amount
+    stock2 = game.hydrocarbon_piles.get(index=2).stock_amount
     return render(request, 'back/test.html', locals())
