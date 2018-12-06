@@ -20,7 +20,7 @@ def test_player_model(request):
 
 
 def test_game_model(request):
-    game, created = Game.objects.get_or_create(name='lame')
+    game, created = Game.objects.get_or_create(name='bbb')
     if created:
         game._init_supply()
     game.add_player('Miguel')

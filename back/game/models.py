@@ -55,7 +55,8 @@ class States(models.Model):
 
     def green_income(self):
         """ Return environment regeneration income corresponding to the environmental level """
-        return self.environmental // constant.ENVIRONMENTAL_REGENERATION_LEVEL
+        self.environmental += self.environmental // constant.ENVIRONMENTAL_REGENERATION_LEVEL
+        self.environmental = min(self.environmental, 100)
 
 
 class Game(models.Model):
@@ -115,9 +116,9 @@ class Game(models.Model):
         hydrocarbon_piles = self.hydrocarbon_piles.order_by('index')
         while hydrocarbon_piles[self.current_index_pile].stock_amount <= 0:
             self.current_index_pile += 1
-            hydrocarbon_piles[self.current_index_pile].stock_amount += \
-                hydrocarbon_piles[self.current_index_pile - 1].stock_amount
-            hydrocarbon_piles[self.current_index_pile - 1].stock_amount = 0
+            hydrocarbon_piles[self.current_index_pile].decrease(-hydrocarbon_piles[self.current_index_pile - 1]
+                                                                .stock_amount)
+            hydrocarbon_piles[self.current_index_pile - 1].setTo(0)
             # print(hydrocarbon_piles[self.current_index_pile - 1].stock_amount)
             hydrocarbon_piles[self.current_index_pile].save()
             hydrocarbon_piles[self.current_index_pile - 1].save()
@@ -168,10 +169,10 @@ class Player(models.Model):
         """
         self.resources.um += self.production.um
         self.states.environmental -= self.production.pollution
-        self.states.environmental += self.green_income()
+        self.green_income()
         # Cas des hydrocarbures
         self.resources.hydrocarbons += self.production.hydrocarbons * hydrocarbon_stock.multiplier
-        hydrocarbon_stock.decrease(self.production.hydrocarbons)
+        hydrocarbon_stock.decrease(self.production.hydrocarbons * hydrocarbon_stock.multiplier)
         self.resources.save()
         self.states.save()
 
@@ -199,5 +200,9 @@ class HydrocarbonSupplyPile(models.Model):
 
     def decrease(self, diminution):
         """ Diminue le stock de diminution """
-        self.stock_amount -= diminution * self.multiplier
+        self.stock_amount -= diminution
+        self.save()
+
+    def setTo(self, value):
+        self.stock_amount = value
         self.save()
