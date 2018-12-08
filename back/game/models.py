@@ -41,12 +41,10 @@ class Game(models.Model):
         """
         # Check if a player already has this name
         if not Player.objects.filter(game__name=self.name, name=name):
-            Player.objects.create(
-                game=self,
-                name=name,
-                resources=Resources.objects.create(),
-                production=Production.objects.create(),
-                states=States.objects.create(),)
+            new_player = Player.objects.create(game=self, name=name)
+            Resources.objects.create(player=new_player),
+            Production.objects.create(player=new_player),
+            States.objects.create(player=new_player)
             # ajustement du stock mondial d'hydrocarbures
             const = constant.HYDROCARBON_STOCKS_PER_PLAYER
             for pile_index in range(len(const)):
@@ -73,7 +71,7 @@ class Game(models.Model):
         """ Income phase : each player gain his income """
         # income for each player
         for player in self.players.all():
-            player.earn_income(self.hydrocarbon_piles.get(index=self.current_index_pile))
+            player.earn_income()
         # update of the current pile index
         self.update_index_pile()
 
@@ -104,7 +102,7 @@ class Player(models.Model):
     def __str__(self):
         return self.name
 
-    def earn_income(self, hydrocarbon_stock):
+    def earn_income(self):
         """
         Gain des revenus : um, hydrocarbures, pollution, et regeneration de l'envirronement
         """
@@ -112,13 +110,14 @@ class Player(models.Model):
         self.states.environmental -= self.production.pollution
         self.green_income()
         # Cas des hydrocarbures
+        hydrocarbon_stock = self.game.hydrocarbon_piles.get(index=self.game.current_index_pile)
         self.resources.hydrocarbons += self.production.hydrocarbons * hydrocarbon_stock.multiplier
         hydrocarbon_stock.decrease(self.production.hydrocarbons * hydrocarbon_stock.multiplier)
         self.resources.save()
         self.states.save()
 
     def green_income(self):
-        return self.states.green_income()
+        self.states.green_income()
 
 
 class Resources(models.Model):
@@ -179,7 +178,9 @@ class States(models.Model):
 
     def green_income(self):
         """ Return environment regeneration income corresponding to the environmental level """
-        return self.environmental // constant.ENVIRONMENTAL_REGENERATION_LEVEL
+        self.environmental += self.environmental // constant.ENVIRONMENTAL_REGENERATION_LEVEL
+        self.environmental = min(self.environmental, 100)
+        self.save()
 
 
 class HydrocarbonSupplyPile(models.Model):
@@ -202,7 +203,7 @@ class HydrocarbonSupplyPile(models.Model):
 
     def decrease(self, diminution):
         """ Diminue le stock de diminution """
-        self.stock_amount -= diminution * self.multiplier
+        self.stock_amount -= diminution
         self.save()
 
     def setTo(self, value):

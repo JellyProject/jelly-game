@@ -59,10 +59,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('um', models.IntegerField(default=10)),
                 ('hydrocarbons', models.IntegerField(default=0)),
-<<<<<<< HEAD
-=======
                 ('player', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='game.Player')),
->>>>>>> inversion des cascades
             ],
         ),
         migrations.CreateModel(
