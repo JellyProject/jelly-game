@@ -101,10 +101,6 @@ class Player(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="players")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="players")
 
-    # Encore a traiter vv
-    technologies = models.IntegerField(default=0)
-    builded = models.IntegerField(default=0)
-
     def __str__(self):
         return self.name
 
@@ -215,3 +211,38 @@ class HydrocarbonSupplyPile(models.Model):
     def setTo(self, value):
         self.stock_amount = value
         self.save()
+
+
+class Event(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="events")
+
+
+# Buildings
+class BuildingGame(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='buildings')
+
+
+class Factory(BuildingGame):
+    def special_effect(self):
+        pass
+
+
+class BuildingPlayer(models.Model):
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='buildings')
+
+    index = models.IntegerField(unique=True)
+    unlockable = models.BooleanField(default=False)
+    unlocked = models.BooleanField(default=False)
+
+
+# Technologies
+class TechnologyGame(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='technologies')
+
+
+class TechnologyPlayer(models.Model):
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='technologies')
+
+    index = models.IntegerField(unique=True)
+    unlockable = models.BooleanField(default=False)
+    unlocked = models.BooleanField(default=False)
