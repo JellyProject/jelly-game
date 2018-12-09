@@ -1,6 +1,12 @@
 from django.db import models
 
 import game.game_settings as constant
+# from game.models_users import User
+
+
+class User(models.Model):
+    name = models.CharField(max_length=constant.MAX_LENGTH_USER_NAME, default=constant.DEFAULT_USER_NAME)
+    email = models.CharField(max_length=100)
 
 
 class Game(models.Model):
@@ -35,22 +41,22 @@ class Game(models.Model):
         for pile in self.hydrocarbon_piles:
             pile.save()
 
-    def add_player(self, name):
+    def add_player(self, user):
         """
            Adds a player in the game and updates the global hydrocarbon supplies
         """
         # Check if a player already has this name
-        if not Player.objects.filter(game__name=self.name, name=name):
-            new_player = Player.objects.create(game=self, name=name)
-            Resources.objects.create(player=new_player),
-            Production.objects.create(player=new_player),
+        if not Player.objects.filter(game__name=self.name, user=user):
+            new_player = Player.objects.create(game=self, user=user)
+            Resources.objects.create(player=new_player)
+            Production.objects.create(player=new_player)
             States.objects.create(player=new_player)
             # ajustement du stock mondial d'hydrocarbures
             const = constant.HYDROCARBON_STOCKS_PER_PLAYER
             for pile_index in range(len(const)):
                 self.hydrocarbon_piles.get(index=pile_index).stock_amount += const[pile_index][0]
         else:    # For debugging purposes, should be deleted or modified
-            print("A player already has this name, sorry!")    # Print in console
+            print("A player already has this user name, sorry!")    # Print in console
 
     def update_index_pile(self):
         """ Update the index of the current pile """
@@ -93,7 +99,7 @@ class Player(models.Model):
         built (OneToOneField?): building built (not implemented yet)
     """
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="players")
-    name = models.CharField(max_length=100, default="Anne O'NYME")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="players")
 
     # Encore a traiter vv
     technologies = models.IntegerField(default=0)
@@ -179,7 +185,7 @@ class States(models.Model):
     def green_income(self):
         """ Return environment regeneration income corresponding to the environmental level """
         self.environmental += self.environmental // constant.ENVIRONMENTAL_REGENERATION_LEVEL
-        self.environmental = min(self.environmental, 100)
+        self.environmental = min(self.environmental, constant.MAX_STATE_VALUE)
         self.save()
 
 
@@ -196,7 +202,7 @@ class HydrocarbonSupplyPile(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="hydrocarbon_piles")
     stock_amount = models.FloatField(default=0)
     multiplier = models.IntegerField(default=0)
-    index = models.IntegerField()
+    index = models.IntegerField(editable=False)
 
     def __str__(self):
         return str(self.index)

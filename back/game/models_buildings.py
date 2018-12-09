@@ -13,8 +13,9 @@ class Building(models.Model):
 
 
 class BuildingsPlayer(models.Model):
-    pass
+    models.OneToOneField(Player, on_delete=models.CASCADE)
 
 
 class BuildingPlayer(models.Model):
-    pass
+    models.ForeignKey(BuildingsPlayer, on_delete=models.CASCADE, related_name=buildings)
+    index = models.IntegerField(unique=True)
