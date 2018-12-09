@@ -6,7 +6,7 @@ import game.game_settings as constant
 
 class User(models.Model):
     name = models.CharField(max_length=constant.MAX_LENGTH_USER_NAME, default=constant.DEFAULT_USER_NAME)
-    email = models.CharField(max_length=100)
+    email = models.EmailField()
 
 
 class Game(models.Model):
@@ -106,9 +106,9 @@ class Player(models.Model):
 
     def earn_income(self):
         """
-        Gain des revenus : um, hydrocarbures, pollution, et regeneration de l'envirronement
+        Gain des revenus : money, hydrocarbures, pollution, et regeneration de l'envirronement
         """
-        self.resources.um += self.production.um
+        self.resources.money += self.production.money
         self.states.environmental -= self.production.pollution
         self.green_income()
         # Cas des hydrocarbures
@@ -127,13 +127,13 @@ class Resources(models.Model):
     Resources model
 
     Fields:
-        um (int):
+        money (int):
         hydrocarbons (int):
         pollution (int):
     """
     player = models.OneToOneField(Player, on_delete=models.CASCADE)
 
-    um = models.IntegerField(default=constant.UM_INITIAL_STOCK)
+    money = models.IntegerField(default=constant.UM_INITIAL_STOCK)
     hydrocarbons = models.IntegerField(default=constant.HYDROCARBONS_INITIAL_STOCK)
     # pollution = models.IntegerField(default=constant.POLLUTION_INITIAL_STOCK)
 
@@ -143,7 +143,7 @@ class Production(models.Model):
     Production model
 
     Fields:
-        um (int):
+        money (int):
         hydrocarbons (int):
         food (int):
         electricity (int):
@@ -152,7 +152,7 @@ class Production(models.Model):
     """
     player = models.OneToOneField(Player, on_delete=models.CASCADE)
 
-    um = models.IntegerField(default=constant.UM_INITIAL_PRODUCTION)
+    money = models.IntegerField(default=constant.UM_INITIAL_PRODUCTION)
     hydrocarbons = models.IntegerField(default=constant.HYDROCARBONS_INITIAL_PRODUCTION)
     food = models.IntegerField(default=constant.FOOD_INITIAL_PRODUCTION)
     electricity = models.IntegerField(default=constant.ELECTRICITY_INITIAL_PRODUCTION)
@@ -221,6 +221,26 @@ class Event(models.Model):
 class BuildingGame(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='buildings')
 
+    name = models.CharField(max_length=constant.MAX_LENGTH_BUILDINGS_NAME, default='A building')
+    description = models.TextField(default='No description')
+    index = models.IntegerField()
+
+    cost = models.IntegerField()
+    # Production modifiers
+    money_modifier = models.IntegerField(default=0)
+    food_modifier = models.IntegerField(default=0)
+    hydrocarbon_modifier = models.IntegerField(default=0)
+    electricity_modifier = models.IntegerField(default=0)
+    pollution_modifier = models.IntegerField(default=0)
+    waste_modifier = models.IntegerField(default=0)
+    # States modifiers
+    economic_modifier = models.IntegerField(default=0)
+    social_modifier = models.IntegerField(default=0)
+    environement_modifier = models.IntegerField(default=0)
+
+    def special_effect(self):
+        pass
+
 
 class Factory(BuildingGame):
     def special_effect(self):
@@ -230,9 +250,37 @@ class Factory(BuildingGame):
 class BuildingPlayer(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='buildings')
 
-    index = models.IntegerField(unique=True)
-    unlockable = models.BooleanField(default=False)
+    index = models.IntegerField(editable=False)
+    # unlockable = models.BooleanField(default=False) (surtout pour les techs)
     unlocked = models.BooleanField(default=False)
+    number_of = models.IntegerField(default=0)
+
+    def purchase(self):
+        if not self.unlocked:
+            print('This building is not unlocked yet !')
+            return
+
+        self.number_of += 1
+        building = self.player.game.buildings.get(index=self.index)
+
+        if (self.player.resources.money < building.cost):
+            print('Not enough money to buy the buiding')
+            return
+        self.player.resources.money -= building.cost
+        self.player.resources.save()
+
+        self.player.production.money += building.money_modifier
+        self.player.production.food += building.food_modifier
+        self.player.production.hydrocarbons += building.hydrocarbon_modifier
+        self.player.production.electricity += building.electricity_modifier
+        self.player.production.pollution += building.pollution_modifier
+        self.player.production.waste += building.waste_modifier
+        self.player.production.save()
+
+        self.player.states.economical += building.economic_modifier
+        self.player.states.social += building.social_modifier
+        self.player.states.environmental += building.environement_modifier
+        self.player.states.save()
 
 
 # Technologies
