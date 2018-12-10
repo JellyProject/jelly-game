@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from datetime import datetime
-from game.models import Game, Player, HydrocarbonSupplyPile, Resources, Production, States, User, BuildingGame, \
+from .models import Game, Player, HydrocarbonSupplyPile, Resources, Production, States, User, Building, \
     BuildingPlayer
 
 
