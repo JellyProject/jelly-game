@@ -2,11 +2,6 @@ from django.db import models
 
 from .. import game_settings as constant
 
-# from .game import Game
-from .user import User
-
-from .player_resources import Resources
-
 
 class Player(models.Model):
     """
@@ -43,5 +38,3 @@ class Player(models.Model):
     def green_income(self):
         self.states.green_income()
 
-    class Meta:
-        app_label = 'game'

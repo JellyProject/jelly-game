@@ -2,8 +2,6 @@ from django.db import models
 
 from .. import game_settings as constant
 
-# from .game import Game
-
 
 class HydrocarbonSupplyPile(models.Model):
     """

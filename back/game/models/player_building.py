@@ -2,8 +2,6 @@ from django.db import models
 
 from .. import game_settings as constant
 
-from .player import Player
-
 
 class BuildingPlayer(models.Model):
     player = models.ForeignKey('Player', on_delete=models.CASCADE, related_name='buildings')

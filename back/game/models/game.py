@@ -88,5 +88,3 @@ class Game(models.Model):
         """ Main phase """
         pass
 
-    class Meta:
-        app_label = 'game'
