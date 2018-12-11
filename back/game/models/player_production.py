@@ -17,7 +17,7 @@ class Production(models.Model):
         pollution (int):
         waste (int):
     """
-    player = models.OneToOneField(Player, on_delete=models.CASCADE)
+    player = models.OneToOneField('Player', on_delete=models.CASCADE)
 
     money = models.IntegerField(default=constant.UM_INITIAL_PRODUCTION)
     hydrocarbons = models.IntegerField(default=constant.HYDROCARBONS_INITIAL_PRODUCTION)

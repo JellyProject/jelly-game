@@ -6,7 +6,7 @@ from .player import Player
 
 
 class BuildingPlayer(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='buildings')
+    player = models.ForeignKey('Player', on_delete=models.CASCADE, related_name='buildings')
 
     index = models.IntegerField(editable=False)
     # unlockable = models.BooleanField(default=False) (surtout pour les techs)

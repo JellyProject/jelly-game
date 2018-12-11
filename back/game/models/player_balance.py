@@ -17,7 +17,7 @@ class States(models.Model):
         environmental (int): environmental level between 0 and constant.MAX_STATE_VALUE
                         initial value : constant.ENVIRONMENTAL_INITIAL_VALUE
     """
-    player = models.OneToOneField(Player, on_delete=models.CASCADE)
+    player = models.OneToOneField('Player', on_delete=models.CASCADE)
 
     economical = models.IntegerField(default=constant.ECONOMICAL_INITIAL_VALUE)
     social = models.IntegerField(default=constant.SOCIAL_INITIAL_VALUE)

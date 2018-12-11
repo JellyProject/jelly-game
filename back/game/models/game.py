@@ -5,6 +5,12 @@ from .. import game_settings as constant
 from .technology import Technology
 from .event import Event
 
+from .player import Player
+from .player_resources import Resources
+from .player_production import Production
+from .player_balance import States
+from .game_hydrocarbon_supply_pile import HydrocarbonSupplyPile
+
 
 class Game(models.Model):
     """
@@ -81,3 +87,6 @@ class Game(models.Model):
     def main_phase(self):
         """ Main phase """
         pass
+
+    class Meta:
+        app_label = 'game'

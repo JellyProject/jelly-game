@@ -2,7 +2,7 @@ from django.db import models
 
 from .. import game_settings as constant
 
-from .game import Game
+# from .game import Game
 
 
 class HydrocarbonSupplyPile(models.Model):
@@ -15,7 +15,7 @@ class HydrocarbonSupplyPile(models.Model):
         index : numero de la pile
         supply_list : reserve generale dans laquelle se situe la pile
     """
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="hydrocarbon_piles")
+    game = models.ForeignKey('Game', on_delete=models.CASCADE, related_name="hydrocarbon_piles")
     stock_amount = models.FloatField(default=0)
     multiplier = models.IntegerField(default=0)
     index = models.IntegerField(editable=False)

@@ -6,4 +6,4 @@ from .game import Game
 
 
 class GameEvent(models.Model):
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="events")
+    game = models.ForeignKey('Game', on_delete=models.CASCADE, related_name="events")

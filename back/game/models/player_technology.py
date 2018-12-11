@@ -6,7 +6,7 @@ from .player import Player
 
 
 class TechnologyPlayer(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='technologies')
+    player = models.ForeignKey('Player', on_delete=models.CASCADE, related_name='technologies')
 
     index = models.IntegerField(unique=True)
     unlockable = models.BooleanField(default=False)
