@@ -21,6 +21,12 @@ class Player(models.Model):
     def __str__(self):
         return self.user.name
 
+    def new(self, user, game):
+        new_player = Player.objects.create(game=self, user=user)
+        Resources.objects.create(player=new_player)
+        Production.objects.create(player=new_player)
+        States.objects.create(player=new_player)
+
     def earn_income(self):
         """
         Gain des revenus : money, hydrocarbures, pollution, et regeneration de l'envirronement
@@ -32,6 +38,7 @@ class Player(models.Model):
         hydrocarbon_stock = self.game.hydrocarbon_piles.get(index=self.game.current_index_pile)
         self.resources.hydrocarbons += self.production.hydrocarbons * hydrocarbon_stock.multiplier
         hydrocarbon_stock.decrease(self.production.hydrocarbons * hydrocarbon_stock.multiplier)
+
         self.resources.save()
         self.states.save()
 
