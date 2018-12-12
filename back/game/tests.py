@@ -25,7 +25,7 @@ def test_player_model(request):
 
 
 def test_game_model(request):
-    game, game_created = Game.objects.get_or_create(name='game4')
+    game, game_created = Game.objects.get_or_create(name='game5')
 
     user1, user_created = User.objects.get_or_create(
         name='Miguel de Patatas',

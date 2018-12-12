@@ -26,6 +26,11 @@ class HydrocarbonSupplyPile(models.Model):
         self.stock_amount -= diminution
         self.save()
 
-    def setTo(self, value):
+    def set_to(self, value):
         self.stock_amount = value
         self.save()
+
+    def is_empty(self):
+        if self.stock_amount <= 0:
+            return True
+        return False

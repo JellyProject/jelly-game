@@ -22,8 +22,12 @@ class Game(models.Model):
         current_index_pile (int): index of the current pile
     """
 
-    name = models.CharField(max_length=20, default="a")
+    name = models.CharField(max_length=20, default="A random game")
     current_index_pile = models.IntegerField(default=0)
+
+    # events = models.ManyToManyField('Event', on_delete=models.CASCADE)
+    # buildings = models.ManyToManyField('Building', on_delete=models.CASCADE)
+    # technologies = models.ManyToManyField('Technology', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -40,7 +44,7 @@ class Game(models.Model):
         """ Save the game state in the data base
         inutile ?? probablement xD"""
         for player in self.players:
-            player.save()
+            player.save_player()
         for pile in self.hydrocarbon_piles:
             pile.save()
 
@@ -65,15 +69,11 @@ class Game(models.Model):
         """ Update the index of the current pile """
         # if there is no more hydrocarbon in the current pile, change pile (while in case of problems)
         hydrocarbon_piles = self.hydrocarbon_piles.order_by('index')
-        while hydrocarbon_piles[self.current_index_pile].stock_amount <= 0:
+        while hydrocarbon_piles[self.current_index_pile].is_empty():
             self.current_index_pile += 1
-            hydrocarbon_piles[self.current_index_pile].decrease(-hydrocarbon_piles[self.current_index_pile - 1]
-                                                                .stock_amount)
-            hydrocarbon_piles[self.current_index_pile - 1].setTo(0)
-            # print(hydrocarbon_piles[self.current_index_pile - 1].stock_amount)
-            hydrocarbon_piles[self.current_index_pile].save()
-            hydrocarbon_piles[self.current_index_pile - 1].save()
-        # print(hydrocarbon_piles[1].stock_amount)
+            overflow = -hydrocarbon_piles[self.current_index_pile - 1].stock_amount
+            hydrocarbon_piles[self.current_index_pile].decrease(overflow)
+            hydrocarbon_piles[self.current_index_pile - 1].set_to(0)
         self.save()
 
     def income_phase(self):
@@ -87,4 +87,3 @@ class Game(models.Model):
     def main_phase(self):
         """ Main phase """
         pass
-

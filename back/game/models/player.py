@@ -37,4 +37,3 @@ class Player(models.Model):
 
     def green_income(self):
         self.states.green_income()
-
