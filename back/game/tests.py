@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from datetime import datetime
-from game.models import Game, Player, HydrocarbonSupplyPile, Resources, Production, States, User, BuildingGame, \
+from .models import Game, Player, HydrocarbonSupplyPile, Resources, Production, States, User, Building, \
     BuildingPlayer
 
 
@@ -25,7 +25,7 @@ def test_player_model(request):
 
 
 def test_game_model(request):
-    game, game_created = Game.objects.get_or_create(name='game4')
+    game, game_created = Game.objects.get_or_create(name='game5')
 
     user1, user_created = User.objects.get_or_create(
         name='Miguel de Patatas',
@@ -36,30 +36,6 @@ def test_game_model(request):
     game.add_player(user1)
     game.income_phase()
     player = game.players.get(user__name='Miguel de Patatas')
-    # green_income = player.green_income()
-    stock0 = game.hydrocarbon_piles.get(index=0).stock_amount
-    stock1 = game.hydrocarbon_piles.get(index=1).stock_amount
-    stock2 = game.hydrocarbon_piles.get(index=2).stock_amount
-    return render(request, 'back/test_game.html', locals())
-
-
-def test_buildings_model(request):
-    game, game_created = Game.objects.get_or_create(name='game4')
-
-    user1, user_created = User.objects.get_or_create(
-        name='Miguel de Patatas',
-        email='a@a.com')
-
-    if game_created:
-        game._init_supply()
-    game.add_player(user1)
-    game.income_phase()
-    player = game.players.get(user__name='Miguel de Patatas')
-
-    factory = BuildingGame.objects.get_or_create(name='Factory', game=game, money_modifier=1, index=0, cost=1)
-    player_factory, building_created = BuildingPlayer.objects.get_or_create(index=0, unlocked=True, player=player)
-    player_factory.purchase()
-
     # green_income = player.green_income()
     stock0 = game.hydrocarbon_piles.get(index=0).stock_amount
     stock1 = game.hydrocarbon_piles.get(index=1).stock_amount

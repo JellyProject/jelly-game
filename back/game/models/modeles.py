@@ -1,7 +1,6 @@
 from django.db import models
 
-import game.game_settings as constant
-# from game.models_users import User
+from .. import game_settings as constant
 
 
 class User(models.Model):
