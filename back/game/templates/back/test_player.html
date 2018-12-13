@@ -1,4 +1,5 @@
-<p> Welcome {{ player.name }} !!</p>
+<p> Welcome {{ player.user.name }} !!</p>
+<p> Your email adress : {{ player.user.email }} </p>
 
 Country state:
 <ul>
@@ -21,12 +22,4 @@ Production:
     <li> Hydrocarbons : {{ player.production.hydrocarbons }} </li>
     <li> Pollution : {{ player.production.pollution }} </li>
     <li> Waste : {{ player.production.waste }} </li>
-</ul>
-
-
-Hydrocarbon supplies:
-<ul>
-    <li> Pile 0: {{ stock0 }} </li>
-    <li> Pile 1: {{ stock1 }} </li>
-    <li> Pile 2: {{ stock2 }} </li>
 </ul>
