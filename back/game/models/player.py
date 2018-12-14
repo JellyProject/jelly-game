@@ -2,6 +2,10 @@ from django.db import models
 
 from .. import game_settings as constant
 
+from .player_resources import Resources
+from .player_production import Production
+from .player_balance import States
+
 
 class Player(models.Model):
     """
@@ -21,11 +25,15 @@ class Player(models.Model):
     def __str__(self):
         return self.user.name
 
-    def new(self, user, game):
-        new_player = Player.objects.create(game=self, user=user)
+    @classmethod
+    def create(cls, user, game):
+        new_player = cls(game=game, user=user)
+        new_player.save()
         Resources.objects.create(player=new_player)
         Production.objects.create(player=new_player)
         States.objects.create(player=new_player)
+        new_player.save()
+        return new_player
 
     def earn_income(self):
         """

@@ -32,6 +32,13 @@ class Game(models.Model):
     def __str__(self):
         return self.name
 
+    @classmethod
+    def create(cls, name):
+        game = cls(name=name)
+        game._init_supply()
+        game.save()
+        return game
+
     def _init_supply(self):
         """ Initialize the hydrocarbon supply piles """
         const = constant.HYDROCARBON_STOCKS_PER_PLAYER
@@ -54,10 +61,11 @@ class Game(models.Model):
         """
         # Check if a player already has this name
         if not Player.objects.filter(game__name=self.name, user=user):
-            new_player = Player.objects.create(game=self, user=user)
-            Resources.objects.create(player=new_player)
-            Production.objects.create(player=new_player)
-            States.objects.create(player=new_player)
+            # new_player = Player.objects.create(game=self, user=user)
+            # Resources.objects.create(player=new_player)
+            # Production.objects.create(player=new_player)
+            # States.objects.create(player=new_player)
+            new_player = Player.create(user=user, game=self)
             # ajustement du stock mondial d'hydrocarbures
             const = constant.HYDROCARBON_STOCKS_PER_PLAYER
             for pile_index in range(len(const)):
