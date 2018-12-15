@@ -1,0 +1,88 @@
+[
+{
+    "model": "game.player",
+    "pk": 1,
+    "fields": {
+        "game": 1,
+        "user": 1
+    }
+},
+{
+    "model": "game.resources",
+    "pk": 1,
+    "fields": {
+        "player": 1,
+        "money": 10,
+        "hydrocarbons": 44
+    }
+},
+{
+    "model": "game.production",
+    "pk": 1,
+    "fields": {
+        "player": 1,
+        "money": 0,
+        "hydrocarbons": 1,
+        "food": 0,
+        "electricity": 0,
+        "pollution": 1,
+        "waste": 0
+    }
+},
+{
+    "model": "game.states",
+    "pk": 1,
+    "fields": {
+        "player": 1,
+        "economical": 50,
+        "social": 50,
+        "environmental": 100
+    }
+},
+{
+    "model": "game.hydrocarbonsupplypile",
+    "pk": 1,
+    "fields": {
+        "game": 1,
+        "stock_amount": 0.0,
+        "multiplier": 3,
+        "index": 0
+    }
+},
+{
+    "model": "game.hydrocarbonsupplypile",
+    "pk": 2,
+    "fields": {
+        "game": 1,
+        "stock_amount": 0.0,
+        "multiplier": 2,
+        "index": 1
+    }
+},
+{
+    "model": "game.hydrocarbonsupplypile",
+    "pk": 3,
+    "fields": {
+        "game": 1,
+        "stock_amount": Infinity,
+        "multiplier": 1,
+        "index": 2
+    }
+},
+{
+    "model": "game.game",
+    "pk": 1,
+    "fields": {
+        "name": "game5",
+        "current_index_pile": 2
+    }
+},
+{
+    "model": "game.user",
+    "pk": 1,
+    "fields": {
+        "name": "Miguel de Patatas",
+        "email": "a@a.com"
+    }
+}
+]
