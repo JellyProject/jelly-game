@@ -28,7 +28,7 @@ class Player(models.Model):
     @classmethod
     def create(cls, user, game):
         new_player = cls(game=game, user=user)
-        new_player.save()
+        new_player.save()  # Peut-on faire mieux ?
         Resources.objects.create(player=new_player)
         Production.objects.create(player=new_player)
         States.objects.create(player=new_player)
