@@ -5,13 +5,13 @@ from .. import game_settings as constant
 
 class HydrocarbonSupplyPile(models.Model):
     """
-    Pile d'hydrocarbures
+    HydrocarbonSupplyPile model
 
-    Attributs :
-        stocks : quantite d'hydrocarbures restant dans la pile
-        multipliers : rendement de la pile
-        index : numero de la pile
-        supply_list : reserve generale dans laquelle se situe la pile
+    Fields :
+        game (ForeignKey -> Game) : game associated to this pile
+        stock_amount (int) : amount of hydrocarbon left in the supply pile
+        multiplier (int) : efficiency of the pile
+        index (int) : index of the pile, is unique and indicate the order in which piles are drained
     """
     game = models.ForeignKey('Game', on_delete=models.CASCADE, related_name="hydrocarbon_piles")
     stock_amount = models.FloatField(default=0)
@@ -22,15 +22,17 @@ class HydrocarbonSupplyPile(models.Model):
         return str(self.index)
 
     def decrease(self, diminution):
-        """ Diminue le stock de diminution """
+        """ Decrease the stock_amount by diminution """
         self.stock_amount -= diminution
         self.save()
 
     def set_to(self, value):
+        """ Set the stock_amount to value """
         self.stock_amount = value
         self.save()
 
     def is_empty(self):
+        """ Check if the pile is empty ie if stock_amount <= 0 """
         if self.stock_amount <= 0:
             return True
         return False

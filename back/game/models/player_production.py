@@ -7,13 +7,17 @@ class Production(models.Model):
     """
     Production model
 
-    Fields:
-        money (int):
-        hydrocarbons (int):
-        food (int):
-        electricity (int):
-        pollution (int):
-        waste (int):
+    Fields :
+        player (OneToOne -> Player) : Player associated with in a OneToOne link
+
+        money (int) : money production of player at the beginning of each generation
+        hydrocarbons (int) : hydrocarbon production of player at the beginning of each generation
+
+        food (int) : unused food production of player at the beginning of each generation
+        electricity (int) : unused electricity production of player at the beginning of each generation
+
+        pollution (int) : untreated pollution production of player at the beginning of each generation
+        waste (int) : untreated waste production of player at the beginning of each generation
     """
     player = models.OneToOneField('Player', on_delete=models.CASCADE)
 

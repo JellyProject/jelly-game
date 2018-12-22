@@ -8,9 +8,9 @@ class Resources(models.Model):
     Resources model
 
     Fields:
-        money (int):
-        hydrocarbons (int):
-        pollution (int):
+        player (OneToOne -> Player) : Player associated with in a OneToOne link
+        money (int) : amount of money owned by player
+        hydrocarbons (int) : amount of hydrocarbons owned by player
     """
     player = models.OneToOneField('Player', on_delete=models.CASCADE, related_name='resources')
 

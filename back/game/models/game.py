@@ -14,17 +14,22 @@ from .game_hydrocarbon_supply_pile import HydrocarbonSupplyPile
 
 class Game(models.Model):
     """
-    Game model
+    Game model, representing a "world"
 
-    Attributes:
-        players: query set of players in the game
-        hydrocarbons_piles: query set of hydrocarbon piles in the game
-        current_index_pile (int): index of the current pile
+    Fields :
+        name (string) : name of the game
+        current_index_pile (int) : index of the current hydrocarbon pile in which players take ressources
+        events :
+        events :
+        buildings :
+        technologies :
+
+        players (ForeignKey <- Player) : query set ofplayers in the game
+        hydrocarbons_piles (ForeignKey <- HydrocarbonSupplyPile) : query set of hydrocarbon supply piles in the game
     """
 
     name = models.CharField(max_length=20, default="A random game")
     current_index_pile = models.IntegerField(default=0)
-
     # events = models.ManyToManyField('Event', on_delete=models.CASCADE)
     # buildings = models.ManyToManyField('Building', on_delete=models.CASCADE)
     # technologies = models.ManyToManyField('Technology', on_delete=models.CASCADE)
@@ -34,6 +39,12 @@ class Game(models.Model):
 
     @classmethod
     def create(cls, name):
+        """
+        Create a new Game
+
+        Args :
+            name (string) : name of the new game
+        """
         game = cls(name=name)
         game._init_supply()
         game.save()
@@ -57,7 +68,10 @@ class Game(models.Model):
 
     def add_player(self, user):
         """
-           Adds a player in the game and updates the global hydrocarbon supplies
+        Adds a player in the game and updates the global hydrocarbon supplies accordingly
+
+        Args :
+            user (User) : user controlling the new player
         """
         # Check if a player already has this name
         if not Player.objects.filter(game__name=self.name, user=user):
@@ -74,7 +88,7 @@ class Game(models.Model):
             print("A player already has this user name, sorry!")    # Print in console
 
     def update_index_pile(self):
-        """ Update the index of the current pile """
+        """ Update the index of the current hydrocarbon supply pile """
         # if there is no more hydrocarbon in the current pile, change pile (while in case of problems)
         hydrocarbon_piles = self.hydrocarbon_piles.order_by('index')
         while hydrocarbon_piles[self.current_index_pile].is_empty():
@@ -85,7 +99,7 @@ class Game(models.Model):
         self.save()
 
     def income_phase(self):
-        """ Income phase : each player gain his income """
+        """ Run income phase for each player"""
         # income for each player
         for player in self.players.all():
             player.earn_income()
