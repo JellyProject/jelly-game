@@ -13,7 +13,7 @@ class PlayerTest(TestCase):
         player = Player(
             resources=Resources(),
             production=Production(),
-            states=States(),
+            states=Balance(),
             user=user)
 
     def setUp(self):

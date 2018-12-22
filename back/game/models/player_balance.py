@@ -3,15 +3,15 @@ from django.db import models
 from .. import game_settings as constant
 
 
-class States(models.Model):
+class Balance(models.Model):
     """
     Balance wheel model
 
     Fields :
         player (OneToOne -> Player) : Player associated with in a OneToOne link
 
-        economical (int): economic level between 0 and constant.MAX_STATE_VALUE
-                            initial value : constant.ECONOMICAL_INITIAL_VALUE
+        economic (int): economic level between 0 and constant.MAX_STATE_VALUE
+                            initial value : constant.ECONOMIC_INITIAL_VALUE
         social (int): social level between 0 and constant.MAX_STATE_VALUE
                         initial value : constant.SOCIAL_INITIAL_VALUE
         environmental (int): environment level between 0 and constant.MAX_STATE_VALUE
@@ -19,7 +19,7 @@ class States(models.Model):
     """
     player = models.OneToOneField('Player', on_delete=models.CASCADE)
 
-    economical = models.IntegerField(default=constant.ECONOMICAL_INITIAL_VALUE)
+    economic = models.IntegerField(default=constant.ECONOMIC_INITIAL_VALUE)
     social = models.IntegerField(default=constant.SOCIAL_INITIAL_VALUE)
     environmental = models.IntegerField(default=constant.ENVIRONMENTAL_INITIAL_VALUE)
 

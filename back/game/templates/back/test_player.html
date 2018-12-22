@@ -3,23 +3,23 @@
 
 Country state:
 <ul>
-    <li> Environmental state : {{ player.states.environmental }} </li>
-    <li> Social state : {{ player.states.social }} </li>
-    <li> Economical state : {{ player.states.economical }} </li>
+    <li> Environmental state : {{ player.balance.environmental }} </li>
+    <li> Social state : {{ player.balance.social }} </li>
+    <li> Economic state : {{ player.balance.economic }} </li>
 </ul>
 
 Resources supply:
 <ul>
-    <li> UM : {{ player.resources.um }} </li>
-    <li> Hydrocarbons : {{ player.resources.hydrocarbons }} </li>
+    <li> Money : {{ player.resources.um }} </li>
+    <li> Hydrocarbon : {{ player.resources.hydrocarbon }} </li>
 </ul>
 
 Production:
 <ul>
-    <li> UM : {{ player.production.um }} </li>
+    <li> Money : {{ player.production.um }} </li>
     <li> Food : {{ player.production.food }} </li>
     <li> Electricity : {{ player.production.electricity }} </li>
-    <li> Hydrocarbons : {{ player.production.hydrocarbons }} </li>
+    <li> Hydrocarbon : {{ player.production.hydrocarbon }} </li>
     <li> Pollution : {{ player.production.pollution }} </li>
     <li> Waste : {{ player.production.waste }} </li>
 </ul>

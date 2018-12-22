@@ -3,7 +3,7 @@ from django.db import models
 from .. import game_settings as constant
 
 
-class TechnologyPlayer(models.Model):
+class PlayerTechnology(models.Model):
     """
     TechnologyPlyer model
 

@@ -8,7 +8,7 @@ from .event import Event
 from .player import Player
 from .player_resources import Resources
 from .player_production import Production
-from .player_balance import States
+from .player_balance import Balance
 from .game_hydrocarbon_supply_pile import HydrocarbonSupplyPile
 
 
@@ -25,7 +25,7 @@ class Game(models.Model):
         technologies :
 
         players (ForeignKey <- Player) : query set ofplayers in the game
-        hydrocarbons_piles (ForeignKey <- HydrocarbonSupplyPile) : query set of hydrocarbon supply piles in the game
+        hydrocarbon_piles (ForeignKey <- HydrocarbonSupplyPile) : query set of hydrocarbon supply piles in the game
     """
 
     name = models.CharField(max_length=20, default="A random game")
@@ -78,7 +78,7 @@ class Game(models.Model):
             # new_player = Player.objects.create(game=self, user=user)
             # Resources.objects.create(player=new_player)
             # Production.objects.create(player=new_player)
-            # States.objects.create(player=new_player)
+            # Balance.objects.create(player=new_player)
             new_player = Player.create(user=user, game=self)
             # ajustement du stock mondial d'hydrocarbures
             const = constant.HYDROCARBON_STOCKS_PER_PLAYER

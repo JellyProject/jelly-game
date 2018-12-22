@@ -5,8 +5,8 @@ from django.test import TestCase
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from datetime import datetime
-from .models import Game, Player, HydrocarbonSupplyPile, Resources, Production, States, User, Building, \
-    BuildingPlayer
+from .models import Game, Player, HydrocarbonSupplyPile, Resources, Production, Balance, User, Building, \
+    PlayerBuilding
 
 
 def test_player_model(request):
@@ -18,7 +18,7 @@ def test_player_model(request):
     player = Player(
         resources=Resources(),
         production=Production(),
-        states=States(),
+        states=Balance(),
         user=user1)
     # green_income = player.green_income()
     return render(request, 'back/test_player.html', locals())

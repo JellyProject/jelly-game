@@ -3,7 +3,7 @@ from django.db import models
 from .. import game_settings as constant
 
 
-class BuildingPlayer(models.Model):
+class PlayerBuilding(models.Model):
     """
     PlayerBuilding model
 
@@ -47,13 +47,13 @@ class BuildingPlayer(models.Model):
 
         self.player.production.money += building.money_modifier
         self.player.production.food += building.food_modifier
-        self.player.production.hydrocarbons += building.hydrocarbon_modifier
+        self.player.production.hydrocarbon += building.hydrocarbon_modifier
         self.player.production.electricity += building.electricity_modifier
         self.player.production.pollution += building.pollution_modifier
         self.player.production.waste += building.waste_modifier
         self.player.production.save()
 
-        self.player.states.economical += building.economic_modifier
-        self.player.states.social += building.social_modifier
-        self.player.states.environmental += building.environement_modifier
-        self.player.states.save()
+        self.player.balance.economic += building.economic_modifier
+        self.player.balance.social += building.social_modifier
+        self.player.balance.environmental += building.environement_modifier
+        self.player.balance.save()
