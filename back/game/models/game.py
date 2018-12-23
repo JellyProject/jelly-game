@@ -46,6 +46,7 @@ class Game(models.Model):
             name (string) : name of the new game
         """
         game = cls(name=name)
+        game.save()
         game._init_supply()
         game.save()
         return game
@@ -54,7 +55,7 @@ class Game(models.Model):
         """ Initialize the hydrocarbon supply piles """
         const = constant.HYDROCARBON_STOCKS_PER_PLAYER
         for pile_index in range(len(const)):
-            HydrocarbonSupplyPile.objects.get_or_create(stock_amount=const[pile_index][0],
+            HydrocarbonSupplyPile.objects.get_or_create(stock_amount=0,
                                                         multiplier=const[pile_index][1],
                                                         index=pile_index, game=self)
 
@@ -83,7 +84,7 @@ class Game(models.Model):
             # ajustement du stock mondial d'hydrocarbures
             const = constant.HYDROCARBON_STOCKS_PER_PLAYER
             for pile_index in range(len(const)):
-                self.hydrocarbon_piles.get(index=pile_index).stock_amount += const[pile_index][0]
+                self.hydrocarbon_piles.get(index=pile_index).decrease(-const[pile_index][0])
         else:    # For debugging purposes, should be deleted or modified
             print("A player already has this user name, sorry!")    # Print in console
 
