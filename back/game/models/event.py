@@ -4,4 +4,5 @@ from .. import game_settings as constant
 
 
 class Event(models.Model):
+    """ Event model """
     pass
