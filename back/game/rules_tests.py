@@ -3,11 +3,13 @@ from django.test import TestCase
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from datetime import datetime
-from .models import Game, Player, HydrocarbonSupplyPile, Resources, Production, States, User, Building, \
-    BuildingPlayer, Event
+from .models import Game, Player, HydrocarbonSupplyPile, Resources, Production, Balance, User, Building, \
+    PlayerBuilding, Event
+
 
 def test_rules(request):
     return render(request, 'back/test_rules.html', locals())
+
 
 def test_player_model(request):
 
