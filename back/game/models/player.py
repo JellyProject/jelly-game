@@ -5,6 +5,7 @@ from .. import game_settings as constant
 from .player_resources import Resources
 from .player_production import Production
 from .player_balance import Balance
+# from .user import Profile
 
 
 class Player(models.Model):
@@ -13,7 +14,7 @@ class Player(models.Model):
 
     Fields :
         game (Game) : ForeignKey link to the game in which the player plays
-        user (User) : user which controls the player
+        profile (Profile) : profile which controls the player
 
         balance (OneToOneField <- Balance): player balance
         resources (OneToOneField <- Resources): resources owned by the player
@@ -22,25 +23,29 @@ class Player(models.Model):
         buildings (ForeignKey <- PlayerBuilding): buildings
     """
     game = models.ForeignKey('Game', on_delete=models.CASCADE, related_name="players")
-    user = models.ForeignKey('User', on_delete=models.CASCADE, related_name="players")
+    profile = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name="players")
 
     def __str__(self):
-        return self.user.name
+        return self.profile.user.username
 
     @classmethod
-    def create(cls, user, game):
+    def create(cls, profile, game):
         """
-        Create and return a new Player of user in game
+        Create and return a new Player of profile in game
 
         Args :
-            user (User) : user which will control this player
+            profile (Profile) : profile which will control this player
             game (Game) : game in which the player will play
         """
-        new_player = cls(game=game, user=user)
+        new_player = cls(game=game, profile=profile)
         new_player.save()  # Peut-on faire mieux ?
+
         Resources.objects.create(player=new_player)
         Production.objects.create(player=new_player)
         Balance.objects.create(player=new_player)
+
+        # Technologies and buildings ??
+
         new_player.save()
         return new_player
 

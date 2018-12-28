@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from datetime import datetime
-from .models import Game, Player, HydrocarbonSupplyPile, Resources, Production, Balance, User, Building, \
+from .models import Game, Player, HydrocarbonSupplyPile, Resources, Production, Balance, Profile, Building, \
     PlayerBuilding, Event
 
 

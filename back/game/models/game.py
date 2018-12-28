@@ -67,20 +67,20 @@ class Game(models.Model):
         for pile in self.hydrocarbon_piles:
             pile.save()
 
-    def add_player(self, user):
+    def add_player(self, profile):
         """
         Adds a player in the game and updates the global hydrocarbon supplies accordingly
 
         Args :
-            user (User) : user controlling the new player
+            profile (Profile) : profile controlling the new player
         """
-        # Check if a player already has this name
-        if not Player.objects.filter(game__name=self.name, user=user):
+        # Check if a player already has this profile
+        if not Player.objects.filter(game__name=self.name, profile=profile):
             # new_player = Player.objects.create(game=self, user=user)
             # Resources.objects.create(player=new_player)
             # Production.objects.create(player=new_player)
             # Balance.objects.create(player=new_player)
-            new_player = Player.create(user=user, game=self)
+            new_player = Player.create(profile=profile, game=self)
             # ajustement du stock mondial d'hydrocarbures
             const = constant.HYDROCARBON_STOCKS_PER_PLAYER
             for pile_index in range(len(const)):

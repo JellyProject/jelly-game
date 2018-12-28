@@ -7,7 +7,7 @@ from .game_event import GameEvent
 from .game_hydrocarbon_supply_pile import HydrocarbonSupplyPile
 from .player import Player
 
-from .user import User
+from .profile import Profile
 from .player_balance import Balance
 from .player_production import Production
 from .player_resources import Resources
