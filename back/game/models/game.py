@@ -2,14 +2,8 @@ from django.db import models
 
 from .. import game_settings as constant
 
-from .technology import Technology
-from .event import Event
-
 from .player import Player
-from .player_resources import Resources
-from .player_production import Production
-from .player_balance import Balance
-from .game_hydrocarbon_supply_pile import HydrocarbonSupplyPile
+from .hydrocarbon_supply_pile import HydrocarbonSupplyPile
 
 
 class Game(models.Model):
@@ -29,10 +23,12 @@ class Game(models.Model):
     """
 
     name = models.CharField(max_length=20, default="A random game")
+    version = models.CharField(max_length=20, default='jelly')  # Game version
+    era = models.IntegerField(default=1)
     current_index_pile = models.IntegerField(default=0)
-    # events = models.ManyToManyField('Event', on_delete=models.CASCADE)
-    # buildings = models.ManyToManyField('Building', on_delete=models.CASCADE)
-    # technologies = models.ManyToManyField('Technology', on_delete=models.CASCADE)
+    source_buildings = models.ManyToManyField('SourceBuilding')
+    # events = models.ManyToManyField('Event')
+    # technologies = models.ManyToManyField('Technology')
 
     def __str__(self):
         return self.name
@@ -86,7 +82,7 @@ class Game(models.Model):
             for pile_index in range(len(const)):
                 self.hydrocarbon_piles.get(index=pile_index).decrease(-const[pile_index][0])
         else:    # For debugging purposes, should be deleted or modified
-            print("A player already has this user name, sorry!")    # Print in console
+            print("A player already has this user name, please choose another one.")    # Print in console
 
     def update_index_pile(self):
         """ Update the index of the current hydrocarbon supply pile """

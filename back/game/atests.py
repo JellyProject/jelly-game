@@ -1,12 +1,11 @@
 from django.test import TestCase
-# faudrait regerder ce que c'est ^^
+# faudrait regarder ce que c'est ^^
 # oui c'est vrai
 
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from datetime import datetime
-from .models import Game, Player, HydrocarbonSupplyPile, Resources, Production, Balance, Profile, Building, \
-    PlayerBuilding
+from .models import Game, Player, Resources, Production, Balance, Profile
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user
 

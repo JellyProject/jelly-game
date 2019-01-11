@@ -23,6 +23,9 @@ class Balance(models.Model):
     social = models.IntegerField(default=constant.SOCIAL_INITIAL_VALUE)
     environmental = models.IntegerField(default=constant.ENVIRONMENTAL_INITIAL_VALUE)
 
+    def __str__(self):
+        return "Economic, social and environmental balances of " + self.player.profile.user.username
+
     def green_income(self):
         """ Modify the environment level, according to the environmental level """
         self.environmental += self.environmental // constant.ENVIRONMENTAL_REGENERATION_LEVEL

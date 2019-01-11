@@ -4,6 +4,10 @@ from .. import game_settings as constant
 
 
 class Event(models.Model):
-    name = models.CharField(max_length=40, unique=True, default="Ragnarok")
-    version = models.CharField(max_length=20, default='jelly')  # Version of the game
-    description = models.TextField(default='Today will be a sunny day.')
+    """
+    Event model
+
+    Fields :
+        game (ForeignKey -> Game) :
+    """
+    game = models.ForeignKey('Game', on_delete=models.CASCADE, related_name="events")

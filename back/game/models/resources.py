@@ -13,6 +13,5 @@ class Resources(models.Model):
         hydrocarbon (int) : amount of hydrocarbon owned by player
     """
     player = models.OneToOneField('Player', on_delete=models.CASCADE, related_name='resources')
-
     money = models.IntegerField(default=constant.UM_INITIAL_STOCK)
     hydrocarbon = models.IntegerField(default=constant.HYDROCARBON_INITIAL_STOCK)

@@ -2,10 +2,13 @@ from django.db import models
 
 from .. import game_settings as constant
 
-from .player_resources import Resources
-from .player_production import Production
-from .player_balance import Balance
-# from .user import Profile
+from .resources import Resources
+from .production import Production
+from .balance import Balance
+from .building import Building
+from .technology import Technology
+from .source_building import SourceBuilding
+from .source_technology import SourceTechnology
 
 
 class Player(models.Model):
@@ -37,6 +40,7 @@ class Player(models.Model):
             profile (Profile) : profile which will control this player
             game (Game) : game in which the player will play
         """
+        #source_building = models.SourceBuilding.objects.all()[0]
         new_player = cls(game=game, profile=profile)
         new_player.save()  # Peut-on faire mieux ?
 
@@ -44,7 +48,17 @@ class Player(models.Model):
         Production.objects.create(player=new_player)
         Balance.objects.create(player=new_player)
 
-        # Technologies and buildings ??
+        nb_source_buildings = SourceBuilding.objects.all().count()
+        for i in range(1, nb_source_buildings + 1):    # index starts at 1
+            source_building = SourceBuilding.objects.get(pk=i)
+            unlocked = source_building.parent_technology == None
+            Building.objects.create(player=new_player, index=i, unlocked=unlocked)
+
+        nb_source_technologies = SourceTechnology.objects.all().count()
+        for i in range(1, nb_source_technologies + 1):    # index starts at 1
+            source_technology = SourceTechnology.objects.get(pk=i)
+            unlocked = source_technology.parent_technology == None
+            Technology.objects.create(player=new_player, index=i, unlocked=unlocked)
 
         new_player.save()
         return new_player
@@ -69,3 +83,11 @@ class Player(models.Model):
     def green_income(self):
         """ Apply the environment generation income to the environment balance """
         self.balance.green_income()
+
+    def purchase_building(self, id):
+        """ Purchase the building with index id if possible. If not, returns an error string. """
+        building = self.buildings.get(index=id)
+        (is_purchasable, error_message) = building.is_purchasable()
+        if not is_purchasable:
+            return error_message
+        building.purchase()
