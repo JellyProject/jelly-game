@@ -12,5 +12,8 @@ class GameSerializer(serializers.ModelSerializer):
             'era',
             'current_index_pile',
             'source_buildings',
+
+            'players',
+            'hydrocarbon_piles',
         )
         model = Game
