@@ -15,7 +15,7 @@ urlpatterns = [
     # path('test_game', tests.test_game_model, name='test_game'),
     # path('test_buildings', tests.test_buildings_model, name='test_buildings'),
 
-    ## API URLs
+    # ----- API URLs ----- #
     # Balance model
     path('balance', views.ListBalance.as_view()),
     path('<int:pk>/', views.DetailBalance.as_view()),
