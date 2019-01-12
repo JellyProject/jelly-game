@@ -3,6 +3,7 @@ from django.test import TestCase
 from .. import models
 from .. import game_settings as constant
 
+
 class BuildingTest(TestCase):
     """ Tests on the Building class """
     fixtures = ['sample_data', 'buildings', 'technologies']

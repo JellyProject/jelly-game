@@ -40,7 +40,7 @@ class Player(models.Model):
             profile (Profile) : profile which will control this player
             game (Game) : game in which the player will play
         """
-        #source_building = models.SourceBuilding.objects.all()[0]
+        # source_building = models.SourceBuilding.objects.all()[0]
         new_player = cls(game=game, profile=profile)
         new_player.save()  # Peut-on faire mieux ?
 
@@ -51,13 +51,13 @@ class Player(models.Model):
         nb_source_buildings = SourceBuilding.objects.all().count()
         for i in range(1, nb_source_buildings + 1):    # index starts at 1
             source_building = SourceBuilding.objects.get(pk=i)
-            unlocked = source_building.parent_technology == None
+            unlocked = source_building.parent_technology is None
             Building.objects.create(player=new_player, index=i, unlocked=unlocked)
 
         nb_source_technologies = SourceTechnology.objects.all().count()
         for i in range(1, nb_source_technologies + 1):    # index starts at 1
             source_technology = SourceTechnology.objects.get(pk=i)
-            unlocked = source_technology.parent_technology == None
+            unlocked = source_technology.parent_technology is None
             Technology.objects.create(player=new_player, index=i, unlocked=unlocked)
 
         new_player.save()
