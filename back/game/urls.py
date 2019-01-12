@@ -15,9 +15,9 @@ urlpatterns = [
     # path('test_game', tests.test_game_model, name='test_game'),
     # path('test_buildings', tests.test_buildings_model, name='test_buildings'),
 
-    ''' API URLs '''
+    ## API URLs
     # Balance model
-    '''path('balance', views.ListBalance.as_view()),
+    path('balance', views.ListBalance.as_view()),
     path('<int:pk>/', views.DetailBalance.as_view()),
 
     # Building model
@@ -26,13 +26,13 @@ urlpatterns = [
 
     # Event model
     path('event', views.ListEvent.as_view()),
-    path('<int:pk>/', views.DetailEvent.as_view()),'''
+    path('<int:pk>/', views.DetailEvent.as_view()),
 
     # Game model
     path('game', views.ListGame.as_view()),
     path('<int:pk>/', views.DetailGame.as_view()),
 
-    '''# HydrocarbonSupplyPile model
+    # HydrocarbonSupplyPile model
     path('hydrocarbon_supply_pile', views.ListHydrocarbonSupplyPile.as_view()),
     path('<int:pk>/', views.DetailHydrocarbonSupplyPile.as_view()),
 
@@ -70,5 +70,5 @@ urlpatterns = [
 
     # vraies urls vv
     # y en a pas encore ...
-    # il ne devrait pas y en avoir !!'''
+    # il ne devrait pas y en avoir !!
 ]

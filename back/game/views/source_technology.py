@@ -1,7 +1,7 @@
 from rest_framework import generics
 
-from .models import SourceTechnology
-from .serializers import SourceTechnologySerializer
+from ..models import SourceTechnology
+from ..serializers import SourceTechnologySerializer
 
 
 class ListSourceTechnology(generics.ListCreateAPIView):

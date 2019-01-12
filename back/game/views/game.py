@@ -1,7 +1,7 @@
 from rest_framework import generics
 
-from .models import Game
-from .serializers import GameSerializer
+from ..models import Game
+from ..serializers import GameSerializer
 
 
 class ListGame(generics.ListCreateAPIView):

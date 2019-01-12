@@ -1,7 +1,7 @@
 from rest_framework import generics
 
-from .models import SourceBuilding
-from .serializers import SourceBuildingSerializer
+from ..models import SourceBuilding
+from ..serializers import SourceBuildingSerializer
 
 
 class ListSourceBuilding(generics.ListCreateAPIView):

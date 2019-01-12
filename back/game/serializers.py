@@ -15,7 +15,7 @@ from .models import SourceTechnology
 from .models import Technology
 
 
-'''class BalanceSerializer(serializers.ModelSerializer):
+class BalanceSerializer(serializers.ModelSerializer):
     class Meta:
         fields = (
             'id',
@@ -36,7 +36,7 @@ class EventSerializer(serializers.ModelSerializer):
         fields = (
             'id',
         )
-        model = Event'''
+        model = Event
 
 
 class GameSerializer(serializers.ModelSerializer):
@@ -52,7 +52,7 @@ class GameSerializer(serializers.ModelSerializer):
         model = Game
 
 
-'''class HydrocarbonSupplyPileSerializer(serializers.ModelSerializer):
+class HydrocarbonSupplyPileSerializer(serializers.ModelSerializer):
     class Meta:
         fields = (
             'id',
@@ -124,4 +124,3 @@ class TechnologySerializer(serializers.ModelSerializer):
             'id',
         )
         model = Technology
-'''

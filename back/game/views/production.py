@@ -1,7 +1,7 @@
 from rest_framework import generics
 
-from .models import Production
-from .serializers import ProductionSerializer
+from ..models import Production
+from ..serializers import ProductionSerializer
 
 
 class ListProduction(generics.ListCreateAPIView):

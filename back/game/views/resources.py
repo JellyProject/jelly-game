@@ -1,7 +1,7 @@
 from rest_framework import generics
 
-from .models import Resources
-from .serializers import ResourcesSerializer
+from ..models import Resources
+from ..serializers import ResourcesSerializer
 
 
 class ListResources(generics.ListCreateAPIView):

@@ -1,7 +1,7 @@
 from rest_framework import generics
 
-from .models import Profile
-from .serializers import ProfileSerializer
+from ..models import Profile
+from ..serializers import ProfileSerializer
 
 
 class ListProfile(generics.ListCreateAPIView):

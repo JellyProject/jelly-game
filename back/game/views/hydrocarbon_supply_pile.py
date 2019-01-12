@@ -1,7 +1,7 @@
 from rest_framework import generics
 
-from .models import HydrocarbonSupplyPile
-from .serializers import HydrocarbonSupplyPileSerializer
+from ..models import HydrocarbonSupplyPile
+from ..serializers import HydrocarbonSupplyPileSerializer
 
 
 class ListHydrocarbonSupplyPile(generics.ListCreateAPIView):

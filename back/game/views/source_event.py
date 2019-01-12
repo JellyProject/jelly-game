@@ -1,7 +1,7 @@
 from rest_framework import generics
 
-from .models import SourceEvent
-from .serializers import SourceEventSerializer
+from ..models import SourceEvent
+from ..serializers import SourceEventSerializer
 
 
 class ListSourceEvent(generics.ListCreateAPIView):
