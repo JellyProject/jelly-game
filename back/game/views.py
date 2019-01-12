@@ -7,8 +7,8 @@ from rest_framework import generics
 from .models import Game
 from .serializers import GameSerializer
 
-from .models import Player
-from .serializers import PlayerSerializer
+#from .models import Player
+#from .serializers import PlayerSerializer
 
 
 class ListGame(generics.ListCreateAPIView):
@@ -21,11 +21,11 @@ class DetailGame(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = GameSerializer
 
 
-class ListPlayer(generics.ListCreateAPIView):
+'''class ListPlayer(generics.ListCreateAPIView):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
 
 
 class DetailPlayer(generics.RetrieveUpdateDestroyAPIView):
     queryset = Player.objects.all()
-    serializer_class = PlayerSerializer
+    serializer_class = PlayerSerializer'''
