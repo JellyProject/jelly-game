@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'game',  # game app
 
     'rest_framework',  # API framework
+    'corsheaders',     # django-cors-headers
 ]
 
 MIDDLEWARE = [
@@ -51,7 +52,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',      # django-cors-headers
+    'django.middleware.common.CommonMiddleware',  # django-cors-headers
 ]
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3000/'
+)
 
 ROOT_URLCONF = 'back.urls'
 
