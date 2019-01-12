@@ -14,7 +14,7 @@ urlpatterns = [
     # path('test_buildings', tests.test_buildings_model, name='test_buildings'),
 
     # API
-    path('', views.ListGame.as_view()),
+    path('game', views.ListGame.as_view()),
     path('<int:pk>/', views.DetailGame.as_view()),
 
     # vraies urls vv
