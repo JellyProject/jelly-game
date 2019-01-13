@@ -5,7 +5,5 @@ from ..models import Balance
 
 class BalanceSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = (
-            'id',
-        )
+        fields = '__all__'
         model = Balance

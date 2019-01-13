@@ -5,7 +5,5 @@ from ..models import SourceBuilding
 
 class SourceBuildingSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = (
-            'id',
-        )
+        fields = '__all__'
         model = SourceBuilding

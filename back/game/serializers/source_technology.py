@@ -5,7 +5,5 @@ from ..models import SourceTechnology
 
 class SourceTechnologySerializer(serializers.ModelSerializer):
     class Meta:
-        fields = (
-            'id',
-        )
+        fields = '__all__'
         model = SourceTechnology
