@@ -1,0 +1,26 @@
+{
+  "name": "jelly-game",
+  "version": "1.0.0",
+  "description": "Jelly game -temporary name- is an online multiplayer game in which each player leads a fictional country throughout the ages. The actions performed by a player are expected to impact the economical, environmental and social standings of his country, and eventually the world as a whole. The game website is powered by a Django backend and a Javascript GUI.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1"
+  },
+  "scripts": {
+    "dev": "webpack --mode development ./jelly/frontend/src/index.js --output ./jelly/frontend/static/frontend/main.js",
+    "build": "webpack --mode production ./jelly/frontend/src/index.js --output ./jelly/frontend/static/frontend/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JellyProject/jelly-game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JellyProject/jelly-game/issues"
+  },
+  "homepage": "https://github.com/JellyProject/jelly-game#readme"
+}
