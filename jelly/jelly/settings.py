@@ -38,10 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'backend',  # game app
+    'backend',  # game API app
 
     'rest_framework',  # API framework
     'corsheaders',     # django-cors-headers
+
+    'frontend',  # frontend react app
 ]
 
 MIDDLEWARE = [
