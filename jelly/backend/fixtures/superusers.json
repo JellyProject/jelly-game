@@ -1,0 +1,38 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$100000$BVauVNXYYsnm$gkq8pKJxXqe+06MhUx4Bsz6zeA76SjKgl27rq0053Y0=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "jeremy",
+        "first_name": "",
+        "last_name": "",
+        "email": "jeremy.lauret@eleves.enpc.fr",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2019-01-10T18:23:20.219Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$100000$E2eLoD4FdLn9$H/UQhzmgiCSijdboEHx0Caqka7+33+TS3ZzIRHpo8Rk=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "leo",
+        "first_name": "",
+        "last_name": "",
+        "email": "leo.baty@eleves.enpc.fr",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2019-01-10T18:52:07.450Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

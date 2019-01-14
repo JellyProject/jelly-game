@@ -1,0 +1,118 @@
+[
+{
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$100000$jcIxptlc4sPS$CVaf3Y2EfdoQhg6w0RDcxHvPan6j/Ok7J+HE/vY0Zkw=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Username",
+        "first_name": "",
+        "last_name": "",
+        "email": "username@adress.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-01-10T18:25:26.058Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "backend.resources",
+    "pk": 1,
+    "fields": {
+        "player": 1,
+        "money": 10,
+        "hydrocarbon": 0
+    }
+},
+{
+    "model": "backend.production",
+    "pk": 1,
+    "fields": {
+        "player": 1,
+        "money": 0,
+        "hydrocarbon": 1,
+        "food": 0,
+        "electricity": 0,
+        "pollution": 1,
+        "waste": 0
+    }
+},
+{
+    "model": "backend.balance",
+    "pk": 1,
+    "fields": {
+        "player": 1,
+        "economic": 50,
+        "social": 50,
+        "environmental": 100
+    }
+},
+{
+    "model": "backend.building",
+    "pk": 1,
+    "fields": {
+        "player": 1,
+        "index": 1,
+        "unlocked": true,
+        "copies": 0
+    }
+},
+{
+    "model": "backend.player",
+    "pk": 1,
+    "fields": {
+        "game": 1,
+        "profile": 1
+    }
+},
+{
+    "model": "backend.hydrocarbonsupplypile",
+    "pk": 1,
+    "fields": {
+        "game": 1,
+        "stock_amount": 10.0,
+        "multiplier": 3,
+        "index": 0
+    }
+},
+{
+    "model": "backend.hydrocarbonsupplypile",
+    "pk": 2,
+    "fields": {
+        "game": 1,
+        "stock_amount": 15.0,
+        "multiplier": 2,
+        "index": 1
+    }
+},
+{
+    "model": "backend.hydrocarbonsupplypile",
+    "pk": 3,
+    "fields": {
+        "game": 1,
+        "stock_amount": Infinity,
+        "multiplier": 1,
+        "index": 2
+    }
+},
+{
+    "model": "backend.game",
+    "pk": 1,
+    "fields": {
+        "name": "game_test",
+        "version": "jelly",
+        "era": 1,
+        "current_index_pile": 0,
+        "source_buildings": [1]
+    }
+},
+{
+    "model": "backend.profile",
+    "pk": 1,
+    "fields": {
+        "user": 3
+    }
+}
+]

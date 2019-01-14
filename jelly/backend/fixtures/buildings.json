@@ -1,0 +1,19 @@
+[
+{
+    "model": "backend.sourcebuilding",
+    "pk": 1,
+    "fields": {
+        "name": "Usine avancée",
+        "slug": "usine-avancee",
+        "version": "jelly",
+        "era": 1,
+        "cost": 1,
+        "description": "Une usine de rendement supérieur. Plus de production, plus de pollution.",
+        "money_modifier": 3,
+        "hydrocarbon_modifier": -4,
+        "pollution_modifier": 2,
+        "waste_modifier": 1,
+        "social_modifier": 1
+    }
+}
+]

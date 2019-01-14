@@ -1,0 +1,32 @@
+<p> Welcome {{ player.profile.user.username }} !!</p>
+<p> Your email adress : {{ player.user.email }} </p>
+
+Country state:
+<ul>
+    <li> Environmental state : {{ player.balance.environmental }} </li>
+    <li> Social state : {{ player.balance.social }} </li>
+    <li> Economic state : {{ player.balance.economic }} </li>
+</ul>
+
+Resources supply:
+<ul>
+    <li> Money : {{ player.resources.money }} </li>
+    <li> Hydrocarbon : {{ player.resources.hydrocarbon }} </li>
+</ul>
+
+Production:
+<ul>
+    <li> Money : {{ player.production.money }} </li>
+    <li> Food : {{ player.production.food }} </li>
+    <li> Electricity : {{ player.production.electricity }} </li>
+    <li> Hydrocarbon : {{ player.production.hydrocarbon }} </li>
+    <li> Pollution : {{ player.production.pollution }} </li>
+    <li> Waste : {{ player.production.waste }} </li>
+</ul>
+
+Hydrocarbons piles
+<ul>
+    <li> Pile 0 : {{ stock0 }} </li>
+    <li> Pile 1 : {{ stock1 }} </li>
+    <li> Pile 2 : {{ stock2 }} </li>
+</ul>
