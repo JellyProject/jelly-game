@@ -19,25 +19,43 @@ class SourceTechnology(models.Model):
             waste_modifier (int) : Production modifiers.
             economic_modifier, social_modifier, environmental_modifier (int) : Balance modifiers.
     """
+    special_effect_technologies = {
+    }
+
     ''' Characteristics '''
-    name = models.CharField(max_length=40, unique=True, default='Fire discovery')
-    slug = models.CharField(max_length=40, unique=True, default='fire-discovery')
-    version = models.CharField(max_length=20, default='jelly')
-    era = models.IntegerField(default=1)
-    description = models.TextField(default='Food may now be cooked.')
-    cost = models.IntegerField(default=1)
+    name = models.CharField(max_length=40, unique=True, default='Fire discovery', editable=False)
+    slug = models.CharField(max_length=40, unique=True, default='fire-discovery', editable=False)
+    version = models.CharField(max_length=20, default='jelly', editable=False)
+    era = models.IntegerField(default=1, editable=False)
+    description = models.TextField(default='Food may now be cooked.', editable=False)
+    cost = models.IntegerField(default=1, editable=False)
     parent_technology = models.OneToOneField('SourceTechnology', on_delete=models.SET_NULL, null=True,
-                                             related_name='child_technology')
+                                             related_name='child_technology', editable=False)
 
     ''' Production modifiers '''
-    money_modifier = models.IntegerField(default=0)
-    hydrocarbon_modifier = models.IntegerField(default=0)
-    food_modifier = models.IntegerField(default=0)
-    electricity_modifier = models.IntegerField(default=0)
-    pollution_modifier = models.IntegerField(default=0)
-    waste_modifier = models.IntegerField(default=0)
+    money_modifier = models.IntegerField(default=0, editable=False)
+    hydrocarbon_modifier = models.IntegerField(default=0, editable=False)
+    food_modifier = models.IntegerField(default=0, editable=False)
+    electricity_modifier = models.IntegerField(default=0, editable=False)
+    pollution_modifier = models.IntegerField(default=0, editable=False)
+    waste_modifier = models.IntegerField(default=0, editable=False)
 
     ''' Balance modifiers '''
-    economic_modifier = models.IntegerField(default=0)
-    social_modifier = models.IntegerField(default=0)
-    environmental_modifier = models.IntegerField(default=0)
+    economic_modifier = models.IntegerField(default=0, editable=False)
+    social_modifier = models.IntegerField(default=0, editable=False)
+    environmental_modifier = models.IntegerField(default=0, editable=False)
+
+    def __str__(self):
+        return "{0} (Version : {1})".format(self.name, self.version)
+
+    class Meta:
+        verbose_name = "Source technology"
+        verbose_name_plural = "Source technologies"
+
+    def execute_special_effect(self):
+        '''
+            Call a callback function for technologies with a special effect
+        '''
+        method_prefix = self.special_effect_technologies.get(self.slug, "no_special_effect")
+        if method_prefix != "no_special_effect":
+            exec("self." + method_prefix + "_special_effect(self.version)")

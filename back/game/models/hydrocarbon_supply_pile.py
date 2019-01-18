@@ -13,13 +13,13 @@ class HydrocarbonSupplyPile(models.Model):
         multiplier (int) : efficiency of the pile
         index (int) : index of the pile, is unique and indicate the order in which piles are drained
     """
-    game = models.ForeignKey('Game', on_delete=models.CASCADE, related_name="hydrocarbon_piles")
+    game = models.ForeignKey('Game', on_delete=models.CASCADE, related_name="hydrocarbon_piles", editable=False)
     stock_amount = models.FloatField(default=0)
     multiplier = models.IntegerField(default=0)
     index = models.IntegerField(editable=False)
 
     def __str__(self):
-        return str(self.index)
+        return "Pile n°{0} (Game : {1})".format(self.index, self.game.name)
 
     def decrease(self, diminution):
         """ Decrease the stock_amount by diminution """

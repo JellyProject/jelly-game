@@ -17,14 +17,19 @@ class Balance(models.Model):
         environmental (int): environment level between 0 and constant.MAX_STATE_VALUE
                         initial value : constant.ENVIRONMENTAL_INITIAL_VALUE
     """
-    player = models.OneToOneField('Player', on_delete=models.CASCADE)
-
+    player = models.OneToOneField('Player', on_delete=models.CASCADE, editable=False)
     economic = models.IntegerField(default=constant.ECONOMIC_INITIAL_VALUE)
     social = models.IntegerField(default=constant.SOCIAL_INITIAL_VALUE)
     environmental = models.IntegerField(default=constant.ENVIRONMENTAL_INITIAL_VALUE)
 
     def __str__(self):
-        return "Economic, social and environmental balances of " + self.player.profile.user.username
+        return "Balance (Game : {0}, Player : {1})".format(self.player.game.name, self.player.username())
+
+    def __eq__(self, other):
+        return (self.player.id == other.player.id and
+                self.economic == other.economic and
+                self.social == other.social and
+                self.environmental == other.environmental)
 
     def green_income(self):
         """ Modify the environment level, according to the environmental level """

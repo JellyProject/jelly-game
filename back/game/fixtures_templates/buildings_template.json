@@ -7,7 +7,7 @@
         "slug": "old-mansion",
         "version": "jelly",
         "era": 1,
-        "technology": 1,
+        "parent_technology": 1,
         "description": "A rather plain building.",
         "money": 0,
         "hydrocarbons": 0,

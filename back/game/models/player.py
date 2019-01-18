@@ -25,11 +25,28 @@ class Player(models.Model):
         technologies (ForeignKey <- PlayerTechnology): technologies
         buildings (ForeignKey <- PlayerBuilding): buildings
     """
-    game = models.ForeignKey('Game', on_delete=models.CASCADE, related_name="players")
-    profile = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name="players")
+    game = models.ForeignKey('Game', on_delete=models.CASCADE, related_name="players", editable=False)
+    profile = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name="players", editable=False)
 
     def __str__(self):
-        return self.profile.user.username
+        return "{0} (Game : {1})".format(self.username(), self.game.name)
+
+    def __eq__(self, other):
+        return (self.game.id == other.game.id and
+                self.profile.id == other.profile.id)
+
+    def has_same_possessions(self, other):
+        if (self.balance != other.balance or
+            self.production != other.production or
+            self.resources != other.resources):
+            return False
+        for building in self.buildings.all():
+            if building != Building.objects.get(index=building.index, player=other):
+                return False
+        for technology in self.technologies.all():
+            if technology != Technology.objects.get(index=technology.index, player=other):
+                return False
+        return True
 
     @classmethod
     def create(cls, profile, game):
@@ -63,6 +80,10 @@ class Player(models.Model):
         new_player.save()
         return new_player
 
+    def username(self):
+        """ Return the username of this player. """
+        return self.profile.user.username
+
     def earn_income(self):
         """
         Apply the (beginning of generation) income phase to player
@@ -88,6 +109,14 @@ class Player(models.Model):
         """ Purchase the building with index id if possible. If not, returns an error string. """
         building = self.buildings.get(index=id)
         (is_purchasable, error_message) = building.is_purchasable()
-        if not is_purchasable:
-            return error_message
-        building.purchase()
+        if is_purchasable:
+            building.purchase()
+        return (building, error_message)
+
+    def purchase_technology(self, id):
+        """ Purchase the technology with index id if possible. If not, returns an error string. """
+        technology = self.technologies.get(index=id)
+        (is_purchasable, error_message) = technology.is_purchasable()
+        if is_purchasable:
+            technology.purchase()
+        return (technology, error_message)

@@ -4,6 +4,9 @@ from .. import game_settings as constant
 
 from .player import Player
 from .hydrocarbon_supply_pile import HydrocarbonSupplyPile
+from .source_building import SourceBuilding
+from .source_event import SourceEvent
+from .source_technology import SourceTechnology
 
 
 class Game(models.Model):
@@ -18,42 +21,60 @@ class Game(models.Model):
         buildings :
         technologies :
 
-        players (ForeignKey <- Player) : query set ofplayers in the game
+        players (ForeignKey <- Player) : query set of players in the game
         hydrocarbon_piles (ForeignKey <- HydrocarbonSupplyPile) : query set of hydrocarbon supply piles in the game
     """
 
-    name = models.CharField(max_length=20, default="A random game")
-    version = models.CharField(max_length=20, default='jelly')  # Game version
+    name = models.CharField(max_length=20, unique=True, default="A random game", editable=False)
+    version = models.CharField(max_length=20, default='jelly', editable=False)  # Game version
     era = models.IntegerField(default=1)
     current_index_pile = models.IntegerField(default=0)
     source_buildings = models.ManyToManyField('SourceBuilding')
-    # events = models.ManyToManyField('Event')
-    # technologies = models.ManyToManyField('Technology')
+    # source_events = models.ManyToManyField('Event')
+    source_technologies = models.ManyToManyField('SourceTechnology')
 
     def __str__(self):
-        return self.name
+        text = "{0} (Players : ".format(self.name)
+        for player in self.players:
+            text += player.username() + ", "
+        return text - ", " + ")"
 
     @classmethod
-    def create(cls, name):
+    def create(cls, name, version="jelly"):
         """
         Create a new Game
 
         Args :
             name (string) : name of the new game
         """
-        game = cls(name=name)
+        game = cls(name=name, version=version)
         game.save()
+        game._init_source_buildings()
+        game._init_source_technologies()
+        # game._init_source_events() [TO DO]
         game._init_supply()
-        game.save()
         return game
 
+    def _init_source_buildings(self):
+        """ Links the game to its version source buildings. """
+        version_source_buildings = SourceBuilding.objects.filter(version=self.version)
+        for version_source_building in version_source_buildings:
+            self.source_buildings.add(version_source_building)
+
+    def _init_source_technologies(self):
+        """ Links the game to its version source technologies. """
+        version_source_technologies = SourceTechnology.objects.filter(version=self.version)
+        for version_source_technology in version_source_technologies:
+            self.source_technologies.add(version_source_technology)
+
     def _init_supply(self):
-        """ Initialize the hydrocarbon supply piles """
+        """ Initialize the hydrocarbon supply piles. """
         const = constant.HYDROCARBON_STOCKS_PER_PLAYER
         for pile_index in range(len(const)):
-            HydrocarbonSupplyPile.objects.get_or_create(stock_amount=0,
-                                                        multiplier=const[pile_index][1],
-                                                        index=pile_index, game=self)
+            HydrocarbonSupplyPile.objects.create(stock_amount=0,
+                                                 multiplier=const[pile_index][1],
+                                                 index=pile_index,
+                                                 game=self)
 
     def save_game(self):
         """ Save the game state in the data base
