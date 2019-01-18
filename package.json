@@ -10,6 +10,7 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "cypress": "^3.1.4",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
@@ -19,7 +20,9 @@
   },
   "scripts": {
     "dev": "webpack --mode development ./jelly/frontend/src/index.js --output ./jelly/frontend/static/frontend/main.js",
-    "build": "webpack --mode production ./jelly/frontend/src/index.js --output ./jelly/frontend/static/frontend/main.js"
+    "build": "webpack --mode production ./jelly/frontend/src/index.js --output ./jelly/frontend/static/frontend/main.js",
+    "flush": "python ./jelly/manage.py flush --no-input",
+    "e2e": "cypress open --project ./jelly/frontend/"
   },
   "repository": {
     "type": "git",
