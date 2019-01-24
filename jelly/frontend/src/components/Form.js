@@ -62,8 +62,8 @@ class Form extends Component {
           <div className="field">
             <label className="label">Era</label>
             <div className="control">
-              <textarea
-                className="textarea"
+              <input
+                className="input"
                 type="text"
                 name="era"
                 onChange={this.handleChange}

@@ -24,7 +24,7 @@ describe("Django REST framework / React quickstart app", () => {
         .should("have.value", game.version);
   
       cy
-        .get('textarea[name="era"]')
+        .get('input[name="era"]')
         .type(game.era)
         .should("have.value", "" + game.era);
   
