@@ -2,10 +2,12 @@
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"    # Path to the script
 
-buildings_file="source_buildings.json"
-events_file="source_events.json"
-superusers_file="superusers.json"
-technologies_file="source_technologies.json"
+INIT_FIXTURES_DIR="${SCRIPT_DIR}/game/init_fixtures"
+
+BUILDINGS_FILE="source_buildings.json"
+EVENTS_FILE="source_events.json"
+SUPERUSERS_FILE="superusers.json"
+TECHNOLOGIES_FILE="source_technologies.json"
 
 echo "This script is a shortcut to erase the game app database and create it anew with its initial fixtures."
 echo
@@ -37,10 +39,10 @@ fi
 
 read -p "Do you wish to load the initial fixtures (not creating a database beforehand will result in an error)? [yes|No] " -r
 if [[ $REPLY =~ ^[Yy]es$ ]]; then
-    python "${SCRIPT_DIR}/"manage.py loaddata $events_file
-    python "${SCRIPT_DIR}/"manage.py loaddata $superusers_file
-    python "${SCRIPT_DIR}/"manage.py loaddata $technologies_file
-    python "${SCRIPT_DIR}/"manage.py loaddata $buildings_file    # buildings come after technologies
+    python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$EVENTS_FILE
+    python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$SUPERUSERS_FILE
+    python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$TECHNOLOGIES_FILE
+    python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$BUILDINGS_FILE   # buildings come after technologies
     echo "Fixture load complete."
     #echo
 else
