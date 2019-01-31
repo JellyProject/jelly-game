@@ -23,7 +23,7 @@ class Balance(models.Model):
     environmental = models.IntegerField(default=constant.ENVIRONMENTAL_INITIAL_VALUE)
 
     def __str__(self):
-        return "Balance (Game : {0}, Player : {1})".format(self.player.game.name, self.player.username())
+        return "Balance (Game : {0}, Player : {1})".format(self.player.game.pk, self.player.username())
 
     def __eq__(self, other):
         return (self.player.id == other.player.id and
