@@ -1,0 +1,52 @@
+[
+{
+    "model": "game.game",
+    "pk": 1,
+    "fields": {
+        "version": "jelly",
+        "creation_date": "2019-01-31T14:15:16.994Z",
+        "last_save_date": "2019-01-31T14:15:16.994Z",
+        "turn": 1,
+        "era": 1,
+        "current_index_pile": 0,
+        "source_buildings": [
+            1,
+            2,
+            3
+        ],
+        "source_technologies": [
+            1
+        ]
+    }
+},
+{
+    "model": "game.hydrocarbonsupplypile",
+    "pk": 1,
+    "fields": {
+        "game": 1,
+        "stock_amount": 10.0,
+        "multiplier": 3,
+        "index": 0
+    }
+},
+{
+    "model": "game.hydrocarbonsupplypile",
+    "pk": 2,
+    "fields": {
+        "game": 1,
+        "stock_amount": 15.0,
+        "multiplier": 2,
+        "index": 1
+    }
+},
+{
+    "model": "game.hydrocarbonsupplypile",
+    "pk": 3,
+    "fields": {
+        "game": 1,
+        "stock_amount": Infinity,
+        "multiplier": 1,
+        "index": 2
+    }
+}
+]
