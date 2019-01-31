@@ -14,4 +14,10 @@ urlpatterns = [
     # Game
     path('api/game/', views.GameList.as_view()),
     path('api/game/<int:pk>/', views.GameDetail.as_view()),
+    # Profile
+    path('api/profile/', views.ProfileList.as_view()),
+    path('api/profile/<slug:username>/', views.ProfileDetail.as_view()),
+    # Player
+    path('api/player/', views.PlayerList.as_view()),
+    path('api/player/<int:pk>/', views.PlayerDetail.as_view()),
 ]

@@ -20,12 +20,11 @@ class BalanceSerializer(serializers.ModelSerializer):
 
 
 class PlayerSerializer(serializers.ModelSerializer):
-    profile = serializers.SlugRelatedField(read_only=True, slug_field='user.username')
+    profile = serializers.SlugRelatedField(read_only=True, slug_field='user')
+    balance = BalanceSerializer(read_only=True)
+    production = ProductionSerializer(read_only=True)
     resources = ResourcesSerializer(read_only=True)
-    hydrocarbon_piles = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    events = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
-        model = models.Game
-        fields = ('id', 'version', 'creation_date', 'last_save_date', 'turn', 'era', 'current_index_pile',
-                  'players', 'hydrocarbon_piles', 'events')
+        model = models.Player
+        fields = ('id', 'game', 'profile', 'balance', 'production', 'resources')
