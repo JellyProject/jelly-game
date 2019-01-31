@@ -25,8 +25,10 @@ class Game(models.Model):
         hydrocarbon_piles (ForeignKey <- HydrocarbonSupplyPile) : query set of hydrocarbon supply piles in the game
     """
 
-    name = models.CharField(max_length=20, unique=True, default="A random game", editable=False)
     version = models.CharField(max_length=20, default='jelly', editable=False)  # Game version
+    creation_date = models.DateTimeField(auto_now_add=True)
+    last_save_date = models.DateTimeField(auto_now=True)
+    turn = models.IntegerField(default=1)
     era = models.IntegerField(default=1)
     current_index_pile = models.IntegerField(default=0)
     source_buildings = models.ManyToManyField('SourceBuilding')
@@ -34,20 +36,20 @@ class Game(models.Model):
     source_technologies = models.ManyToManyField('SourceTechnology')
 
     def __str__(self):
-        text = "{0} (Players : ".format(self.name)
-        for player in self.players:
+        text = "{0} (Players : ".format(self.pk)
+        for player in self.players.all():
             text += player.username() + ", "
-        return text - ", " + ")"
+        return text[:-2] + ")"
 
     @classmethod
-    def create(cls, name, version="jelly"):
+    def create(cls, version="jelly"):
         """
         Create a new Game
 
         Args :
             name (string) : name of the new game
         """
-        game = cls(name=name, version=version)
+        game = cls(version=version)
         game.save()
         game._init_source_buildings()
         game._init_source_technologies()
@@ -76,14 +78,6 @@ class Game(models.Model):
                                                  index=pile_index,
                                                  game=self)
 
-    def save_game(self):
-        """ Save the game state in the data base
-        inutile ?? probablement xD"""
-        for player in self.players:
-            player.save_player()
-        for pile in self.hydrocarbon_piles:
-            pile.save()
-
     def add_player(self, profile):
         """
         Adds a player in the game and updates the global hydrocarbon supplies accordingly
@@ -92,7 +86,7 @@ class Game(models.Model):
             profile (Profile) : profile controlling the new player
         """
         # Check if a player already has this profile
-        if not Player.objects.filter(game__name=self.name, profile=profile):
+        if not Player.objects.filter(game=self, profile=profile):
             # new_player = Player.objects.create(game=self, user=user)
             # Resources.objects.create(player=new_player)
             # Production.objects.create(player=new_player)

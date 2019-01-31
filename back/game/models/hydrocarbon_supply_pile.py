@@ -19,7 +19,7 @@ class HydrocarbonSupplyPile(models.Model):
     index = models.IntegerField(editable=False)
 
     def __str__(self):
-        return "Pile n°{0} (Game : {1})".format(self.index, self.game.name)
+        return "Pile n°{0} (Game : {1})".format(self.index, self.game.pk)
 
     def decrease(self, diminution):
         """ Decrease the stock_amount by diminution """

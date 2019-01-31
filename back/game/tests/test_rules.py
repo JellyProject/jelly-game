@@ -11,7 +11,7 @@ class RulesTest(TestCase):
     def setUpTestData(cls):
         """ Set up a game with one player linked to a profile with username "Username". """
         profile = models.Profile.objects.get(user__username="Username")
-        game = models.Game.create(name="test_game")
+        game = models.Game.create()
         game.add_player(profile)
 
     def setUp(self):
@@ -29,10 +29,10 @@ class RulesTest(TestCase):
             The player purchases the first building defined in the sources.
         """
         player = models.Player.objects.get(profile__user__username="Username")
-        first_building_init = player.buildings.get(index=1)
+        first_building_init = player.buildings.get(slug='usine')
         source_building = first_building_init.source()
         self.assertLessEqual(source_building.cost, player.resources.money)
-        (first_building_current, error_message) = player.purchase_building(1)
+        (first_building_current, error_message) = player.purchase_building("usine")
         self.assertIs(error_message, "")
         self.assertIs(first_building_current.copies - first_building_init.copies, 1)
         self.assertIs(player.production.money,
@@ -77,8 +77,8 @@ class RulesTest(TestCase):
         balance_init = player.balance
         resources_init = player.resources
         production_init = player.production
-        first_building_init = player.buildings.get(index=1)
-        (first_building, error_message) = player.purchase_building(1)
+        first_building_init = player.buildings.get(slug='usine')
+        (first_building, error_message) = player.purchase_building("usine")
         self.assertEqual(error_message, "Fonds insuffisants")
         self.assertEqual(player.balance, balance_init)
         self.assertEqual(player.production, production_init)
@@ -91,8 +91,8 @@ class RulesTest(TestCase):
         balance_init = player.balance
         resources_init = player.resources
         production_init = player.production
-        second_building_init = player.buildings.get(index=2)
-        (second_building, error_message) = player.purchase_building(2)
+        second_building_init = player.buildings.get(slug='usine-avancee')
+        (second_building, error_message) = player.purchase_building("usine-avancee")
         self.assertEqual(error_message, "Technologie(s) nécessaire(s)")
         self.assertEqual(player.balance, balance_init)
         self.assertEqual(player.production, production_init)
@@ -105,8 +105,8 @@ class RulesTest(TestCase):
         balance_init = player.balance
         resources_init = player.resources
         production_init = player.production
-        third_building_init = player.buildings.get(index=3)
-        (third_building, error_message) = player.purchase_building(3)
+        third_building_init = player.buildings.get(slug='centrale-thermique')
+        (third_building, error_message) = player.purchase_building("centrale-thermique")
         self.assertEqual(error_message, "Ère trop précoce")
         self.assertEqual(player.balance, balance_init)
         self.assertEqual(player.production, production_init)
@@ -117,8 +117,8 @@ class RulesTest(TestCase):
         """ Building unlock test. """
         player = models.Player.objects.get(profile__user__username="Username")
         player.resources.money = 1000
-        advanced_factory = player.buildings.get(index=2)
+        advanced_factory = player.buildings.get(slug='usine-avancee')
         self.assertFalse(advanced_factory.unlocked)
-        (technology, error) = player.purchase_technology(1)
-        advanced_factory = player.buildings.get(index=2)
+        (technology, error) = player.purchase_technology("taylorisme")
+        advanced_factory = player.buildings.get(slug='usine-avancee')
         self.assertTrue(advanced_factory.unlocked)

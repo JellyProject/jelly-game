@@ -29,7 +29,7 @@ class Player(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name="players", editable=False)
 
     def __str__(self):
-        return "{0} (Game : {1})".format(self.username(), self.game.name)
+        return "{0} (Game : {1})".format(self.username(), self.game.pk)
 
     def __eq__(self, other):
         return (self.game.id == other.game.id and
@@ -65,17 +65,13 @@ class Player(models.Model):
         Production.objects.create(player=new_player)
         Balance.objects.create(player=new_player)
 
-        nb_source_buildings = SourceBuilding.objects.all().count()
-        for i in range(1, nb_source_buildings + 1):    # index starts at 1
-            source_building = SourceBuilding.objects.get(pk=i)
+        for source_building in game.source_buildings.all():
             unlocked = source_building.parent_technology == None
-            Building.objects.create(player=new_player, index=i, unlocked=unlocked)
+            Building.objects.create(player=new_player, slug=source_building.slug, unlocked=unlocked)
 
-        nb_source_technologies = SourceTechnology.objects.all().count()
-        for i in range(1, nb_source_technologies + 1):    # index starts at 1
-            source_technology = SourceTechnology.objects.get(pk=i)
+        for source_technology in game.source_technologies.all():
             unlocked = source_technology.parent_technology == None
-            Technology.objects.create(player=new_player, index=i, unlocked=unlocked)
+            Technology.objects.create(player=new_player, slug=source_technology.slug, unlocked=unlocked)
 
         new_player.save()
         return new_player
@@ -105,17 +101,17 @@ class Player(models.Model):
         """ Apply the environment generation income to the environment balance """
         self.balance.green_income()
 
-    def purchase_building(self, id):
-        """ Purchase the building with index id if possible. If not, returns an error string. """
-        building = self.buildings.get(index=id)
+    def purchase_building(self, slug):
+        """ Purchase the building with given slug if possible. If not, return an error string. """
+        building = self.buildings.get(slug=slug)
         (is_purchasable, error_message) = building.is_purchasable()
         if is_purchasable:
             building.purchase()
         return (building, error_message)
 
-    def purchase_technology(self, id):
-        """ Purchase the technology with index id if possible. If not, returns an error string. """
-        technology = self.technologies.get(index=id)
+    def purchase_technology(self, slug):
+        """ Purchase the technology with given slug if possible. If not, return an error string. """
+        technology = self.technologies.get(slug=slug)
         (is_purchasable, error_message) = technology.is_purchasable()
         if is_purchasable:
             technology.purchase()

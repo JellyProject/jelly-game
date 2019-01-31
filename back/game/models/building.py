@@ -16,23 +16,23 @@ class Building(models.Model):
         copies (int) : Number of copies of self the player possesses.
     """
     player = models.ForeignKey('Player', on_delete=models.CASCADE, related_name='buildings', editable=False)
-    index = models.IntegerField(editable=False)
+    slug = models.CharField(max_length=40, default='old-mansion', editable=False)
     unlocked = models.BooleanField(default=False)
     copies = models.IntegerField(default=0)
 
     def __str__(self):
         return "{0} (Game : {1}, Player : {2})".format(self.source().name,
-                                                       self.player.game.name,
+                                                       self.player.game.pk,
                                                        self.player.username())
 
     def __eq__(self, other):
         return (self.player.id == other.player.id and
-                self.index == other.index and
+                self.slug == other.slug and
                 self.unlocked == other.unlocked and
                 self.copies == other.copies)
 
     def source(self):
-        return self.player.game.source_buildings.get(pk=self.index)
+        return self.player.game.source_buildings.get(slug=self.slug)
 
     def is_purchasable(self):
         """

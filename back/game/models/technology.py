@@ -14,13 +14,13 @@ class Technology(models.Model):
         purchased (bool) : True -> This technology has been purchased by the player.
     """
     player = models.ForeignKey('Player', on_delete=models.CASCADE, related_name='technologies', editable=False)
-    index = models.IntegerField(unique=True, editable=False)
+    slug = models.CharField(max_length=40, default='fire-discovery', editable=False)
     unlocked = models.BooleanField(default=False)
     purchased = models.BooleanField(default=False)
 
     def __str__(self):
         return "{0} (Game : {1}, Player : {2})".format(self.source().name,
-                                                       self.player.game.name,
+                                                       self.player.game.pk,
                                                        self.player.username())
 
     class Meta:
@@ -29,12 +29,12 @@ class Technology(models.Model):
 
     def __eq__(self, other):
         return (self.player.id == other.player.id and
-                self.index == other.index and
+                self.slug == other.slug and
                 self.unlocked == other.unlocked and
                 self.purchased == other.purchased)
 
     def source(self):
-        return self.player.game.source_technologies.get(pk=self.index)
+        return self.player.game.source_technologies.get(slug=self.slug)
 
     def is_purchasable(self):
         """
@@ -81,11 +81,10 @@ class Technology(models.Model):
         self.player.balance.environmental += source.environmental_modifier
         self.player.balance.save()
 
-        # Unlock child technology
+        # Unlock child technologies
         try:
-            child_tech_sources = self.source().child_technologies.all()
-            for child_tech_source in child_tech_sources:
-                child_tech = self.player.technologies.get(index=child_tech_source.pk)
+            for child_tech_source in self.source().child_technologies.all():
+                child_tech = self.player.technologies.get(slug=child_tech_source.slug).unlocked = True
                 child_tech.unlocked = True
                 child_tech.save()
         except:
@@ -94,7 +93,7 @@ class Technology(models.Model):
         # Unlock child building
         try:
             child_build_source = self.source().child_building
-            child_build = self.player.buildings.get(index=child_build_source.pk)
+            child_build = self.player.buildings.get(slug=child_build_source.slug)
             child_build.unlocked = True
             child_build.save()
         except:

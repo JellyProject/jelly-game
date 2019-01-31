@@ -24,8 +24,8 @@ class SourceBuilding(models.Model):
     }
 
     ''' Characteristics '''
-    name = models.CharField(max_length=40, unique=True, default='Old mansion', editable=False)
-    slug = models.CharField(max_length=40, unique=True, default='old-mansion', editable=False)
+    name = models.CharField(max_length=40, default='Old mansion', editable=False)
+    slug = models.CharField(max_length=40, default='old-mansion', editable=False)
     version = models.CharField(max_length=20, default='jelly', editable=False)
     era = models.IntegerField(default=1, editable=False)
     description = models.TextField(default='A rather plain building.', editable=False)

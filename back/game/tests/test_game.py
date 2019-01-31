@@ -10,15 +10,15 @@ class GameTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        models.Game.create(name="test_game")
+        models.Game.create()
 
     def setUp(self):
         pass
 
     def test_game_creation(self):
         """ Test the create class method from Game model. """
-        self.assertTrue(models.Game.objects.all()[0].name == "test_game" and len(models.Game.objects.all()) == 1)
-        game = models.Game.objects.get(name="test_game")
+        self.assertTrue(len(models.Game.objects.all()) == 1)
+        game = models.Game.objects.all()[0]
 
         # Hydrocarbon piles initialization test
         number_of_piles = len(settings.HYDROCARBON_STOCKS_PER_PLAYER)
@@ -31,7 +31,7 @@ class GameTest(TestCase):
         version_source_buildings = models.SourceBuilding.objects.filter(version=game.version)
         self.assertEqual(version_source_buildings.count(), game.source_buildings.count())
         for version_source_building in version_source_buildings:
-            self.assertEqual(version_source_building, game.source_buildings.get(name=version_source_building.name))
+            self.assertEqual(version_source_building, game.source_buildings.get(slug=version_source_building.slug))
 
         # Source events loading test [TO DO]
 
@@ -40,14 +40,13 @@ class GameTest(TestCase):
         self.assertEqual(version_source_technologies.count(), game.source_technologies.count())
         for version_source_technology in version_source_technologies:
             self.assertEqual(version_source_technology,
-                             game.source_technologies.get(name=version_source_technology.name))
-
+                             game.source_technologies.get(slug=version_source_technology.slug))
 
     def test_add_player(self):
         """ Test the add_player method """
         user = User.objects.create_user('Luca', 'luca@bongo.cat', 'bongo_cat')
         profile = models.Profile.objects.create(user=user)
-        game = models.Game.objects.get(name="test_game")
+        game = models.Game.objects.all()[0]
         number_of_piles = len(settings.HYDROCARBON_STOCKS_PER_PLAYER)
         for i_pile in range(number_of_piles):
             self.assertEqual(game.hydrocarbon_piles.get(index=i_pile).stock_amount, 0)
