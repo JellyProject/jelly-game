@@ -1,7 +1,6 @@
 from .. import models
 from .. import serializers
 from rest_framework import generics
-from rest_framework.exceptions import NotFound
 
 
 class TechnologyList(generics.ListAPIView):

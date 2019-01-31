@@ -10,5 +10,7 @@ from .profile import ProfileList, \
                      ProfileDetail
 from .player import PlayerList, \
                     PlayerDetail
+from .building import BuildingList, \
+                      BuildingDetail
 from .technology import TechnologyList, \
                         TechnologyDetail
