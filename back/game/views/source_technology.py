@@ -1,7 +1,7 @@
 from .. import models
 from .. import serializers
 from rest_framework import generics
-from rest_framework.exceptions import NotFound
+
 
 class SourceTechnologyList(generics.ListAPIView):
     """
@@ -22,11 +22,7 @@ class SourceTechnologyVersionList(generics.ListAPIView):
     serializer_class = serializers.SourceTechnologySerializer
 
     def get_queryset(self):
-        queryset = models.SourceTechnology.objects.filter(version=self.kwargs['version'])
-        if queryset:
-            return queryset
-        else:
-            raise NotFound
+        return models.SourceTechnology.objects.filter(version=self.kwargs['version'])
 
 
 class SourceTechnologyVersionDetail(generics.RetrieveAPIView):

@@ -1,30 +1,8 @@
 from rest_framework import serializers
 from .. import models
-
-class ResourcesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Resources
-        fields = ('money',
-                  'hydrocarbon')
-
-
-class ProductionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Production
-        fields = ('money',
-                  'hydrocarbon',
-                  'food',
-                  'electricity',
-                  'pollution',
-                  'waste')
-
-
-class BalanceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Balance
-        fields = ('economic',
-                  'social',
-                  'environmental')
+from .balance import BalanceSerializer
+from .production import ProductionSerializer
+from .resources import ResourcesSerializer
 
 
 class PlayerSerializer(serializers.ModelSerializer):

@@ -20,4 +20,7 @@ urlpatterns = [
     # Player
     path('api/player/', views.PlayerList.as_view()),
     path('api/player/<int:pk>/', views.PlayerDetail.as_view()),
+    # Technology
+    path('api/player/<int:player_pk>/technology/', views.TechnologyList.as_view()),
+    path('api/player/<int:player_pk>/technology/<slug:slug>/', views.TechnologyDetail.as_view()),
 ]
