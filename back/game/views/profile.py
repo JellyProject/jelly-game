@@ -2,6 +2,7 @@ from .. import models
 from .. import serializers
 from rest_framework import generics
 from rest_framework.response import Response
+from rest_framework.exceptions import NotFound
 
 class ProfileList(generics.ListAPIView):
     """
@@ -23,6 +24,10 @@ class ProfileDetail(generics.RetrieveAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         username = self.kwargs.get("username")
-        instance = models.Profile.objects.get(user__username=username)
+        try:
+            instance = models.Profile.objects.get(user__username=username)
+        except:
+            raise NotFound
+        print("Hello")
         serializer = self.get_serializer(instance)
         return Response(serializer.data)

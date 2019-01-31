@@ -108,3 +108,6 @@ venv.bak/
 
 # Dia
 *.dia.autosave
+
+# Migration files
+back/game/migrations/
