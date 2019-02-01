@@ -18,7 +18,7 @@ urlpatterns = [
     path('api/profiles', views.ProfileList.as_view()),
     path('api/profiles/<slug:username>', views.ProfileDetail.as_view()),
     # Player
-    path('api/players/', views.PlayerList.as_view()),
+    path('api/players', views.PlayerList.as_view()),
     path('api/players/<int:pk>', views.PlayerDetail.as_view()),
     # Building
     path('api/players/<int:player_pk>/buildings', views.BuildingList.as_view()),

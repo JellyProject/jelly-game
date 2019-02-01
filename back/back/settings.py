@@ -128,5 +128,8 @@ REST_FRAMEWORK = {
     # to keep things simple we’ll allow anyone to make changes to the API since it will only be consumed locally.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
-    ]
+    ],
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+    )
 }
