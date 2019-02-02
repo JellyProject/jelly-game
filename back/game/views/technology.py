@@ -36,3 +36,4 @@ class TechnologyDetail(generics.RetrieveUpdateAPIView):
         if not is_purchasable:
             return Response({"error":error_message})
         super(TechnologyDetail, self).update(request, *args, **kwargs)
+        instance.trigger_post_purchase_effects()
