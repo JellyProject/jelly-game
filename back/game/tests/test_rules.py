@@ -9,8 +9,8 @@ class RulesTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        """ Set up a game with one player linked to a profile with username "Username". """
-        profile = models.Profile.objects.get(user__username="Username")
+        """ Set up a game with one player linked to a profile with username "John Doe". """
+        profile = models.Profile.objects.get(user__username="John Doe")
         game = models.Game.create()
         game.add_player(profile)
 
@@ -28,7 +28,7 @@ class RulesTest(TestCase):
 
             The player purchases the first building defined in the sources.
         """
-        player = models.Player.objects.get(profile__user__username="Username")
+        player = models.Player.objects.get(profile__user__username="John Doe")
         first_building_init = player.buildings.get(slug='usine')
         source_building = first_building_init.source()
         self.assertLessEqual(source_building.cost, player.resources.money)
@@ -55,24 +55,8 @@ class RulesTest(TestCase):
                       settings.SOCIAL_INITIAL_VALUE + source_building.social_modifier)
 
     def test_building_purchase_money_failure(self):
-        """
-            Building purchase failure test : the player doesn't have enough money.
-
-            The player must not be able to purchase the first building defined in the sources.
-            The subsequent reasons will be tested :
-                - The building will be available during another era
-                - A technology is required
-                - The building is too expensive
-                    if self.player.game.era < source.era:
-            return (False, "Ère trop précoce")
-            # Parent technology check
-            if not self.unlocked:
-                return (False, "Technologie(s) nécessaire(s)")
-            # Cost check
-            if source.cost > self.player.resources.money:
-                return (False, "Fonds insuffisants")
-        """
-        player = models.Player.objects.get(profile__user__username="Username")
+        """ Building purchase failure test : the player doesn't have enough money. """
+        player = models.Player.objects.get(profile__user__username="John Doe")
         player.resources.money = 0
         balance_init = player.balance
         resources_init = player.resources
@@ -87,7 +71,7 @@ class RulesTest(TestCase):
 
     def test_building_purchase_tech_failure(self):
         """ Building purchase failure test : the player doesn't own a required technology. """
-        player = models.Player.objects.get(profile__user__username="Username")
+        player = models.Player.objects.get(profile__user__username="John Doe")
         balance_init = player.balance
         resources_init = player.resources
         production_init = player.production
@@ -101,7 +85,7 @@ class RulesTest(TestCase):
 
     def test_building_purchase_era_failure(self):
         """ Building purchase failure test : the building belongs to a later era. """
-        player = models.Player.objects.get(profile__user__username="Username")
+        player = models.Player.objects.get(profile__user__username="John Doe")
         balance_init = player.balance
         resources_init = player.resources
         production_init = player.production
@@ -115,7 +99,7 @@ class RulesTest(TestCase):
 
     def test_building_unlock(self):
         """ Building unlock test. """
-        player = models.Player.objects.get(profile__user__username="Username")
+        player = models.Player.objects.get(profile__user__username="John Doe")
         player.resources.money = 1000
         advanced_factory = player.buildings.get(slug='usine-avancee')
         self.assertFalse(advanced_factory.unlocked)

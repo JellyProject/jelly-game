@@ -106,7 +106,9 @@ class Player(models.Model):
         building = self.buildings.get(slug=slug)
         (is_purchasable, error_message) = building.is_purchasable()
         if is_purchasable:
-            building.purchase()
+            building.copies += 1
+            building.trigger_post_purchase_effects()
+            building.save()
         return (building, error_message)
 
     def purchase_technology(self, slug):
@@ -114,5 +116,7 @@ class Player(models.Model):
         technology = self.technologies.get(slug=slug)
         (is_purchasable, error_message) = technology.is_purchasable()
         if is_purchasable:
-            technology.purchase()
+            technology.purchased = True
+            technology.trigger_post_purchase_effects()
+            technology.save()
         return (technology, error_message)

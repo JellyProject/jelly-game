@@ -38,8 +38,8 @@ class Technology(models.Model):
 
     def is_purchasable(self):
         """
-            Return the tuple (is_purchasable, error_message).
-            error_message will be left empty if is_purchasable is true.
+        Return the tuple (is_purchasable, error_message).
+        error_message will be left empty if is_purchasable is true.
         """
         source = self.source()
         # Era check
@@ -56,13 +56,13 @@ class Technology(models.Model):
             return (False, "Technologie déjà acquise.")
         return (True, "")
 
-    def purchase(self):
-        """ Grant player a copy of self. """
+    def trigger_post_purchase_effects(self):
+        """
+        Update player statistics after self purchase.
+        WARNING : the actual purchase should be done in a separate function.
+        """
+        # Load self source_technology
         source = self.source()
-
-        # Purchase the technology.
-        self.purchased = True
-        self.save()
 
         # Spend money.
         self.player.resources.money -= source.cost
@@ -83,7 +83,7 @@ class Technology(models.Model):
 
         # Unlock child technologies
         try:
-            for child_tech_source in self.source().child_technologies.all():
+            for child_tech_source in source.child_technologies.all():
                 child_tech = self.player.technologies.get(slug=child_tech_source.slug).unlocked = True
                 child_tech.unlocked = True
                 child_tech.save()
