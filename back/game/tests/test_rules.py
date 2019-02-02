@@ -5,7 +5,7 @@ from .. import game_settings as settings
 
 class RulesTest(TestCase):
     """ Tests on the Building class """
-    fixtures = ['profile', 'source_technologies', 'source_buildings']
+    fixtures = ['users', 'source_technologies', 'source_buildings']
 
     @classmethod
     def setUpTestData(cls):
