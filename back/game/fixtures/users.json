@@ -1,27 +1,20 @@
 [
 {
     "model": "auth.user",
-    "pk": 3,
+    "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$100000$jcIxptlc4sPS$CVaf3Y2EfdoQhg6w0RDcxHvPan6j/Ok7J+HE/vY0Zkw=",
         "last_login": null,
         "is_superuser": false,
-        "username": "BatyLeo",
+        "username": "John Doe",
         "first_name": "",
         "last_name": "",
-        "email": "leo@address.com",
+        "email": "john@doe.com",
         "is_staff": false,
         "is_active": true,
         "date_joined": "2019-01-10T18:25:26.058Z",
         "groups": [],
         "user_permissions": []
-    }
-},
-{
-    "model": "game.profile",
-    "pk": 1,
-    "fields": {
-        "user": 3
     }
 }
 ]

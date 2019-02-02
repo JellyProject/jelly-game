@@ -37,9 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'game',  # game app
-
     'rest_framework',  # API framework
 ]
 
@@ -128,5 +126,9 @@ REST_FRAMEWORK = {
     # to keep things simple we’ll allow anyone to make changes to the API since it will only be consumed locally.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
-    ]
+    ],
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+    ),
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }

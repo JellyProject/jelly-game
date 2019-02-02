@@ -3,7 +3,8 @@ from .. import models
 
 
 class TechnologySerializer(serializers.ModelSerializer):
+    unlocked = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = models.Technology
-        fields = '__all__'
+        fields = ('unlocked', 'slug', 'purchased', 'player')

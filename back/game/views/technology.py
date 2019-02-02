@@ -1,13 +1,14 @@
 from .. import models
 from .. import serializers
 from rest_framework import generics
+from rest_framework.response import Response
 
 
 class TechnologyList(generics.ListAPIView):
     """
-    This view provides a `list` action with read_only enabled to the set of technologies linked to the given player.
-
-    It is tied to the /api/player/<player_pk>/technology/ endpoint.
+     * Resource : set of technologies with given player.
+     * Supported HTTP verbs : GET.
+     * Related URI : api/players/<player_pk>/technologies
     """
     serializer_class = serializers.TechnologySerializer
 
@@ -15,14 +16,24 @@ class TechnologyList(generics.ListAPIView):
         return models.Technology.objects.filter(player__pk=self.kwargs['player_pk'])
 
 
-class TechnologyDetail(generics.RetrieveAPIView):
+class TechnologyDetail(generics.RetrieveUpdateAPIView):
     """
-    This view provides a `retrieve` action with read_only enabled to the technology with given player and slug.
-
-    It is tied to the /api/player/<player_pk>/technology/<slug>/ endpoint.
+     * Resource : technology with given player and slug.
+     * Supported HTTP verbs : GET, PUT, PATCH.
+     * Related URI : api/players/<player_pk>/technologies/<slug>
     """
     serializer_class = serializers.TechnologySerializer
     lookup_field='slug'
 
     def get_queryset(self):
         return models.Technology.objects.filter(player__pk=self.kwargs['player_pk'])
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if not request.data.get('purchased', False):
+            return Response({"error":"'purchased' should be set to True"})
+        (is_purchasable, error_message) = instance.is_purchasable()
+        if not is_purchasable:
+            return Response({"error":error_message})
+        super(TechnologyDetail, self).update(request, *args, **kwargs)
+        instance.trigger_post_purchase_effects()
