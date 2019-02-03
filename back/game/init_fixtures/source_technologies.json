@@ -1,0 +1,17 @@
+[
+{
+    "model": "game.sourcetechnology",
+    "pk": 1,
+    "fields": {
+        "name": "Taylorisme",
+        "slug": "taylorisme",
+        "version": "jelly",
+        "era": 1,
+        "description": "Travailler plus pour gagner plus. Effet spécial : +1 UM par usine possédée.",
+        "cost": 20,
+        "economic_modifier": 2,
+        "social_modifier": -1,
+        "environmental_modifier": 0
+    }
+}
+]

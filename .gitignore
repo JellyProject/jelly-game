@@ -102,3 +102,12 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# User added
+.idea/
+
+# Dia
+*.dia.autosave
+
+# Migration files
+back/game/migrations/

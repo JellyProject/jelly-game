@@ -1,0 +1,50 @@
+[
+{
+    "model": "game.sourcebuilding",
+    "pk": 1,
+    "fields": {
+        "name": "Usine",
+        "slug": "usine",
+        "version": "jelly",
+        "era": 1,
+        "cost": 3,
+        "description": "Une simple usine de production.",
+        "money_modifier": 2,
+        "hydrocarbon_modifier": -2,
+        "pollution_modifier": 2
+    }
+},
+{
+    "model": "game.sourcebuilding",
+    "pk": 2,
+    "fields": {
+        "name": "Usine avancée",
+        "slug": "usine-avancee",
+        "version": "jelly",
+        "era": 1,
+        "cost": 5,
+        "description": "Une usine de rendement supérieur. Plus de production, plus de pollution.",
+        "parent_technology": 1,
+        "money_modifier": 3,
+        "hydrocarbon_modifier": -4,
+        "pollution_modifier": 2,
+        "waste_modifier": 1,
+        "economic_modifier": 1
+    }
+},
+{
+    "model": "game.sourcebuilding",
+    "pk": 3,
+    "fields": {
+        "name": "Centrale thermique",
+        "slug": "centrale-thermique",
+        "version": "jelly",
+        "era": 2,
+        "cost": 10,
+        "description": "Une usine électrique standard.",
+        "hydrocarbon_modifier": 4,
+        "pollution_modifier": 2,
+        "waste_modifier": 2
+    }
+}
+]
