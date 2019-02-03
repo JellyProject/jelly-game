@@ -11,7 +11,7 @@
         "description": "Une simple usine de production.",
         "money_modifier": 2,
         "hydrocarbon_modifier": -2,
-        "pollution_modifier": 2
+        "pollution_modifier": 1
     }
 },
 {
@@ -36,15 +36,84 @@
     "model": "game.sourcebuilding",
     "pk": 3,
     "fields": {
-        "name": "Centrale thermique",
-        "slug": "centrale-thermique",
+        "name": "Centrale thermoélectrique",
+        "slug": "centrale-thermoelectrique",
         "version": "jelly",
-        "era": 2,
-        "cost": 10,
+        "era": 1,
+        "cost": 8,
         "description": "Une usine électrique standard.",
         "hydrocarbon_modifier": 4,
-        "pollution_modifier": 2,
-        "waste_modifier": 2
+        "pollution_modifier": 1
+    }
+},
+{
+    "model": "game.sourcebuilding",
+    "pk": 4,
+    "fields": {
+        "name": "Usine alimentaire",
+        "slug": "usine-alimentaire",
+        "version": "jelly",
+        "era": 1,
+        "cost": 5,
+        "description": "A rather plain building.",
+        "money_modifier": 2,
+        "hydrocarbon_modifier": -2,
+        "food_modifier": 1,
+        "pollution_modifier": 1,
+        "waste_modifier": 1,
+        "social_modifier": 1
+    }
+},
+{
+    "model": "game.sourcebuilding",
+    "pk": 5,
+    "fields": {
+        "name": "Centre d'incinération de déchets",
+        "slug": "centre-incineration-dechets",
+        "version": "jelly",
+        "era": 1,
+        "cost": 5,
+        "description": "A rather plain building.",
+        "electricity_modifier": 0,
+        "pollution_modifier": 1,
+        "waste_modifier": -2
+    }
+},
+{
+    "model": "game.sourcebuilding",
+    "pk": 6,
+    "fields": {
+        "name": "Raffinerie",
+        "slug": "raffinerie",
+        "version": "jelly",
+        "era": 1,
+        "cost": 4,
+        "description": "A rather plain building.",
+        "hydrocarbon_modifier": 1
+    }
+},
+{
+    "model": "game.sourcebuilding",
+    "pk": 7,
+    "fields": {
+        "name": "Laboratoire de recherche",
+        "slug": "laboratoire-de-recherche",
+        "version": "jelly",
+        "era": 1,
+        "cost": 2,
+        "description": "Ne fait rien pour l'instant"
+    }
+},
+{
+    "model": "game.sourcebuilding",
+    "pk": 8,
+    "fields": {
+        "name": "Décharges",
+        "slug": "decharges",
+        "version": "jelly",
+        "era": 1,
+        "cost": 3,
+        "description": "Ne fait pas grand-chose non plus."
     }
 }
 ]
