@@ -6,7 +6,7 @@ from .. import game_settings as settings
 
 class GameTest(TestCase):
     """ Testing the create class method and the _init_supply method """
-    fixtures = ['profile', 'source_technologies', 'source_buildings']
+    fixtures = ['users', 'source_technologies', 'source_buildings']
 
     @classmethod
     def setUpTestData(cls):
@@ -45,7 +45,7 @@ class GameTest(TestCase):
     def test_add_player(self):
         """ Test the add_player method """
         user = User.objects.create_user('Luca', 'luca@bongo.cat', 'bongo_cat')
-        profile = models.Profile.objects.create(user=user)
+        profile = models.Profile.objects.get(user=user)
         game = models.Game.objects.all()[0]
         number_of_piles = len(settings.HYDROCARBON_STOCKS_PER_PLAYER)
         for i_pile in range(number_of_piles):

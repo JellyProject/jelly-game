@@ -36,8 +36,8 @@ class Building(models.Model):
 
     def is_purchasable(self):
         """
-            Return the tuple (is_purchasable, error_message).
-            error_message will be left empty if is_purchasable is true.
+        Return the tuple (is_purchasable, error_message).
+        error_message will be left empty if is_purchasable is true.
         """
         source = self.source()
         # Era check
@@ -51,13 +51,12 @@ class Building(models.Model):
             return (False, "Fonds insuffisants")
         return (True, "")
 
-    def purchase(self):
-        """ Grant player a copy of self. """
+    def trigger_post_purchase_effects(self):
+        """
+        Update player statistics after self purchase.
+        WARNING : the actual purchase should be done in a separate function.
+        """
         source = self.source()
-
-        # Add a copy.
-        self.copies += 1
-        self.save()
 
         # Spend money.
         self.player.resources.money -= source.cost
