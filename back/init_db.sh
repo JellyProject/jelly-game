@@ -42,7 +42,8 @@ if [[ $REPLY =~ ^[Yy]es$ ]]; then
     python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$EVENTS_FILE
     python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$SUPERUSERS_FILE
     python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$TECHNOLOGIES_FILE
-    python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$BUILDINGS_FILE   # buildings come after technologies
+    # buildings come after technologies
+    python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$BUILDINGS_FILE
     echo "Fixture load complete."
     #echo
 else
