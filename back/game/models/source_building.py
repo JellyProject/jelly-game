@@ -8,19 +8,20 @@ class SourceBuilding(models.Model):
         Source technology model.
 
         Fields :
-            name (char) : A unique human-readable name.
-            slug (char) : A simple and unique string to identify self.
-            version (char) : The game version self belongs to.
-            era (char) : The era self belongs to.
-            cost (int) : Money needed for purchase.
-            description (text) : A human-readable description.
-            parent_technology (OneToOne -> SourceTechnology) : A technology required before self may be purchased..
-            money_modifier, hydrocarbon_modifier, food_modifier, electricity_modifier, pollution_modifier,
-            waste_modifier (int) : Production modifiers.
-            economic_modifier, social_modifier, environmental_modifier (int) : Balance modifiers.
+            * name (char) : A unique human-readable name.
+            * slug (char) : A simple and unique string to identify self.
+            * version (char) : The game version self belongs to.
+            * era (char) : The era self belongs to.
+            * cost (int) : Money needed for purchase.
+            * description (text) : A human-readable description.
+            * parent_technology (OneToOne -> SourceTechnology) : A technology required before self may be purchased..
+            * money_modifier, hydrocarbon_modifier, food_modifier, electricity_modifier, pollution_modifier,
+            * waste_modifier (int) : Production modifiers.
+            * economic_modifier, social_modifier, environmental_modifier (int) : Balance modifiers.
+            * hydrocarbon_consumption : hydrocarbon consumption of the building at each generation
     """
     special_effect_buildings = {
-        "usine-avancee":"usine_avancee"
+        "usine-avancee": "usine_avancee"
     }
 
     ''' Characteristics '''
@@ -36,6 +37,7 @@ class SourceBuilding(models.Model):
     ''' Production modifiers '''
     money_modifier = models.IntegerField(default=0, editable=False)
     hydrocarbon_modifier = models.IntegerField(default=0, editable=False)
+    hydrocarbon_consumption = models.IntegerField(default=0, editable=False)
     food_modifier = models.IntegerField(default=0, editable=False)
     electricity_modifier = models.IntegerField(default=0, editable=False)
     pollution_modifier = models.IntegerField(default=0, editable=False)

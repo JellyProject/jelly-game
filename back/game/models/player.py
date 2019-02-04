@@ -37,8 +37,8 @@ class Player(models.Model):
 
     def has_same_possessions(self, other):
         if (self.balance != other.balance or
-            self.production != other.production or
-            self.resources != other.resources):
+           self.production != other.production or
+           self.resources != other.resources):
             return False
         for building in self.buildings.all():
             if building != Building.objects.get(index=building.index, player=other):
@@ -57,7 +57,7 @@ class Player(models.Model):
             profile (Profile) : profile which will control this player
             game (Game) : game in which the player will play
         """
-        #source_building = models.SourceBuilding.objects.all()[0]
+        # source_building = models.SourceBuilding.objects.all()[0]
         new_player = cls(game=game, profile=profile)
         new_player.save()  # Peut-on faire mieux ?
 
@@ -66,11 +66,11 @@ class Player(models.Model):
         Balance.objects.create(player=new_player)
 
         for source_building in game.source_buildings.all():
-            unlocked = source_building.parent_technology == None
+            unlocked = (source_building.parent_technology is None)
             Building.objects.create(player=new_player, slug=source_building.slug, unlocked=unlocked)
 
         for source_technology in game.source_technologies.all():
-            unlocked = source_technology.parent_technology == None
+            unlocked = (source_technology.parent_technology is None)
             Technology.objects.create(player=new_player, slug=source_technology.slug, unlocked=unlocked)
 
         new_player.save()
