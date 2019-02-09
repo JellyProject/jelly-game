@@ -138,6 +138,7 @@ REST_FRAMEWORK = {
 
 # Hosts allowed to make cross-site HTTP requests
 CORS_ORIGIN_WHITELIST = (
+    'localhost:3000',
     '127.0.0.1:3000' # Set react port here
 )
 
