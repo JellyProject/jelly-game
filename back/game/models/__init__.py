@@ -6,7 +6,7 @@ from .game import Game
 from .event import Event
 from .hydrocarbon_supply_pile import HydrocarbonSupplyPile
 from .virtual_player import VirtualPlayer
-from .player import Player
+from .player import Player  # Has to be loaded before ShadowPlayer
 from .shadow_player import ShadowPlayer
 
 

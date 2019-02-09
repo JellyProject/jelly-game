@@ -5,89 +5,100 @@ from . import views
 urlpatterns = [
     # SourceTechnology
     path(
-         'source-technologies/',
-         views.SourceTechnologyList.as_view(),
-         name='source-technology-list'
+        'source-technologies/',
+        views.SourceTechnologyList.as_view(),
+        name='source-technology-list'
     ),
     path(
-         'source-technologies/<slug:version>/',
-         views.SourceTechnologyVersionList.as_view(),
-         name='source-technology-version-list'
+        'source-technologies/<slug:version>/',
+        views.SourceTechnologyVersionList.as_view(),
+        name='source-technology-version-list'
     ),
     path(
-         'source-technologies/<slug:version>/<slug:slug>',
-         views.SourceTechnologyVersionDetail.as_view(),
-         name='source-technology-version-detail'
+        'source-technologies/<slug:version>/<slug:slug>',
+        views.SourceTechnologyVersionDetail.as_view(),
+        name='source-technology-version-detail'
     ),
     # SourceBuilding
     path(
-         'source-buildings/',
-         views.SourceBuildingList.as_view(),
-         name='source-building-list',
+        'source-buildings/',
+        views.SourceBuildingList.as_view(),
+        name='source-building-list',
     ),
     path(
-         'source-buildings/<slug:version>/',
-         views.SourceBuildingVersionList.as_view(),
-         name='source-building-version-list'
+        'source-buildings/<slug:version>/',
+        views.SourceBuildingVersionList.as_view(),
+        name='source-building-version-list'
     ),
     path(
-         'source-buildings/<slug:version>/<slug:slug>',
-         views.SourceBuildingVersionDetail.as_view(),
-         name='source-building-version-detail'
+        'source-buildings/<slug:version>/<slug:slug>',
+        views.SourceBuildingVersionDetail.as_view(),
+        name='source-building-version-detail'
     ),
     # Game
     path(
-         'games/',
-         views.GameList.as_view(),
-         name='game-list'
+        'games/',
+        views.GameList.as_view(),
+        name='game-list'
     ),
     path(
-         'games/<int:pk>',
-         views.GameDetail.as_view(),
-         name='game-detail'
+        'games/<int:pk>',
+        views.GameDetail.as_view(),
+        name='game-detail'
     ),
     # Profile
     path(
-         'profiles/',
-         views.ProfileList.as_view(),
-         name='profile-list'
+        'profiles/',
+        views.ProfileList.as_view(),
+        name='profile-list'
     ),
     path(
-         'profiles/<username>',
-         views.ProfileDetail.as_view(),
-         name='profile-detail'
+        'profiles/<username>',
+        views.ProfileDetail.as_view(),
+        name='profile-detail'
     ),
     # Player
     path(
-         'players/',
-         views.PlayerList.as_view(),
-         name='player-list'
+        'players/',
+        views.PlayerList.as_view(),
+        name='player-list'
     ),
     path(
-         'players/<int:pk>',
-         views.PlayerDetail.as_view(),
-         name='player-detail'
+        'players/<int:pk>',
+        views.PlayerDetail.as_view(),
+        name='player-detail'
+    ),
+    # ShadowPlayer
+    path(
+        'shadow_players/',
+        views.ShadowPlayerList.as_view(),
+        name='shadow_player-list'
+    ),
+    path(
+        'shadow_players/<int:pk>',
+        views.ShadowPlayerDetail.as_view(),
+        name='shadow_player-detail'
     ),
     # Building
     path(
-         'players/<int:player_pk>/buildings/',
-         views.BuildingList.as_view(),
-         name='building-list'
+        'players/<int:player_pk>/buildings/',
+        views.BuildingList.as_view(),
+        name='building-list'
     ),
     path(
-         'players/<int:player_pk>/buildings/<slug:slug>',
-         views.BuildingDetail.as_view(),
-         name='building-detail'
+        'players/<int:player_pk>/buildings/<slug:slug>',
+        views.BuildingDetail.as_view(),
+        name='building-detail'
     ),
     # Technology
     path(
-         'players/<int:player_pk>/technologies/',
-         views.TechnologyList.as_view(),
-         name='technology-list'
+        'players/<int:player_pk>/technologies/',
+        views.TechnologyList.as_view(),
+        name='technology-list'
     ),
     path(
-         'players/<int:player_pk>/technologies/<slug:slug>',
-         views.TechnologyDetail.as_view(),
-         name='technology-detail'
+        'players/<int:player_pk>/technologies/<slug:slug>',
+        views.TechnologyDetail.as_view(),
+        name='technology-detail'
     ),
 ]
