@@ -8,7 +8,7 @@ class Production(models.Model):
     Production model
 
     Fields :
-        * player (OneToOne -> Player) : Player associated with in a OneToOne link
+        * player (OneToOne -> VirtualPlayer) : VirtualPlayer associated with in a OneToOne link
 
         * money (int) : money production of player at the beginning of each generation
         * hydrocarbon (int) : hydrocarbon points production of player at the beginning of each generation
@@ -20,7 +20,7 @@ class Production(models.Model):
         * pollution (int) : untreated pollution production of player at the beginning of each generation
         * waste (int) : untreated waste production of player at the beginning of each generation
     """
-    player = models.OneToOneField('Player', on_delete=models.CASCADE, editable=False)
+    player = models.OneToOneField('VirtualPlayer', on_delete=models.CASCADE, editable=False)
 
     money = models.IntegerField(default=constant.UM_INITIAL_PRODUCTION)
     hydrocarbon = models.IntegerField(default=constant.HYDROCARBON_INITIAL_PRODUCTION)
@@ -31,7 +31,7 @@ class Production(models.Model):
     waste = models.IntegerField(default=constant.WASTE_INITIAL_PRODUCTION)
 
     def __str__(self):
-        return "Production (Game : {0}, Player : {1})".format(self.player.game.pk, self.player.username())
+        return "Production (Game : {0}, Player : {1})".format(self.player.game.pk, self.player.pk)
 
     class Meta:
         verbose_name = "Production"
