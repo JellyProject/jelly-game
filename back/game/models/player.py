@@ -9,6 +9,7 @@ from .building import Building
 from .technology import Technology
 from .source_building import SourceBuilding
 from .source_technology import SourceTechnology
+from .player_state import PlayerState
 
 
 class Player(models.Model):
@@ -42,20 +43,8 @@ class Player(models.Model):
         # source_building = models.SourceBuilding.objects.all()[0]
         new_player = cls(game=game, profile=profile)
         new_player.save()  # Peut-on faire mieux ?
+        player_state = PlayerState.create(new_player)
 
-        Resources.objects.create(player=new_player)
-        Production.objects.create(player=new_player)
-        Balance.objects.create(player=new_player)
-
-        for source_building in game.source_buildings.all():
-            unlocked = (source_building.parent_technology is None)
-            Building.objects.create(player=new_player, slug=source_building.slug, unlocked=unlocked)
-
-        for source_technology in game.source_technologies.all():
-            unlocked = (source_technology.parent_technology is None)
-            Technology.objects.create(player=new_player, slug=source_technology.slug, unlocked=unlocked)
-
-        new_player.save()
         return new_player
 
     @property

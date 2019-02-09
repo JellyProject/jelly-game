@@ -36,7 +36,38 @@ class PlayerState(models.Model):
             return self.shadow_player
         raise AssertionError("Neither 'player' nor 'shadow_player' is set")
 
+    @classmethod
+    def create(cls, new_player):
+        """ doc """
+        # We test if player is a Player or a ShadowPlayer
+        if hasattr(new_player, 'profile'):  # player is a Player (player has a 'profile' field)
+            new_state = cls(player=new_player)
+            new_state.save()  # Peut-on faire mieux ?
+            new_state._init_state()
+        else:  # player is a ShadowPlayer (has no 'profile' field)
+            new_state = cls(shadow_player=new_player)
+            new_state.save()  # Peut-on faire mieux ?
+            new_state._init_state()
+
+    def _init_state(self):
+        """ doc """
+        # We create Resources, Production, Balance, Buildings and Technologies associated
+        Resources.objects.create(state=self)
+        Production.objects.create(state=self)
+        Balance.objects.create(state=self)
+
+        for source_building in self.player.game.source_buildings.all():
+            unlocked = (source_building.parent_technology is None)
+            Building.objects.create(state=self, slug=source_building.slug, unlocked=unlocked)
+
+        for source_technology in self.player.game.source_technologies.all():
+            unlocked = (source_technology.parent_technology is None)
+            Technology.objects.create(state=self, slug=source_technology.slug, unlocked=unlocked)
+
+        self.save()
+
     def has_same_possessions(self, other):
+        """ doc """
         if (self.balance != other.balance or
            self.production != other.production or
            self.resources != other.resources):
