@@ -12,7 +12,7 @@ class BuildingList(generics.ListAPIView):
     serializer_class = serializers.BuildingSerializer
 
     def get_queryset(self):
-        return models.Building.objects.filter(player__pk=self.kwargs['player_pk'])
+        return models.Building.objects.filter(state__player__pk=self.kwargs['player_pk'])
 
 
 class BuildingDetail(generics.RetrieveAPIView):
@@ -22,7 +22,7 @@ class BuildingDetail(generics.RetrieveAPIView):
     It is tied to the /api/player/<player_pk>/building/<slug>/ endpoint.
     """
     serializer_class = serializers.BuildingSerializer
-    lookup_field='slug'
+    lookup_field = 'slug'
 
     def get_queryset(self):
-        return models.Building.objects.filter(player__pk=self.kwargs['player_pk'])
+        return models.Building.objects.filter(state__player__pk=self.kwargs['player_pk'])

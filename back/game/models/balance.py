@@ -32,6 +32,10 @@ class Balance(models.Model):
                 self.social == other.social and
                 self.environmental == other.environmental)
 
+    @property
+    def player(self):
+        return self.state.player
+
     def green_income(self):
         """ Modify the environment level, according to the environmental level """
         self.environmental += self.environmental // constant.ENVIRONMENTAL_REGENERATION_LEVEL

@@ -23,17 +23,17 @@ class PlayerState(models.Model):
         * buildings (ForeignKey <- PlayerBuilding): buildings
     """
 
-    player = models.OneToOneField('Player', null=True, blank=True, related_name='state',
-                                  on_delete=models.CASCADE)
-    shadow_player = models.OneToOneField('ShadowPlayer', null=True, blank=True, related_name='state',
-                                         on_delete=models.CASCADE)
+    _player = models.OneToOneField('Player', null=True, blank=True, related_name='state',
+                                   on_delete=models.CASCADE)
+    _shadow_player = models.OneToOneField('ShadowPlayer', null=True, blank=True, related_name='state',
+                                          on_delete=models.CASCADE)
 
     @property
     def player(self):
-        if self.player is not None:
-            return self.player
-        if self.shadow_player is not None:
-            return self.shadow_player
+        if self._player is not None:
+            return self._player
+        if self._shadow_player is not None:
+            return self._shadow_player
         raise AssertionError("Neither 'player' nor 'shadow_player' is set")
 
     @classmethod
@@ -41,11 +41,11 @@ class PlayerState(models.Model):
         """ doc """
         # We test if player is a Player or a ShadowPlayer
         if hasattr(new_player, 'profile'):  # player is a Player (player has a 'profile' field)
-            new_state = cls(player=new_player)
+            new_state = cls(_player=new_player)
             new_state.save()  # Peut-on faire mieux ?
             new_state._init_state()
         else:  # player is a ShadowPlayer (has no 'profile' field)
-            new_state = cls(shadow_player=new_player)
+            new_state = cls(_shadow_player=new_player)
             new_state.save()  # Peut-on faire mieux ?
             new_state._init_state()
 

@@ -45,3 +45,7 @@ class Production(models.Model):
                 self.electricity == other.electricity and
                 self.pollution == other.pollution and
                 self.waste == other.waste)
+
+    @property
+    def player(self):
+        return self.state.player

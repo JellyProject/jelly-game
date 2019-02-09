@@ -13,7 +13,7 @@ class TechnologyList(generics.ListAPIView):
     serializer_class = serializers.TechnologySerializer
 
     def get_queryset(self):
-        return models.Technology.objects.filter(player__pk=self.kwargs['player_pk'])
+        return models.Technology.objects.filter(state__player__pk=self.kwargs['player_pk'])
 
 
 class TechnologyDetail(generics.RetrieveUpdateAPIView):
@@ -23,10 +23,10 @@ class TechnologyDetail(generics.RetrieveUpdateAPIView):
      * Related URI : api/players/<player_pk>/technologies/<slug>
     """
     serializer_class = serializers.TechnologySerializer
-    lookup_field='slug'
+    lookup_field = 'slug'
 
     def get_queryset(self):
-        return models.Technology.objects.filter(player__pk=self.kwargs['player_pk'])
+        return models.Technology.objects.filter(state__player__pk=self.kwargs['player_pk'])
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()

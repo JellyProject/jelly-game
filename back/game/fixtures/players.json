@@ -11,7 +11,7 @@
     "model": "game.playerstate",
     "pk": 1,
     "fields": {
-        "player": 1
+        "_player": 1
     }
 },
 {

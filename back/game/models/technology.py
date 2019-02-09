@@ -33,6 +33,10 @@ class Technology(models.Model):
                 self.unlocked == other.unlocked and
                 self.purchased == other.purchased)
 
+    @property
+    def player(self):
+        return self.state.player
+
     def source(self):
         return self.player.game.source_technologies.get(slug=self.slug)
 

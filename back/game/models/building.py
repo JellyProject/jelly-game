@@ -31,8 +31,12 @@ class Building(models.Model):
                 self.unlocked == other.unlocked and
                 self.copies == other.copies)
 
+    @property
+    def player(self):
+        return self.state.player
+
     def source(self):
-        return self.player.game.source_buildings.get(slug=self.slug)
+        return self.state.player.game.source_buildings.get(slug=self.slug)
 
     def is_purchasable(self):
         """

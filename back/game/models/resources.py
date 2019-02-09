@@ -28,3 +28,7 @@ class Resources(models.Model):
         return (self.player.id == other.player.id and
                 self.money == other.money and
                 self.hydrocarbon == other.hydrocarbon)
+
+    @property
+    def player(self):
+        return self.state.player
