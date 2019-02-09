@@ -144,11 +144,15 @@ CORS_ORIGIN_WHITELIST = (
 
 # Allowed CORS methods
 CORS_ALLOW_METHODS = (
+    'DELETE',
     'GET',
+    'OPTIONS',
     'PATCH',
+    'POST',
     'PUT',
 )
 
 CSRF_TRUSTED_ORIGINS = (
+    'localhost:3000',
     '127.0.0.1:3000' # Set react port here
 )
