@@ -8,7 +8,7 @@ class Balance(models.Model):
     Balance wheel model
 
     Fields :
-        * player (OneToOne -> VirtualPlayer) : VirtualPlayer associated with in a OneToOne link
+        * state (OneToOne -> PlayerState) : global state of the player related to the balance
 
         * economic (int): economic level between 0 and constant.MAX_STATE_VALUE
                             initial value : constant.ECONOMIC_INITIAL_VALUE
@@ -17,7 +17,8 @@ class Balance(models.Model):
         * environmental (int): environment level between 0 and constant.MAX_STATE_VALUE
                         initial value : constant.ENVIRONMENTAL_INITIAL_VALUE
     """
-    player = models.OneToOneField('VirtualPlayer', on_delete=models.CASCADE, editable=False)
+    state = models.OneToOneField('PlayerState', on_delete=models.CASCADE, related_name='balance', editable=False)
+
     economic = models.IntegerField(default=constant.ECONOMIC_INITIAL_VALUE)
     social = models.IntegerField(default=constant.SOCIAL_INITIAL_VALUE)
     environmental = models.IntegerField(default=constant.ENVIRONMENTAL_INITIAL_VALUE)

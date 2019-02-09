@@ -1,19 +1,16 @@
 from rest_framework import serializers
 from .. import models
 
-from .balance import BalanceSerializer
-from .production import ProductionSerializer
-from .resources import ResourcesSerializer
+from .player_state import PlayerStateSerializer
+from .player import PlayerSerializer
 
 
 class ShadowPlayerSerializer(serializers.ModelSerializer):
-    balance = BalanceSerializer(read_only=True)
-    production = ProductionSerializer(read_only=True)
-    resources = ResourcesSerializer(read_only=True)
+    state = PlayerStateSerializer(read_only=True)
+    player = PlayerSerializer(read_only=True)
 
     class Meta:
-        model = models.ShadowPlayer
+        model = models.Player
         fields = ('id',
-                  'balance',
-                  'production',
-                  'resources')
+                  'state',
+                  'player')

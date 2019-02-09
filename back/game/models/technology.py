@@ -8,12 +8,12 @@ class Technology(models.Model):
     Technology model
 
     Fields :
-        player (ForeignKey -> VirtualPlayer) : The player who may own this technology.
-        index (int) : A unique index to link this technology to a source technology.
-        unlocked (bool) : True -> This technology may be purchased by the player.
-        purchased (bool) : True -> This technology has been purchased by the player.
+        * state (OneToOne -> PlayerState) : global state of the player related to the balance
+        * index (int) : A unique index to link this technology to a source technology.
+        * unlocked (bool) : True -> This technology may be purchased by the player.
+        * purchased (bool) : True -> This technology has been purchased by the player.
     """
-    player = models.ForeignKey('VirtualPlayer', on_delete=models.CASCADE, related_name='technologies', editable=False)
+    state = models.ForeignKey('PlayerState', on_delete=models.CASCADE, related_name='technologies', editable=False)
     slug = models.CharField(max_length=40, default='fire-discovery', editable=False)
     unlocked = models.BooleanField(default=False)
     purchased = models.BooleanField(default=False)

@@ -8,7 +8,7 @@ class Production(models.Model):
     Production model
 
     Fields :
-        * player (OneToOne -> VirtualPlayer) : VirtualPlayer associated with in a OneToOne link
+        * state (OneToOne -> PlayerState) : global state of the player related to the production
 
         * money (int) : money production of player at the beginning of each generation
         * hydrocarbon (int) : hydrocarbon points production of player at the beginning of each generation
@@ -20,7 +20,7 @@ class Production(models.Model):
         * pollution (int) : untreated pollution production of player at the beginning of each generation
         * waste (int) : untreated waste production of player at the beginning of each generation
     """
-    player = models.OneToOneField('VirtualPlayer', on_delete=models.CASCADE, editable=False)
+    state = models.OneToOneField('PlayerState', on_delete=models.CASCADE, related_name='production', editable=False)
 
     money = models.IntegerField(default=constant.UM_INITIAL_PRODUCTION)
     hydrocarbon = models.IntegerField(default=constant.HYDROCARBON_INITIAL_PRODUCTION)

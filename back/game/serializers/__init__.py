@@ -4,5 +4,6 @@ from .game import GameSerializer
 from .profile import ProfileSerializer
 from .player import PlayerSerializer
 from .shadow_player import ShadowPlayerSerializer
+from .player_state import PlayerStateSerializer
 from .building import BuildingSerializer
 from .technology import TechnologySerializer

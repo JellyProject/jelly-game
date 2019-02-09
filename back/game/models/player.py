@@ -10,29 +10,21 @@ from .technology import Technology
 from .source_building import SourceBuilding
 from .source_technology import SourceTechnology
 
-from .virtual_player import VirtualPlayer
 
-
-class Player(VirtualPlayer):
+class Player(models.Model):
     """
     Player model, inherit from VirtualPlayer model
-
-    Inherited fields :
-        * balance (OneToOneField <- Balance): player balance
-        * resources (OneToOneField <- Resources): resources owned by the player
-        * production (OneToOneField <- Production): player production at the beginning of each generation
-        * technologies (ForeignKey <- PlayerTechnology): technologies
-        * buildings (ForeignKey <- PlayerBuilding): buildings
 
     New fields :
         * game (Game) : ForeignKey link to the game in which the player plays
         * profile (Profile) : profile which controls the player
+        * state (OneToOne <- PlayerState)
     """
     game = models.ForeignKey('Game', on_delete=models.CASCADE, related_name="players", editable=False)
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name="players", editable=False)
 
     def __str__(self):
-        return "{0} (Game : {1})".format(self.username(), self.game.pk)
+        return "{0} (Game : {1})".format(self.username, self.game.pk)
 
     def __eq__(self, other):
         return (self.game.id == other.game.id and
@@ -66,6 +58,7 @@ class Player(VirtualPlayer):
         new_player.save()
         return new_player
 
+    @property
     def username(self):
         """ Return the username of this player. """
         return self.profile.user.username

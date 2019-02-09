@@ -79,6 +79,17 @@ urlpatterns = [
         views.ShadowPlayerDetail.as_view(),
         name='shadow_player-detail'
     ),
+    # PlayerState
+    path(
+        'player_states/',
+        views.PlayerStateList.as_view(),
+        name='player_state-list'
+    ),
+    path(
+        'player_states/<int:pk>',
+        views.PlayerStateDetail.as_view(),
+        name='player_state-detail'
+    ),
     # Building
     path(
         'players/<int:player_pk>/buildings/',

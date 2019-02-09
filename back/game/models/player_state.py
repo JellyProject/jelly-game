@@ -11,9 +11,9 @@ from .source_building import SourceBuilding
 from .source_technology import SourceTechnology
 
 
-class VirtualPlayer(models.Model):
+class PlayerState(models.Model):
     """
-    Virtual Player model; father model of ShadowPlayer and Player
+    PlayerState model;
 
     Fields :
         * balance (OneToOneField <- Balance): player balance
@@ -22,6 +22,19 @@ class VirtualPlayer(models.Model):
         * technologies (ForeignKey <- PlayerTechnology): technologies
         * buildings (ForeignKey <- PlayerBuilding): buildings
     """
+
+    player = models.OneToOneField('Player', null=True, blank=True, related_name='state',
+                                  on_delete=models.CASCADE)
+    shadow_player = models.OneToOneField('ShadowPlayer', null=True, blank=True, related_name='state',
+                                         on_delete=models.CASCADE)
+
+    @property
+    def player(self):
+        if self.player is not None:
+            return self.player
+        if self.shadow_player is not None:
+            return self.shadow_player
+        raise AssertionError("Neither 'player' nor 'shadow_player' is set")
 
     def has_same_possessions(self, other):
         if (self.balance != other.balance or

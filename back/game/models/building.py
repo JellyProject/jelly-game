@@ -10,12 +10,12 @@ class Building(models.Model):
     Building model
 
     Fields :
-        player (ForeignKey -> VirtualPlayer) : The player who may own this technology.
-        index (int) : A unique index to link self to its source copy.
-        unlocked (bool) : True -> The player has purchased the required technologies.
-        copies (int) : Number of copies of self the player possesses.
+        * state (OneToOne -> PlayerState) : global state of the player related to the balance
+        * index (int) : A unique index to link self to its source copy.
+        * unlocked (bool) : True -> The player has purchased the required technologies.
+        * copies (int) : Number of copies of self the player possesses.
     """
-    player = models.ForeignKey('VirtualPlayer', on_delete=models.CASCADE, related_name='buildings', editable=False)
+    state = models.ForeignKey('PlayerState', on_delete=models.CASCADE, related_name='buildings', editable=False)
     slug = models.CharField(max_length=40, default='old-mansion', editable=False)
     unlocked = models.BooleanField(default=False)
     copies = models.IntegerField(default=0)
