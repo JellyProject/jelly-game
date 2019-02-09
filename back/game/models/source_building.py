@@ -19,6 +19,7 @@ class SourceBuilding(models.Model):
             * waste_modifier (int) : Production modifiers.
             * economic_modifier, social_modifier, environmental_modifier (int) : Balance modifiers.
             * hydrocarbon_consumption : hydrocarbon consumption of the building at each generation
+
     """
     special_effect_buildings = {
         "usine-avancee": "usine_avancee"

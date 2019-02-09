@@ -1,7 +1,6 @@
 [
 {
     "model": "game.sourcetechnology",
-    "pk": 1,
     "fields": {
         "name": "Taylorisme",
         "slug": "taylorisme",

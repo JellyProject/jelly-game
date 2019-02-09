@@ -4,7 +4,8 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"    # P
 
 INIT_FIXTURES_DIR="${SCRIPT_DIR}/game/init_fixtures"
 
-BUILDINGS_FILE="source_buildings.json"
+BUILDINGS_FILE1="source_buildings_era1.json"
+BUILDINGS_FILE2="source_buildings_era2.json"
 EVENTS_FILE="source_events.json"
 SUPERUSERS_FILE="superusers.json"
 TECHNOLOGIES_FILE="source_technologies.json"
@@ -42,7 +43,9 @@ if [[ $REPLY =~ ^[Yy]es$ ]]; then
     python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$EVENTS_FILE
     python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$SUPERUSERS_FILE
     python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$TECHNOLOGIES_FILE
-    python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$BUILDINGS_FILE   # buildings come after technologies
+    # buildings come after technologies
+    python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$BUILDINGS_FILE1
+    python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$BUILDINGS_FILE2
     echo "Fixture load complete."
     #echo
 else
