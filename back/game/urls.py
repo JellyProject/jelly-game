@@ -92,23 +92,23 @@ urlpatterns = [
     ),
     # Building
     path(
-        'player-states/<int:state_pk>/buildings/',
+        'player-states/<int:player_state_pk>/buildings/',
         views.BuildingList.as_view(),
         name='building-list'
     ),
     path(
-        'player-states/<int:state_pk>/buildings/<slug:slug>',
+        'player-states/<int:player_state_pk>/buildings/<slug:slug>',
         views.BuildingDetail.as_view(),
         name='building-detail'
     ),
     # Technology
     path(
-        'player-states/<int:state_pk>/technologies/',
+        'player-states/<int:player_state_pk>/technologies/',
         views.TechnologyList.as_view(),
         name='technology-list'
     ),
     path(
-        'player-states/<int:state_pk>/technologies/<slug:slug>',
+        'player-states/<int:player_state_pk>/technologies/<slug:slug>',
         views.TechnologyDetail.as_view(),
         name='technology-detail'
     ),
