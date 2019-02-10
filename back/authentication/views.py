@@ -48,8 +48,8 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
             'username': user_data.get('username', request.user.username),
             'email': user_data.get('email', request.user.email),
             'profile': {
-                'motto': user_data.Get('motto', request.user.profile.motto),
-                'image': user_data.Get('image', request.user.profile.image)
+                'motto': user_data.get('motto', request.user.profile.motto),
+                'image': user_data.get('image', request.user.profile.image)
             }
         }
         # Serialize, validate, save.
