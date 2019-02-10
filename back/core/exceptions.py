@@ -5,6 +5,7 @@ def core_exception_handler(exc, context):
     response = exception_handler(exc, context)
     # Dictionary of all supported errors with their handler.
     handlers = {
+        'ProfileDoesNotExist': _handle_generic_error,
         'ValidationError': _handle_generic_error
     }
     # Type of the current exception.

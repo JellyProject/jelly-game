@@ -5,6 +5,7 @@ from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin
 )
 from django.db import models
+from core.models import TimestampedModel
 
 
 class UserManager(BaseUserManager):
@@ -30,7 +31,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin, TimestampedModel):
     username = models.CharField(db_index=True, max_length=255, unique=True)
     email = models.EmailField(db_index=True, unique=True)
     is_active = models.BooleanField(default=True)

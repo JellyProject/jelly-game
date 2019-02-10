@@ -43,7 +43,15 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def update(self, request, *args, **kwargs):
-        serializer_data = request.data.get('user', {})
+        user_data = request.data.get('user', {})
+        serializer_data = {
+            'username': user_data.get('username', request.user.username),
+            'email': user_data.get('email', request.user.email),
+            'profile': {
+                'motto': user_data.Get('motto', request.user.profile.motto),
+                'image': user_data.Get('image', request.user.profile.image)
+            }
+        }
         # Serialize, validate, save.
         serializer = self.serializer_class(
             request.user, data=serializer_data, partial=True

@@ -1,18 +1,13 @@
-import json
-from rest_framework.renderers import JSONRenderer
+from core.renderers import JellyGameJSONRenderer
 
 
-class UserJSONRenderer(JSONRenderer):
+class UserJSONRenderer(JellyGameJSONRenderer):
     charset = 'utf-8'
+    object_label = 'user'
 
     def render(self, data, media_type=None, renderer_context=None):
-        errors = data.get('errors', None)
         token = data.get('token', None)
-        # Let default JSONRenderer handle errors.
-        if errors is not None:
-            return super(UserJSONRenderer, self).render(data)
+        # Bytes objects are not supported
         if token is not None and isinstance(token, bytes):
-            data['token'] = token.decode('utf-8')    # Convert data['token'] into a string
-        return json.dumps({
-            'user': data
-        })
+            data['token'] = token.decode('utf-8')
+        return super(UserJSONRenderer, self).render(data)

@@ -2,6 +2,7 @@ from django.test import TestCase
 
 from .. import models
 from .. import game_settings as settings
+from profiles.models import Profile
 
 class RulesTest(TestCase):
     """ Tests on the Building class """
@@ -10,7 +11,7 @@ class RulesTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         """ Set up a game with one player linked to a profile with username "John Doe". """
-        profile = models.Profile.objects.get(user__username="John Doe")
+        profile = Profile.objects.get(user__username="John Doe")
         game = models.Game.create()
         game.add_player(profile)
 
