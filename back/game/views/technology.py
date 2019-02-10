@@ -8,7 +8,7 @@ class TechnologyList(generics.ListAPIView):
     """
      * Resource : set of technologies with given player.
      * Supported HTTP verbs : GET.
-     * Related URI : api/states/<state_pk>/technologies
+     * Related URI : api/player-states/<state_pk>/technologies
     """
     serializer_class = serializers.TechnologySerializer
 
@@ -20,7 +20,7 @@ class TechnologyDetail(generics.RetrieveUpdateAPIView):
     """
      * Resource : technology with given player and slug.
      * Supported HTTP verbs : GET, PUT, PATCH.
-     * Related URI : api/states/<state_pk>/technologies/<slug>
+     * Related URI : api/player-states/<state_pk>/technologies/<slug>
     """
     serializer_class = serializers.TechnologySerializer
     lookup_field = 'slug'

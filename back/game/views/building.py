@@ -7,7 +7,7 @@ class BuildingList(generics.ListAPIView):
     """
     This view provides a `list` action with read_only enabled to the set of buildings linked to the given player.
 
-    It is tied to the /api/states/<state_pk>/building/ endpoint.
+    It is tied to the /api/player_states/<state_pk>/building/ endpoint.
     """
     serializer_class = serializers.BuildingSerializer
 
@@ -19,7 +19,7 @@ class BuildingDetail(generics.RetrieveAPIView):
     """
     This view provides a `retrieve` action with read_only enabled to the technology with given player and slug.
 
-    It is tied to the /api/state/<state_pk>/building/<slug>/ endpoint.
+    It is tied to the /api/player-states/<state_pk>/building/<slug>/ endpoint.
     """
     serializer_class = serializers.BuildingSerializer
     lookup_field = 'slug'
