@@ -150,19 +150,19 @@ class TechnologyTests(APITestCase):
     def test_list_technologies(self):
         technologies = models.Technology.objects.all()
         serializer = serializers.TechnologySerializer(technologies, many=True)
-        response = self.client.get(reverse('technology-list', kwargs={"player_pk": 1}))
+        response = self.client.get(reverse('technology-list', kwargs={"state_pk": 1}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
     def test_valid_detail_technology(self):
         technology = models.Technology.objects.get(slug="taylorisme")
         serializer = serializers.TechnologySerializer(technology)
-        response = self.client.get(reverse('technology-detail', kwargs={"player_pk": 1, "slug": "taylorisme"}))
+        response = self.client.get(reverse('technology-detail', kwargs={"state_pk": 1, "slug": "taylorisme"}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
     def test_invalid_detail_technology(self):
-        response = self.client.get(reverse('technology-detail', kwargs={"player_pk": 1, "slug": "head-patting"}))
+        response = self.client.get(reverse('technology-detail', kwargs={"state_pk": 1, "slug": "head-patting"}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     """def test_valid_update_technology(self):
@@ -183,17 +183,17 @@ class BuildingTests(APITestCase):
     def test_list_buildings(self):
         buildings = models.Building.objects.all()
         serializer = serializers.BuildingSerializer(buildings, many=True)
-        response = self.client.get(reverse('building-list', kwargs={"player_pk": 1}))
+        response = self.client.get(reverse('building-list', kwargs={"state_pk": 1}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
     def test_valid_detail_building(self):
         building = models.Building.objects.get(pk=1)
         serializer = serializers.BuildingSerializer(building)
-        response = self.client.get(reverse('building-detail', kwargs={"player_pk": 1, "slug": "usine"}))
+        response = self.client.get(reverse('building-detail', kwargs={"state_pk": 1, "slug": "usine"}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
     def test_invalid_detail_building(self):
-        response = self.client.get(reverse('building-detail', kwargs={"player_pk": 1, "slug": "head-patting"}))
+        response = self.client.get(reverse('building-detail', kwargs={"state_pk": 1, "slug": "head-patting"}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

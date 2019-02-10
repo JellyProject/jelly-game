@@ -70,45 +70,45 @@ urlpatterns = [
     ),
     # ShadowPlayer
     path(
-        'shadow_players/',
+        'shadow-players/',
         views.ShadowPlayerList.as_view(),
         name='shadow_player-list'
     ),
     path(
-        'shadow_players/<int:pk>',
+        'shadow-players/<int:pk>',
         views.ShadowPlayerDetail.as_view(),
         name='shadow_player-detail'
     ),
     # PlayerState
     path(
-        'player_states/',
+        'player-states/',
         views.PlayerStateList.as_view(),
         name='player_state-list'
     ),
     path(
-        'player_states/<int:pk>',
+        'player-states/<int:pk>',
         views.PlayerStateDetail.as_view(),
         name='player_state-detail'
     ),
     # Building
     path(
-        'players/<int:player_pk>/buildings/',
+        'states/<int:state_pk>/buildings/',
         views.BuildingList.as_view(),
         name='building-list'
     ),
     path(
-        'players/<int:player_pk>/buildings/<slug:slug>',
+        'states/<int:state_pk>/buildings/<slug:slug>',
         views.BuildingDetail.as_view(),
         name='building-detail'
     ),
     # Technology
     path(
-        'players/<int:player_pk>/technologies/',
+        'states/<int:state_pk>/technologies/',
         views.TechnologyList.as_view(),
         name='technology-list'
     ),
     path(
-        'players/<int:player_pk>/technologies/<slug:slug>',
+        'states/<int:state_pk>/technologies/<slug:slug>',
         views.TechnologyDetail.as_view(),
         name='technology-detail'
     ),

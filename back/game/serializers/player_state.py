@@ -11,7 +11,7 @@ class PlayerStateSerializer(serializers.ModelSerializer):
     resources = ResourcesSerializer(read_only=True)
 
     class Meta:
-        model = models.Player
+        model = models.PlayerState
         fields = ('id',
                   'balance',
                   'production',

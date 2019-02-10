@@ -14,7 +14,7 @@ from .player_state import PlayerState
 
 class Player(models.Model):
     """
-    Player model, inherit from VirtualPlayer model
+    Player model
 
     New fields :
         * game (Game) : ForeignKey link to the game in which the player plays
