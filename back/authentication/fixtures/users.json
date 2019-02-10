@@ -6,7 +6,7 @@
         "password": "pbkdf2_sha256$100000$zmz2mfD1IBYX$cyrdFROWFSNTF7EJ5Trovx23qgljCQ7/oY/JCIiaAjc=",
         "last_login": null,
         "is_superuser": false,
-        "username": "John Doe",
+        "username": "JohnDoe",
         "email": "john@doe.com",
         "is_active": true,
         "is_staff": false,
