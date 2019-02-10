@@ -46,17 +46,6 @@ urlpatterns = [
          views.GameDetail.as_view(),
          name='game-detail'
     ),
-    # Profile
-    path(
-         'profiles/',
-         views.ProfileList.as_view(),
-         name='profile-list'
-    ),
-    path(
-         'profiles/<username>',
-         views.ProfileDetail.as_view(),
-         name='profile-detail'
-    ),
     # Player
     path(
          'players/',

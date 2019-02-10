@@ -37,9 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'game',            # game app
-    'rest_framework',  # django-rest-framework
-    'corsheaders'      # django-cors-headers
+    'rest_framework',       # django-rest-framework
+    'corsheaders',          # django-cors-headers
+    'django_extensions',    # python manage.py shell_plus
+    'authentication',       # custom authentication app
+    'profiles',              # user extension app
+    'game',                 # game app
 ]
 
 MIDDLEWARE = [
@@ -133,7 +136,12 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': (
         'rest_framework.parsers.JSONParser',
     ),
-    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'EXCEPTION_HANDLER': 'core.exceptions.core_exception_handler',
+    'NON_FIELD_ERRORS_KEY': 'error',    # Format ValidationError key in response
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'authentication.backends.JWTAuthentication',
+    ),
 }
 
 # Hosts allowed to make cross-site HTTP requests
@@ -156,3 +164,5 @@ CSRF_TRUSTED_ORIGINS = (
     'localhost:3000',
     '127.0.0.1:3000' # Set react port here
 )
+
+AUTH_USER_MODEL = 'authentication.User'

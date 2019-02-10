@@ -26,7 +26,7 @@ class Player(models.Model):
         buildings (ForeignKey <- PlayerBuilding): buildings
     """
     game = models.ForeignKey('Game', on_delete=models.CASCADE, related_name="players", editable=False)
-    profile = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name="players", editable=False)
+    profile = models.ForeignKey('profiles.Profile', on_delete=models.CASCADE, related_name="players", editable=False)
 
     def __str__(self):
         return "{0} (Game : {1})".format(self.username(), self.game.pk)
