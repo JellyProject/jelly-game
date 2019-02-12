@@ -10,6 +10,10 @@ from .profile import ProfileList, \
                      ProfileDetail
 from .player import PlayerList, \
                     PlayerDetail
+from .shadow_player import ShadowPlayerList, \
+                    ShadowPlayerDetail
+from .player_state import PlayerStateList, \
+                    PlayerStateDetail
 from .building import BuildingList, \
                       BuildingDetail
 from .technology import TechnologyList, \

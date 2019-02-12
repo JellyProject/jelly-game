@@ -8,10 +8,17 @@
     }
 },
 {
+    "model": "game.playerstate",
+    "pk": 1,
+    "fields": {
+        "_player": 1
+    }
+},
+{
     "model": "game.building",
     "pk": 1,
     "fields": {
-        "player": 1,
+        "state": 1,
         "slug": "usine",
         "unlocked": true,
         "copies": 0
@@ -21,7 +28,7 @@
     "model": "game.building",
     "pk": 2,
     "fields": {
-        "player": 1,
+        "state": 1,
         "slug": "usine-avancee",
         "unlocked": false,
         "copies": 0
@@ -31,7 +38,7 @@
     "model": "game.building",
     "pk": 3,
     "fields": {
-        "player": 1,
+        "state": 1,
         "slug": "centrale-thermique",
         "unlocked": true,
         "copies": 0
@@ -41,7 +48,7 @@
     "model": "game.technology",
     "pk": 1,
     "fields": {
-        "player": 1,
+        "state": 1,
         "slug": "taylorisme",
         "unlocked": true,
         "purchased": false
@@ -51,7 +58,7 @@
     "model": "game.balance",
     "pk": 1,
     "fields": {
-        "player": 1,
+        "state": 1,
         "economic": 50,
         "social": 50,
         "environmental": 100
@@ -61,7 +68,7 @@
     "model": "game.resources",
     "pk": 1,
     "fields": {
-        "player": 1,
+        "state": 1,
         "money": 10,
         "hydrocarbon": 0
     }
@@ -70,7 +77,7 @@
     "model": "game.production",
     "pk": 1,
     "fields": {
-        "player": 1,
+        "state": 1,
         "money": 0,
         "hydrocarbon": 1,
         "food": 0,

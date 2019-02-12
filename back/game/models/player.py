@@ -9,44 +9,27 @@ from .building import Building
 from .technology import Technology
 from .source_building import SourceBuilding
 from .source_technology import SourceTechnology
+from .player_state import PlayerState
 
 
 class Player(models.Model):
     """
     Player model
 
-    Fields :
-        game (Game) : ForeignKey link to the game in which the player plays
-        profile (Profile) : profile which controls the player
-
-        balance (OneToOneField <- Balance): player balance
-        resources (OneToOneField <- Resources): resources owned by the player
-        production (OneToOneField <- Production): player production at the beginning of each generation
-        technologies (ForeignKey <- PlayerTechnology): technologies
-        buildings (ForeignKey <- PlayerBuilding): buildings
+    New fields :
+        * game (Game) : ForeignKey link to the game in which the player plays
+        * profile (Profile) : profile which controls the player
+        * state (OneToOne <- PlayerState)
     """
     game = models.ForeignKey('Game', on_delete=models.CASCADE, related_name="players", editable=False)
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name="players", editable=False)
 
     def __str__(self):
-        return "{0} (Game : {1})".format(self.username(), self.game.pk)
+        return "{0} (Game : {1})".format(self.username, self.game.pk)
 
     def __eq__(self, other):
         return (self.game.id == other.game.id and
                 self.profile.id == other.profile.id)
-
-    def has_same_possessions(self, other):
-        if (self.balance != other.balance or
-           self.production != other.production or
-           self.resources != other.resources):
-            return False
-        for building in self.buildings.all():
-            if building != Building.objects.get(index=building.index, player=other):
-                return False
-        for technology in self.technologies.all():
-            if technology != Technology.objects.get(index=technology.index, player=other):
-                return False
-        return True
 
     @classmethod
     def create(cls, profile, game):
@@ -60,25 +43,39 @@ class Player(models.Model):
         # source_building = models.SourceBuilding.objects.all()[0]
         new_player = cls(game=game, profile=profile)
         new_player.save()  # Peut-on faire mieux ?
+        player_state = PlayerState.create(new_player)
 
-        Resources.objects.create(player=new_player)
-        Production.objects.create(player=new_player)
-        Balance.objects.create(player=new_player)
-
-        for source_building in game.source_buildings.all():
-            unlocked = (source_building.parent_technology is None)
-            Building.objects.create(player=new_player, slug=source_building.slug, unlocked=unlocked)
-
-        for source_technology in game.source_technologies.all():
-            unlocked = (source_technology.parent_technology is None)
-            Technology.objects.create(player=new_player, slug=source_technology.slug, unlocked=unlocked)
-
-        new_player.save()
         return new_player
 
+    @property
     def username(self):
         """ Return the username of this player. """
         return self.profile.user.username
+
+    @property
+    def resources(self):
+        """ Return the resources of this player. """
+        return self.state.resources
+
+    @property
+    def production(self):
+        """ Return the production of this player. """
+        return self.state.production
+
+    @property
+    def balance(self):
+        """ Return the balance of this player. """
+        return self.state.balance
+
+    @property
+    def buildings(self):
+        """ Return the buildings of this player. """
+        return self.state.buildings
+
+    @property
+    def technologies(self):
+        """ Return the technologies of this player. """
+        return self.state.technologies
 
     def earn_income(self):
         """
@@ -102,21 +99,7 @@ class Player(models.Model):
         self.balance.green_income()
 
     def purchase_building(self, slug):
-        """ Purchase the building with given slug if possible. If not, return an error string. """
-        building = self.buildings.get(slug=slug)
-        (is_purchasable, error_message) = building.is_purchasable()
-        if is_purchasable:
-            building.copies += 1
-            building.trigger_post_purchase_effects()
-            building.save()
-        return (building, error_message)
+        return self.state.purchase_building(slug)
 
     def purchase_technology(self, slug):
-        """ Purchase the technology with given slug if possible. If not, return an error string. """
-        technology = self.technologies.get(slug=slug)
-        (is_purchasable, error_message) = technology.is_purchasable()
-        if is_purchasable:
-            technology.purchased = True
-            technology.trigger_post_purchase_effects()
-            technology.save()
-        return (technology, error_message)
+        return self.state.purchase_technology(slug)
