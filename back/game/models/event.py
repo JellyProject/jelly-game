@@ -22,3 +22,6 @@ class Event(models.Model):
 
     def source(self):
         return self.game.source_events.get(pk=self.index)
+
+    def execute_effect(self):
+        self.source().execute_effect(self.game)

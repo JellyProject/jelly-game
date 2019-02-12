@@ -78,6 +78,9 @@ class Game(models.Model):
                                                  index=pile_index,
                                                  game=self)
 
+    def _create_event_deck(self):
+        pass
+
     def add_player(self, profile):
         """
         Adds a player in the game and updates the global hydrocarbon supplies accordingly
@@ -120,4 +123,7 @@ class Game(models.Model):
 
     def main_phase(self):
         """ Main phase """
+        pass
+
+    def event_phase(self):
         pass

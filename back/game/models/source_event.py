@@ -40,9 +40,7 @@ class SourceEvent(models.Model):
             for player in game.players.all():
                 social_balance = player.balance.social
                 if social_balance <= 30:
-                    player.balance.increase_economic(-20)
-                    player.save()
+                    player.balance.economic -= 20
                 elif social_balance <= 50:
-                    player.balance.increase_economic(-10)
-                    player.save()
-                print(player.balance.economic)
+                    player.balance.economic -= 10
+                player.balance.save()

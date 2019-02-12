@@ -6,7 +6,7 @@ from .. import game_settings as settings
 
 
 class EventTest(TestCase):
-    """ doc """
+    """ Testing events """
     fixtures = ['users', 'source_events']
 
     @classmethod
@@ -19,6 +19,7 @@ class EventTest(TestCase):
         pass
 
     def test_event_effect(self):
+        """ Testing the implementation of event effects """
         game = models.Game.objects.all()[0]
         john = models.Profile.objects.all()[0]
         event = models.SourceEvent.objects.get(slug='mouvements-sociaux')

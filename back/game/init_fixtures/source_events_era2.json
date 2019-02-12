@@ -1,0 +1,212 @@
+[
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Nouveau gisement",
+            "slug": "nouveau-gisement",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Fuites de décharges",
+            "slug": "fuites-de-décharges",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Déchets nucléaires",
+            "slug": "dechets-nucleaires",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Marée noire",
+            "slug": "maree-noire",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Boom démographique",
+            "slug": "boom-demographique",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Tensions internationales",
+            "slug": "tensions-internationales",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Aide internationale",
+            "slug": "aide-internationale",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Mouvements sociaux",
+            "slug": "mouvements-sociaux",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Sécheresse",
+            "slug": "secheresse",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Pollution des sols",
+            "slug": "pollution-des-sols",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Boom économique",
+            "slug": "boom-economique",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Mondialisation",
+            "slug": "mondialisation",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Réestimation des stocks",
+            "slug": "reestimation-des-stocks",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Black-out",
+            "slug": "black-out",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Explosion de dépôts pétroliers",
+            "slug": "explosion-de-depots-petroliers",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Elections présidentielles",
+            "slug": "elections-presidentielles",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Désertification",
+            "slug": "desertification",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Pollution de l'air",
+            "slug": "polution-de-l-air",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Canicule",
+            "slug": "canicule",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Crise économique",
+            "slug": "crise-economique",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Crise mondiale",
+            "slug": "",
+            "version": "jelly",
+            "era": 2,
+            "description": ""
+        }
+    }
+]
