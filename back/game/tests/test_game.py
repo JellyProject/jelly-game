@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from .. import models
 from .. import game_settings as settings
 
+
 class GameTest(TestCase):
     """ Testing the create class method and the _init_supply method """
     fixtures = ['users', 'source_technologies', 'source_buildings']

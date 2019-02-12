@@ -11,7 +11,7 @@ class Building(models.Model):
 
     Fields :
         player (ForeignKey -> Player) : The player who may own this technology.
-        index (int) : A unique index to link self to its source copy.
+        slug (string) : A unique name to link self to its source copy.
         unlocked (bool) : True -> The player has purchased the required technologies.
         copies (int) : Number of copies of self the player possesses.
     """
@@ -77,4 +77,3 @@ class Building(models.Model):
 
         # Execute self special effect.
         source.execute_special_effect()
-

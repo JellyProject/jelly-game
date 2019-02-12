@@ -5,16 +5,19 @@ from .. import game_settings as constant
 
 class SourceEvent(models.Model):
     """
-            Source event model.
+    Source event model.
 
-            Fields :
-                name (char) : A unique human-readable name.
-                slug (char) : A simple and unique string to identify self.
-                version (char) : The game version self belongs to.
-                era (char) : The era self belongs to.
-                description (text) : A human-readable description of self.
-        """
-    ''' Characteristics '''
+    Fields :
+        * name (char) : A unique human-readable name.
+        * slug (char) : A simple and unique string to identify self.
+        * version (char) : The game version self belongs to.
+        * era (char) : The era self belongs to.
+        * description (text) : A human-readable description of self.
+    """
+    effect_events = {
+        "mouvements-sociaux": "mouvements_sociaux"
+    }
+
     name = models.CharField(max_length=40, default='Sunny day', editable=False)
     slug = models.CharField(max_length=40, default='sunny-day', editable=False)
     version = models.CharField(max_length=20, default='jelly', editable=False)
@@ -23,3 +26,23 @@ class SourceEvent(models.Model):
 
     def __str__(self):
         return "{0} (Version : {1})".format(self.name, self.version)
+
+    def execute_effect(self, game):
+        '''
+            Call a callback function for buildings with a special effect
+        '''
+        method_prefix = self.effect_events.get(self.slug, "no_special_effect")
+        if method_prefix != "no_special_effect":
+            exec("self." + method_prefix + "_effect(game)")
+
+    def mouvements_sociaux_effect(self, game):
+        if self.version == 'jelly':
+            for player in game.players.all():
+                social_balance = player.balance.social
+                if social_balance <= 30:
+                    player.balance.increase_economic(-20)
+                    player.save()
+                elif social_balance <= 50:
+                    player.balance.increase_economic(-10)
+                    player.save()
+                print(player.balance.economic)
