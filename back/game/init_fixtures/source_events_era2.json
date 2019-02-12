@@ -208,5 +208,16 @@
             "era": 2,
             "description": ""
         }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Dernier tour",
+            "slug": "dernier-tour",
+            "version": "jelly",
+            "era": 2,
+            "is_final": true,
+            "description": ""
+        }
     }
 ]

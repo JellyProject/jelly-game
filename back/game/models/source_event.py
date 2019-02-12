@@ -13,6 +13,7 @@ class SourceEvent(models.Model):
         * version (char) : The game version self belongs to.
         * era (char) : The era self belongs to.
         * description (text) : A human-readable description of self.
+        * is_final (bool) : Tell it is a final event 
     """
     effect_events = {
         "mouvements-sociaux": "mouvements_sociaux"
@@ -23,6 +24,7 @@ class SourceEvent(models.Model):
     version = models.CharField(max_length=20, default='jelly', editable=False)
     era = models.IntegerField(default=1, editable=False)
     description = models.TextField(default='There is nothing to report.', editable=False)
+    is_final = models.BooleanField(default=False, editable=False)
 
     def __str__(self):
         return "{0} (Version : {1})".format(self.name, self.version)

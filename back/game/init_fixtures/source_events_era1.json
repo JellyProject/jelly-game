@@ -68,5 +68,38 @@
             "era": 1,
             "description": ""
         }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Découverte du radium",
+            "slug": "decouverte-du-radium",
+            "version": "jelly",
+            "era": 1,
+            "is_final": true,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Guerre mondiale",
+            "slug": "guerre-mondiale",
+            "version": "jelly",
+            "era": 1,
+            "is_final": true,
+            "description": ""
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Les trente glorieuses",
+            "slug": "les-trente-glorieuses",
+            "version": "jelly",
+            "era": 1,
+            "is_final": true,
+            "description": ""
+        }
     }
 ]
