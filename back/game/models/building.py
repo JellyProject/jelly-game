@@ -14,12 +14,14 @@ class Building(models.Model):
         * index (int) : A unique index to link self to its source copy.
         * unlocked (bool) : True -> The player has purchased the required technologies.
         * copies (int) : Number of copies of self the player possesses.
+        * quantity_cap (int) : The maximal number of buildings of this type purchasable
     """
     state = models.ForeignKey('PlayerState', on_delete=models.CASCADE, related_name='buildings', editable=False)
     slug = models.CharField(max_length=40, default='old-mansion', editable=False)
     unlocked = models.BooleanField(default=False)
     copies = models.IntegerField(default=0)
-
+    quantity_cap = models.IntegerField(default=0)
+    
     def __str__(self):
         return "{0} (Game : {1}, Player : {2})".format(self.source().name,
                                                        self.player.game.pk,
@@ -53,6 +55,8 @@ class Building(models.Model):
         # Cost check
         if source.cost > self.player.resources.money:
             return (False, "Fonds insuffisants")
+        if self.copies >= self.quantity_cap:
+            return (False, "Nombre maximal de bâtiments constructibles atteints")
         return (True, "")
 
     def trigger_post_purchase_effects(self):

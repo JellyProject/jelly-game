@@ -8,6 +8,8 @@
         "era": 1,
         "cost": 3,
         "description": "Une simple usine de production.",
+        "parent_technology": 2,
+        "initial_quantity_cap": 5,
         "money_modifier": 2,
         "hydrocarbon_modifier": -2,
         "pollution_modifier": 1
@@ -23,11 +25,30 @@
         "cost": 5,
         "description": "Une usine de rendement supérieur. Plus de production, plus de pollution.",
         "parent_technology": 1,
+        "initial_quantity_cap": 5,
         "money_modifier": 3,
         "hydrocarbon_modifier": -4,
         "pollution_modifier": 2,
         "waste_modifier": 1,
         "economic_modifier": 1
+    }
+},
+{
+    "model": "game.sourcebuilding",
+    "fields": {
+        "name": "Mine de charbon",
+        "slug": "mine-de-charbon",
+        "version": "jelly",
+        "era": 1,
+        "cost": 5,
+        "description": "Une mine de charbon.",
+        "parent_technology": 2,
+        "initial_quantity_cap": 5,
+        "money_modifier": 0,
+        "hydrocarbon_modifier": 0,
+        "pollution_modifier": 0,
+        "waste_modifier": 0,
+        "economic_modifier": 0
     }
 },
 {
@@ -39,6 +60,7 @@
         "era": 1,
         "cost": 8,
         "description": "Une usine électrique standard.",
+        "initial_quantity_cap": 5,
         "hydrocarbon_modifier": 4,
         "pollution_modifier": 1
     }
@@ -52,6 +74,8 @@
         "era": 1,
         "cost": 5,
         "description": "A rather plain building.",
+        "parent_technology": 2,
+        "initial_quantity_cap": 5,
         "money_modifier": 2,
         "hydrocarbon_modifier": -2,
         "food_modifier": 1,
@@ -69,6 +93,7 @@
         "era": 1,
         "cost": 5,
         "description": "A rather plain building.",
+        "initial_quantity_cap": 5,
         "electricity_modifier": 0,
         "pollution_modifier": 1,
         "waste_modifier": -2
@@ -83,6 +108,8 @@
         "era": 1,
         "cost": 4,
         "description": "A rather plain building.",
+        "parent_technology": 3,
+        "initial_quantity_cap": 5,
         "hydrocarbon_modifier": 1
     }
 },
@@ -94,7 +121,8 @@
         "version": "jelly",
         "era": 1,
         "cost": 2,
-        "description": "Ne fait rien pour l'instant"
+        "description": "Ne fait rien pour l'instant",
+        "initial_quantity_cap": 5
     }
 },
 {
@@ -105,7 +133,8 @@
         "version": "jelly",
         "era": 1,
         "cost": 3,
-        "description": "Ne fait pas grand-chose non plus."
+        "description": "Ne fait pas grand-chose non plus.",
+        "initial_quantity_cap": 5
     }
 }
 ]
