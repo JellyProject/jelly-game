@@ -14,6 +14,7 @@ class SourceBuilding(models.Model):
             * era (char) : The era self belongs to.
             * cost (int) : Money needed for purchase.
             * description (text) : A human-readable description.
+            * quantity_cap (int) : The maximal number of buildings of this type purchasable
             * parent_technology (OneToOne -> SourceTechnology) : A technology required before self may be purchased..
             * money_modifier, hydrocarbon_modifier, food_modifier, electricity_modifier, pollution_modifier,
             * waste_modifier (int) : Production modifiers.
@@ -34,6 +35,7 @@ class SourceBuilding(models.Model):
     cost = models.IntegerField(default=1, editable=False)
     parent_technology = models.OneToOneField('SourceTechnology', on_delete=models.SET_NULL, null=True,
                                              related_name='child_building', editable=False)
+    quantity_cap = models.IntegerField(default=1, editable=False)
 
     ''' Production modifiers '''
     money_modifier = models.IntegerField(default=0, editable=False)
