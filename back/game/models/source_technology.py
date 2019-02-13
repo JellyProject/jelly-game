@@ -21,6 +21,7 @@ class SourceTechnology(models.Model):
     """
     special_effect_technologies = {
         "industrialisation-massive" = "industrialisation_massive"
+        "specialisation-de-la-production" = "specialisation_de_la_production"
     }
 
     ''' Characteristics '''
@@ -68,4 +69,10 @@ class SourceTechnology(models.Model):
             mine = player.buildings.get(slug="mine-de-charbon")
             mine.quantity_cap = math.inf
 
-    
+    def specialisation_de_la_production_special_effect(self, player)
+        if self.version == "jelly":
+            usine_avancee = player.buildings.get(slug="usine-avancee")
+            usine_avancee.quantity_cap = math.inf
+            raffinerie = player.buildings.get(slug="raffinerie")
+            raffinerie.quantity_cap = math.inf
+

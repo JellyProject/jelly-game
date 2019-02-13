@@ -85,7 +85,7 @@
         "slug": "specialisation-de-la-production",
         "version": "jelly",
         "era": 1,
-        "description": "Les usines avancées et les raffineries ne sont plus limitées en nombre",
+        "description": "Permet de diversifier les modes de production",
         "cost": 0,
         "parent_technology": 2,
         "economic_modifier": 0,
