@@ -7,4 +7,4 @@ class TechnologySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Technology
-        fields = ('unlocked', 'slug', 'purchased', 'player')
+        fields = ('unlocked', 'slug', 'purchased', 'state')

@@ -8,25 +8,25 @@ class TechnologyList(generics.ListAPIView):
     """
      * Resource : set of technologies with given player.
      * Supported HTTP verbs : GET.
-     * Related URI : api/players/<player_pk>/technologies
+     * Related URI : api/player-states/<player_state_pk>/technologies
     """
     serializer_class = serializers.TechnologySerializer
 
     def get_queryset(self):
-        return models.Technology.objects.filter(player__pk=self.kwargs['player_pk'])
+        return models.Technology.objects.filter(state__pk=self.kwargs['player_state_pk'])
 
 
 class TechnologyDetail(generics.RetrieveUpdateAPIView):
     """
      * Resource : technology with given player and slug.
      * Supported HTTP verbs : GET, PUT, PATCH.
-     * Related URI : api/players/<player_pk>/technologies/<slug>
+     * Related URI : api/player-states/<player_state_pk>/technologies/<slug>
     """
     serializer_class = serializers.TechnologySerializer
-    lookup_field='slug'
+    lookup_field = 'slug'
 
     def get_queryset(self):
-        return models.Technology.objects.filter(player__pk=self.kwargs['player_pk'])
+        return models.Technology.objects.filter(state__pk=self.kwargs['player_state_pk'])
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()

@@ -2,6 +2,7 @@ from .. import models
 from .. import serializers
 from rest_framework import generics
 
+
 class GameList(generics.ListAPIView):
     """
     This view provides a `list` action with read_only enabled to the whole set of games.
