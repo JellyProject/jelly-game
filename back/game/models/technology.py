@@ -8,12 +8,12 @@ class Technology(models.Model):
     Technology model
 
     Fields :
-        player (ForeignKey -> Player) : The player who may own this technology.
-        index (int) : A unique index to link this technology to a source technology.
-        unlocked (bool) : True -> This technology may be purchased by the player.
-        purchased (bool) : True -> This technology has been purchased by the player.
+        * state (OneToOne -> PlayerState) : global state of the player related to the balance
+        * index (int) : A unique index to link this technology to a source technology.
+        * unlocked (bool) : True -> This technology may be purchased by the player.
+        * purchased (bool) : True -> This technology has been purchased by the player.
     """
-    player = models.ForeignKey('Player', on_delete=models.CASCADE, related_name='technologies', editable=False)
+    state = models.ForeignKey('PlayerState', on_delete=models.CASCADE, related_name='technologies', editable=False)
     slug = models.CharField(max_length=40, default='fire-discovery', editable=False)
     unlocked = models.BooleanField(default=False)
     purchased = models.BooleanField(default=False)
@@ -21,7 +21,7 @@ class Technology(models.Model):
     def __str__(self):
         return "{0} (Game : {1}, Player : {2})".format(self.source().name,
                                                        self.player.game.pk,
-                                                       self.player.username())
+                                                       self.player.pk)
 
     class Meta:
         verbose_name = "Technology"
@@ -32,6 +32,10 @@ class Technology(models.Model):
                 self.slug == other.slug and
                 self.unlocked == other.unlocked and
                 self.purchased == other.purchased)
+
+    @property
+    def player(self):
+        return self.state.player
 
     def source(self):
         return self.player.game.source_technologies.get(slug=self.slug)
@@ -52,7 +56,7 @@ class Technology(models.Model):
         if source.cost > self.player.resources.money:
             return (False, "Fonds insuffisants.")
         # Has been purchased check
-        if self.purchased == True:
+        if self.purchased:
             return (False, "Technologie déjà acquise.")
         return (True, "")
 

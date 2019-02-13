@@ -10,12 +10,12 @@ class Building(models.Model):
     Building model
 
     Fields :
-        player (ForeignKey -> Player) : The player who may own this technology.
-        index (int) : A unique index to link self to its source copy.
-        unlocked (bool) : True -> The player has purchased the required technologies.
-        copies (int) : Number of copies of self the player possesses.
+        * state (OneToOne -> PlayerState) : global state of the player related to the balance
+        * index (int) : A unique index to link self to its source copy.
+        * unlocked (bool) : True -> The player has purchased the required technologies.
+        * copies (int) : Number of copies of self the player possesses.
     """
-    player = models.ForeignKey('Player', on_delete=models.CASCADE, related_name='buildings', editable=False)
+    state = models.ForeignKey('PlayerState', on_delete=models.CASCADE, related_name='buildings', editable=False)
     slug = models.CharField(max_length=40, default='old-mansion', editable=False)
     unlocked = models.BooleanField(default=False)
     copies = models.IntegerField(default=0)
@@ -23,7 +23,7 @@ class Building(models.Model):
     def __str__(self):
         return "{0} (Game : {1}, Player : {2})".format(self.source().name,
                                                        self.player.game.pk,
-                                                       self.player.username())
+                                                       self.player.pk)
 
     def __eq__(self, other):
         return (self.player.id == other.player.id and
@@ -31,8 +31,12 @@ class Building(models.Model):
                 self.unlocked == other.unlocked and
                 self.copies == other.copies)
 
+    @property
+    def player(self):
+        return self.state.player
+
     def source(self):
-        return self.player.game.source_buildings.get(slug=self.slug)
+        return self.state.player.game.source_buildings.get(slug=self.slug)
 
     def is_purchasable(self):
         """
@@ -77,4 +81,3 @@ class Building(models.Model):
 
         # Execute self special effect.
         source.execute_special_effect()
-
