@@ -1,7 +1,7 @@
 from django.db import models
 
 from .. import game_settings as constant
-
+import math
 
 class SourceTechnology(models.Model):
     """
@@ -20,6 +20,7 @@ class SourceTechnology(models.Model):
             economic_modifier, social_modifier, environmental_modifier (int) : Balance modifiers.
     """
     special_effect_technologies = {
+        "industrialisation-massive" = "industrialisation_massive"
     }
 
     ''' Characteristics '''
@@ -52,10 +53,17 @@ class SourceTechnology(models.Model):
         verbose_name = "Source technology"
         verbose_name_plural = "Source technologies"
 
-    def execute_special_effect(self):
+    def execute_special_effect(self, player):
         '''
             Call a callback function for technologies with a special effect
         '''
         method_prefix = self.special_effect_technologies.get(self.slug, "no_special_effect")
         if method_prefix != "no_special_effect":
-            exec("self." + method_prefix + "_special_effect(self.version)")
+            exec("self." + method_prefix + "_special_effect(player)")
+
+    def industrialisation_massive_special_effect(self, player):
+        if self.version == "jelly":
+            usine = player.buildings.get(slug="usine")
+            usine.quantity_cap = math.inf
+            mine = player.buildings.get(slug="mine-de-charbon")
+            mine.quantity_cap = math.inf

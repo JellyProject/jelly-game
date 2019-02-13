@@ -35,7 +35,7 @@ class SourceBuilding(models.Model):
     cost = models.IntegerField(default=1, editable=False)
     parent_technology = models.OneToOneField('SourceTechnology', on_delete=models.SET_NULL, null=True,
                                              related_name='child_building', editable=False)
-    quantity_cap = models.IntegerField(default=1, editable=False)
+    initial_quantity_cap = models.IntegerField(default=1, editable=False)
 
     ''' Production modifiers '''
     money_modifier = models.IntegerField(default=0, editable=False)
