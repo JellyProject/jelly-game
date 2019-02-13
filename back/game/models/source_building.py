@@ -14,8 +14,8 @@ class SourceBuilding(models.Model):
             * era (char) : The era self belongs to.
             * cost (int) : Money needed for purchase.
             * description (text) : A human-readable description.
-            * quantity_cap (int) : The maximal number of buildings of this type purchasable
             * parent_technology (OneToOne -> SourceTechnology) : A technology required before self may be purchased..
+            * initial_quantity_cap (int) : The maximal number of buildings of this type purchasable at the beginning
             * money_modifier, hydrocarbon_modifier, food_modifier, electricity_modifier, pollution_modifier,
             * waste_modifier (int) : Production modifiers.
             * economic_modifier, social_modifier, environmental_modifier (int) : Balance modifiers.

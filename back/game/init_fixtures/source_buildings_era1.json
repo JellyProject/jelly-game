@@ -8,7 +8,7 @@
         "era": 1,
         "cost": 3,
         "description": "Une simple usine de production.",
-        "parent_technology": 3,
+        "parent_technology": 2,
         "initial_quantity_cap": 5,
         "money_modifier": 2,
         "hydrocarbon_modifier": -2,
@@ -74,6 +74,7 @@
         "era": 1,
         "cost": 5,
         "description": "A rather plain building.",
+        "parent_technology": 2,
         "initial_quantity_cap": 5,
         "money_modifier": 2,
         "hydrocarbon_modifier": -2,
@@ -107,6 +108,7 @@
         "era": 1,
         "cost": 4,
         "description": "A rather plain building.",
+        "parent_technology": 3,
         "initial_quantity_cap": 5,
         "hydrocarbon_modifier": 1
     }

@@ -67,3 +67,5 @@ class SourceTechnology(models.Model):
             usine.quantity_cap = math.inf
             mine = player.buildings.get(slug="mine-de-charbon")
             mine.quantity_cap = math.inf
+
+    

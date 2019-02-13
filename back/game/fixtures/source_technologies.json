@@ -14,4 +14,131 @@
         "environmental_modifier": 0
     }
 }
+{
+    "model": "game.sourcetechnology",
+    "pk": 2,
+    "fields": {
+        "name": "Technologie initiale",
+        "slug": "technologie-initiale",
+        "version": "jelly",
+        "era": 1,
+        "description": "Permet la construction de mines de charbon et d'usines, en nombre maximum limité",
+        "cost": 0,
+        "economic_modifier": 0,
+        "social_modifier": 0,
+        "environmental_modifier": 0
+    }
+},
+{
+    "model": "game.sourcetechnology",
+    "pk": 3,
+    "fields": {
+        "name": "Pétrole",
+        "slug": "petrole",
+        "version": "jelly",
+        "era": 1,
+        "description": "Permet la construction de raffineries et d'usines avancées, en nombre maximum limité",
+        "cost": 0,
+        "parent_technology": 2,
+        "economic_modifier": 0,
+        "social_modifier": 0,
+        "environmental_modifier": 0
+    }
+},
+{
+    "model": "game.sourcetechnology",
+    "pk": 4,
+    "fields": {
+        "name": "Industrialisation massive",
+        "slug": "industrialisation-massive",
+        "version": "jelly",
+        "era": 1,
+        "description": "Les mines de charbon et d'usines ne sont plus limitées en nombre",
+        "cost": 0,
+        "parent_technology": 2,
+        "economic_modifier": 0,
+        "social_modifier": 0,
+        "environmental_modifier": 0
+    }
+}
+{
+    "model": "game.sourcetechnology",
+    "pk": 5,
+    "fields": {
+        "name": "Efficacité pétrolifère",
+        "slug": "efficacite-petrolifere",
+        "version": "jelly",
+        "era": 1,
+        "description": "Les usines avancées et les raffineries ne sont plus limitées en nombre",
+        "cost": 0,
+        "parent_technology": 3,
+        "economic_modifier": 0,
+        "social_modifier": 0,
+        "environmental_modifier": 0
+    }
+}
+{
+    "model": "game.sourcetechnology",
+    "pk": 6,
+    "fields": {
+        "name": "Spécialisation de la production",
+        "slug": "specialisation-de-la-production",
+        "version": "jelly",
+        "era": 1,
+        "description": "Les usines avancées et les raffineries ne sont plus limitées en nombre",
+        "cost": 0,
+        "parent_technology": 2,
+        "economic_modifier": 0,
+        "social_modifier": 0,
+        "environmental_modifier": 0
+    }
+}
+{
+    "model": "game.sourcetechnology",
+    "pk": 7,
+    "fields": {
+        "name": "Développement de l'agriculture",
+        "slug": "developpement-de-l-agriculture",
+        "version": "jelly",
+        "era": 1,
+        "description": "L'agriculture mécanisée et les usines alimentaires sont disponibles",
+        "cost": 0,
+        "parent_technology": 6,
+        "economic_modifier": 0,
+        "social_modifier": 0,
+        "environmental_modifier": 0
+    }
+}
+{
+    "model": "game.sourcetechnology",
+    "pk": 8,
+    "fields": {
+        "name": "Sidérurgie",
+        "slug": "siderurgie",
+        "version": "jelly",
+        "era": 1,
+        "description": "L'agriculture mécanisée et les usines alimentaires sont disponibles",
+        "cost": 0,
+        "parent_technology": 6,
+        "economic_modifier": 0,
+        "social_modifier": 0,
+        "environmental_modifier": 0
+    }
+}
+{
+    "model": "game.sourcetechnology",
+    "pk": 9,
+    "fields": {
+        "name": "Coton",
+        "slug": "siderurgie",
+        "version": "jelly",
+        "era": 1,
+        "description": "La production d'usines à coton est disponible",
+        "cost": 0,
+        "parent_technology": 6,
+        "economic_modifier": 0,
+        "social_modifier": 0,
+        "environmental_modifier": 0
+    }
+}
 ]
