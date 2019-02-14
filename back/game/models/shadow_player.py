@@ -43,3 +43,6 @@ class ShadowPlayer(models.Model):
 
     def purchase_technology(self, slug):
         return self.state.purchase_technology(slug)
+
+    def recover(self, player):
+        self.state = player.state

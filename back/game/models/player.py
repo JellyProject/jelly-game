@@ -103,3 +103,6 @@ class Player(models.Model):
 
     def purchase_technology(self, slug):
         return self.state.purchase_technology(slug)
+
+    def clonage(self, shadow_player):
+        self.state = shadow_player.state

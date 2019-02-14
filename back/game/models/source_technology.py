@@ -21,7 +21,7 @@ class SourceTechnology(models.Model):
     """
     special_effect_technologies = {
         "industrialisation-massive" = "industrialisation_massive"
-        "specialisation-de-la-production" = "specialisation_de_la_production"
+        "efficacite-petrolifere" = "efficacite_petrolifere"
     }
 
     ''' Characteristics '''
