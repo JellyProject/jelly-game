@@ -18,6 +18,9 @@ class EventTest(TestCase):
     def setUp(self):
         pass
 
+    def test_event_creation(self):
+        pass
+
     def test_event_effect(self):
         """ Testing the implementation of event effects """
         game = models.Game.objects.all()[0]
@@ -25,3 +28,4 @@ class EventTest(TestCase):
         event = models.SourceEvent.objects.get(slug='mouvements-sociaux')
         event.execute_effect(game)
         self.assertEqual(john.players.all()[0].balance.economic, 40)
+

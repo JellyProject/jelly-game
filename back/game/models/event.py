@@ -13,15 +13,12 @@ class Event(models.Model):
         * index (int) : index of this event in the 'event deck'
     """
     game = models.ForeignKey('Game', on_delete=models.CASCADE, related_name="events", editable=False)
-    source = models.OneToOneField('SourceEvent', on_delete=models.SET_NULL)
+    source = models.OneToOneField('SourceEvent', null=True, on_delete=models.SET_NULL)
 
     index = models.IntegerField(default=0, editable=False)
 
     def __str__(self):
-        return "{0} (Game : {1})".format(self.source.name(), self.game.name)
-
-    def source(self):
-        return self.game.source_events.get(pk=self.index)
+        return "{0} (Game : {1})".format(self.source.name, self.game.pk)
 
     def execute_effect(self):
-        self.source().execute_effect(self.game)
+        self.source.execute_effect(self.game)
