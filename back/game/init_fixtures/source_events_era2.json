@@ -173,7 +173,7 @@
         "model": "game.sourceevent",
         "fields": {
             "name": "Pollution de l'air",
-            "slug": "polution-de-l-air",
+            "slug": "pollution-de-l-air",
             "version": "jelly",
             "era": 2,
             "description": ""
@@ -203,7 +203,7 @@
         "model": "game.sourceevent",
         "fields": {
             "name": "Crise mondiale",
-            "slug": "",
+            "slug": "crise-mondiale",
             "version": "jelly",
             "era": 2,
             "description": ""

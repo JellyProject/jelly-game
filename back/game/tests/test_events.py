@@ -25,7 +25,6 @@ class EventTest(TestCase):
         """ Testing the implementation of event effects """
         game = models.Game.objects.all()[0]
         john = models.Profile.objects.all()[0]
-        event = models.SourceEvent.objects.get(slug='mouvements-sociaux')
+        event = models.SourceEvent.objects.get(slug='mouvements-sociaux', era=1)
         event.execute_effect(game)
         self.assertEqual(john.players.all()[0].balance.economic, 40)
-

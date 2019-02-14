@@ -24,7 +24,29 @@ class SourceEvent(models.Model):
         "tensions-internationales": "tensions_internationales",
         "decouverte-du-radium": "decouverte_du_radium",
         "guerre-mondiale": "guerre_mondiale",
-        "les-trente-glorieuses": "les_trente_glorieuses"
+        "les-trente-glorieuses": "les_trente_glorieuses",
+        "nouveau-gisement": "nouveau_gisement",
+        "fuites-de-décharges": "fuites_de_decharges",
+        "dechets-nucleaires": "dechets_nucleaires",
+        "maree-noire": "maree_noire",
+        "boom-demographique": "boom_demographique",
+        "tensions-internationales": "tensions_internationales",
+        "aide-internationale": "aide_internationale",
+        "mouvements-sociaux": "mouvements_sociaux",
+        "secheresse": "secheresse",
+        "pollution-des-sols": "pollution_des_sols",
+        "boom-economique": "boom_economique",
+        "mondialisation": "mondialisation",
+        "reestimation-des-stocks": "reestimation_des_stocks",
+        "black-out": "black_out",
+        "explosion-de-depots-petroliers": "explosion_de_depots_petroliers",
+        "elections-presidentielles": "elections_presidentielles",
+        "desertification": "desertification",
+        "pollution-de-l-air": "pollution_de_l_air",
+        "canicule": "canicule",
+        "crise-economique": "crise_economique",
+        "crise-mondiale": "crise_mondiale",
+        "dernier-tour": "dernier_tour"
     }
 
     name = models.CharField(max_length=40, default='Sunny day', editable=False)
@@ -110,11 +132,14 @@ class SourceEvent(models.Model):
 
     def nouveau_gisement_effect(self, game):
         """
-        Rien pour l'instant
+        +2 hydrocarbures par joueur dans la pile courante
         """
-        pass
+        if self.version == "jelly":
+            current_pile = game.hydrocarbon_piles.get(index=game.current_index_pile)
+            current_pile.stock_amount += 2 * len(game.players.all())
+            current_pile.save()
 
-    # def tensions_internationales_effect(self, game): # A ajouter plus tard 
+    # def tensions_internationales_effect(self, game): # A ajouter plus tard quand il y aura les importations
 
     def boom_demographique_effect(self, game):
         """
@@ -126,11 +151,18 @@ class SourceEvent(models.Model):
                 player.production.save()
 
     def decouverte_du_radium(self, game):
-        """ Chaque joueur gagne 1 point de production d'électricité """
+        """
+        Chaque joueur gagne 1 point de production d'électricité
+
+        Passage à l'ère 2
+        """
         if self.version == "jelly":
             for player in game.players.all():
                 player.production.electricity += 1
                 player.production.save()
+
+        game.era = 2
+        game.save()
 
     def guerre_mondiale(self, game):
         """
@@ -140,6 +172,8 @@ class SourceEvent(models.Model):
             * -10 en économie et -20 en social si <= 40
 
         +1 de production de nourriture pour chaque joueur
+
+        Passage à l'ère 2
         """
         if self.version == "jelly":
             for player in game.players.all():
@@ -158,9 +192,111 @@ class SourceEvent(models.Model):
                     player.balance.economic -= 10
                 player.balance.save()
 
+        game.era = 2
+        game.save()
+
     def les_trente_glorieuses(self, game):
-        """ Chaque joueur gagne 10 point d'économie """
+        """
+        Chaque joueur gagne 10 point d'économie
+
+        Passage à l'ère 2
+        """
         if self.version == "jelly":
             for player in game.players.all():
                 player.balance.economic += 10
                 player.balance.save()
+
+        game.era = 2
+        game.save()
+
+    def nouveau_gisement_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def fuites_de_decharges_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def dechets_nucleaires_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def maree_noire_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def boom_demographique_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    # def tensions_internationales_effect(self, game): # A ajouter plus tard quand il y aura les importations
+
+    def aide_internationale_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def mouvements_sociaux_bis_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def secheresse_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def pollution_des_sols_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def boom_economique_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def mondialisation_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def reestimation_des_stocks_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def black_out_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def explosion_de_depots_petroliers_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def elections_presidentielle_effect(self, game):
+        """
+        doc
+        """
+        pass

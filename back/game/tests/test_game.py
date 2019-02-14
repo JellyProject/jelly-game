@@ -7,7 +7,7 @@ from .. import game_settings as settings
 
 class GameTest(TestCase):
     """ Testing the create class method and the _init_supply method """
-    fixtures = ['users', 'source_technologies', 'source_buildings']
+    fixtures = ['users', 'source_technologies', 'source_buildings', 'source_events']
 
     @classmethod
     def setUpTestData(cls):

@@ -3,9 +3,10 @@ from django.test import TestCase
 from .. import models
 from .. import game_settings as settings
 
+
 class RulesTest(TestCase):
     """ Tests on the Building class """
-    fixtures = ['users', 'source_technologies', 'source_buildings']
+    fixtures = ['users', 'source_technologies', 'source_buildings', 'source_events']
 
     @classmethod
     def setUpTestData(cls):

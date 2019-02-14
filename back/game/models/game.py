@@ -19,9 +19,9 @@ class Game(models.Model):
     Fields :
         * name (string) : name of the game
         * current_index_pile (int) : index of the current hydrocarbon pile in which players take ressources
-        * source_events :
-        * source_buildings :
-        * source_technologies :
+        * source_events (ManyToMany -> SourceEvent):
+        * source_buildings (ManyToMany -> SourceBuilding):
+        * source_technologies (ManyToMany -> SourceTechnology):
 
         * players (ForeignKey <- Player) : query set of players in the game
         * hydrocarbon_piles (ForeignKey <- HydrocarbonSupplyPile) : query set of hydrocarbon supply piles in the game
@@ -75,7 +75,6 @@ class Game(models.Model):
     def _init_source_events(self):
         """ Links the game to its version source events. """
         version_source_events = SourceEvent.objects.filter(version=self.version)
-        print(SourceEvent.objects.all())
         for version_source_event in version_source_events:
             self.source_events.add(version_source_event)
 
@@ -104,6 +103,7 @@ class Game(models.Model):
             era_source_events.remove(rand_event)
         # Second part
         while deck_size < constant.EVENT_DECK_MAX_SIZE['era' + str(era)]:
+            print(len(era_source_events), deck_size)
             rand_event = era_source_events[random.randint(0, len(era_source_events) - 1)]
             # If the last event is not final
             if (not rand_event.is_final) and (deck_size == constant.EVENT_DECK_MAX_SIZE['era' + str(era)] - 1):
