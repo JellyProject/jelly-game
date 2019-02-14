@@ -26,15 +26,17 @@ class GameTest(TestCase):
         for i_pile in range(number_of_piles):
             self.assertEqual(0, game.hydrocarbon_piles.get(index=i_pile).stock_amount)
 
-        # Events initialization test [TO DO]
-
         # Source buildings loading test
         version_source_buildings = models.SourceBuilding.objects.filter(version=game.version)
         self.assertEqual(version_source_buildings.count(), game.source_buildings.count())
         for version_source_building in version_source_buildings:
             self.assertEqual(version_source_building, game.source_buildings.get(slug=version_source_building.slug))
 
-        # Source events loading test [TO DO]
+        # Source events loading test
+        version_source_events = models.SourceEvent.objects.filter(version=game.version)
+        self.assertEqual(version_source_events.count(), game.source_events.count())
+        for version_source_event in version_source_events:
+            self.assertEqual(version_source_event, game.source_events.get(slug=version_source_event.slug))
 
         # Source technologies loading test
         version_source_technologies = models.SourceTechnology.objects.filter(version=game.version)
@@ -42,6 +44,10 @@ class GameTest(TestCase):
         for version_source_technology in version_source_technologies:
             self.assertEqual(version_source_technology,
                              game.source_technologies.get(slug=version_source_technology.slug))
+
+        # Events initialization test
+        self.assertTrue(game.events.count() >= (settings.EVENT_DECK_MIN_SIZE['era1'] + settings.EVENT_DECK_MIN_SIZE['era1']))
+        self.assertTrue(game.events.count() <= (settings.EVENT_DECK_MAX_SIZE['era1'] + settings.EVENT_DECK_MAX_SIZE['era1']))
 
     def test_add_player(self):
         """ Test the add_player method """

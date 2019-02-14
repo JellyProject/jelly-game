@@ -92,8 +92,7 @@ class Game(models.Model):
         era_source_events = list(SourceEvent.objects.filter(era=era))
         deck_size = 0
         # First part
-        while deck_size < constant.EVENT_DECK_MIN_SIZE['era' + str(era)]:
-            print(len(era_source_events), deck_size)
+        while deck_size < constant.EVENT_DECK_MIN_SIZE['era' + str(era)] - 1:
             rand_event = era_source_events[random.randint(0, len(era_source_events) - 1)]
             if rand_event.is_final:
                 continue
@@ -103,7 +102,6 @@ class Game(models.Model):
             era_source_events.remove(rand_event)
         # Second part
         while deck_size < constant.EVENT_DECK_MAX_SIZE['era' + str(era)]:
-            print(len(era_source_events), deck_size)
             rand_event = era_source_events[random.randint(0, len(era_source_events) - 1)]
             # If the last event is not final
             if (not rand_event.is_final) and (deck_size == constant.EVENT_DECK_MAX_SIZE['era' + str(era)] - 1):

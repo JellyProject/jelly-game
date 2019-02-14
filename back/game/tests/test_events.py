@@ -18,9 +18,6 @@ class EventTest(TestCase):
     def setUp(self):
         pass
 
-    def test_event_creation(self):
-        pass
-
     def test_event_effect(self):
         """ Testing the implementation of event effects """
         game = models.Game.objects.all()[0]

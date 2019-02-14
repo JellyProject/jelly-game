@@ -21,18 +21,18 @@ class SourceEvent(models.Model):
         "crise-economique": "crise_economique",
         "crise-mondiale": "crise_mondiale",
         "nouveau-gisement": "nouveau_gisement",
-        "tensions-internationales": "tensions_internationales",
+        "boom-demographique": "boom_demographique",
         "decouverte-du-radium": "decouverte_du_radium",
         "guerre-mondiale": "guerre_mondiale",
         "les-trente-glorieuses": "les_trente_glorieuses",
-        "nouveau-gisement": "nouveau_gisement",
+        "nouveau-gisement-bis": "nouveau_gisement",
         "fuites-de-décharges": "fuites_de_decharges",
         "dechets-nucleaires": "dechets_nucleaires",
-        "maree-noire": "maree_noire",
-        "boom-demographique": "boom_demographique",
+        "maree-noire-bis": "maree_noire_bis",
+        "boom-demographique-bis": "boom_demographique_bis",
         "tensions-internationales": "tensions_internationales",
         "aide-internationale": "aide_internationale",
-        "mouvements-sociaux": "mouvements_sociaux",
+        "mouvements-sociaux-bis": "mouvements_sociaux_bis",
         "secheresse": "secheresse",
         "pollution-des-sols": "pollution_des_sols",
         "boom-economique": "boom_economique",
@@ -44,8 +44,8 @@ class SourceEvent(models.Model):
         "desertification": "desertification",
         "pollution-de-l-air": "pollution_de_l_air",
         "canicule": "canicule",
-        "crise-economique": "crise_economique",
-        "crise-mondiale": "crise_mondiale",
+        "crise-economique-bis": "crise_economique_bis",
+        "crise-mondiale-bis": "crise_mondiale_bis",
         "dernier-tour": "dernier_tour"
     }
 
@@ -139,8 +139,6 @@ class SourceEvent(models.Model):
             current_pile.stock_amount += 2 * len(game.players.all())
             current_pile.save()
 
-    # def tensions_internationales_effect(self, game): # A ajouter plus tard quand il y aura les importations
-
     def boom_demographique_effect(self, game):
         """
         -1 de production nourriture pour chaque joueur
@@ -209,7 +207,7 @@ class SourceEvent(models.Model):
         game.era = 2
         game.save()
 
-    def nouveau_gisement_effect(self, game):
+    def nouveau_gisement_bis_effect(self, game):
         """
         doc
         """
@@ -227,7 +225,7 @@ class SourceEvent(models.Model):
         """
         pass
 
-    def maree_noire_effect(self, game):
+    def maree_noire_bis_effect(self, game):
         """
         doc
         """
@@ -296,6 +294,42 @@ class SourceEvent(models.Model):
         pass
 
     def elections_presidentielle_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def desertification_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def pollution_de_l_air_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def canicule_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def crise_economique_bis_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def crise_mondiale_bis_effect(self, game):
+        """
+        doc
+        """
+        pass
+
+    def dernier_tour_effect(self, game):
         """
         doc
         """

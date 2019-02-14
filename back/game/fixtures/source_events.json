@@ -96,7 +96,7 @@
         "model": "game.sourceevent",
         "fields": {
             "name": "Nouveau gisement",
-            "slug": "nouveau-gisement",
+            "slug": "nouveau-gisement-bis",
             "version": "jelly",
             "era": 2,
             "description": ""
@@ -126,7 +126,7 @@
         "model": "game.sourceevent",
         "fields": {
             "name": "Marée noire",
-            "slug": "maree-noire",
+            "slug": "maree-noire-bis",
             "version": "jelly",
             "era": 2,
             "description": ""
@@ -136,7 +136,7 @@
         "model": "game.sourceevent",
         "fields": {
             "name": "Boom démographique",
-            "slug": "boom-demographique",
+            "slug": "boom-demographique-bis",
             "version": "jelly",
             "era": 2,
             "description": ""
@@ -166,7 +166,7 @@
         "model": "game.sourceevent",
         "fields": {
             "name": "Mouvements sociaux",
-            "slug": "mouvements-sociaux",
+            "slug": "mouvements-sociaux-bis",
             "version": "jelly",
             "era": 2,
             "description": ""
@@ -286,7 +286,7 @@
         "model": "game.sourceevent",
         "fields": {
             "name": "Crise économique",
-            "slug": "crise-economique",
+            "slug": "crise-economique-bis",
             "version": "jelly",
             "era": 2,
             "description": ""
@@ -296,7 +296,7 @@
         "model": "game.sourceevent",
         "fields": {
             "name": "Crise mondiale",
-            "slug": "crise-mondiale",
+            "slug": "crise-mondiale-bis",
             "version": "jelly",
             "era": 2,
             "description": ""
