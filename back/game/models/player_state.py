@@ -99,5 +99,3 @@ class PlayerState(models.Model):
             technology.trigger_post_purchase_effects()
             technology.save()
         return (technology, error_message)
-
-    def 

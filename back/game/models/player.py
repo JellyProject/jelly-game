@@ -11,6 +11,8 @@ from .source_building import SourceBuilding
 from .source_technology import SourceTechnology
 from .player_state import PlayerState
 
+from .shadow_player import ShadowPlayer
+
 
 class Player(models.Model):
     """
@@ -44,6 +46,9 @@ class Player(models.Model):
         new_player = cls(game=game, profile=profile)
         new_player.save()  # Peut-on faire mieux ?
         player_state = PlayerState.create(new_player)
+        shadow_player = ShadowPlayer.create(new_player)
+        
+
 
         return new_player
 

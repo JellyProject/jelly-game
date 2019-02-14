@@ -13,6 +13,20 @@ class ShadowPlayer(models.Model):
     """
     player = models.OneToOneField('Player', on_delete=models.CASCADE, editable=False)
 
+    @classmethod
+    def create(cls, player):
+        """
+        Create and return a new Shadowplayer linked to a player
+
+        Args :
+            player (Player) : player to which the shadowplayer is linked
+        """
+        # source_building = models.SourceBuilding.objects.all()[0]
+        new_shadowplayer = cls(player=player)
+        new_shadowplayer.save()  # Peut-on faire mieux ?
+
+        return new_shadowplayer
+
     @property
     def resources(self):
         """ Return the resources of this player. """

@@ -26,7 +26,7 @@ class SourceTechnology(models.Model):
 
     ''' Characteristics '''
     name = models.CharField(max_length=40, default='Fire discovery', editable=False)
-    slug = models.CharField(max_length=40, default='fire-discovery', editable=False)
+    slug = models.SlugField(unique=True, max_length=40, default='fire-discovery', editable=False)
     version = models.CharField(max_length=20, default='jelly', editable=False)
     era = models.IntegerField(default=1, editable=False)
     description = models.TextField(default='Food may now be cooked.', editable=False)

@@ -101,9 +101,10 @@ class RulesTest(TestCase):
         advanced_factory = self.player.state.buildings.get(slug='usine-avancee')
         self.assertTrue(advanced_factory.unlocked)
 
-""" Tests on the Shadowplayer class """
+    """ Tests on the Shadowplayer class """
 
     def test_shadowplayer_recover(self):
+        """ ShadowPlayer Recover test. """
         self.shadowplayer = models.ShadowPlayer.objects.get(player="self.player")
         building_init = self.player.state.buildings.get(slug='centrale-thermique')
         recover(self.shadowplayer,self.player)
