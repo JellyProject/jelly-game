@@ -20,8 +20,8 @@ class SourceTechnology(models.Model):
             economic_modifier, social_modifier, environmental_modifier (int) : Balance modifiers.
     """
     special_effect_technologies = {
-        "industrialisation-massive" = "industrialisation_massive"
-        "efficacite-petrolifere" = "efficacite_petrolifere"
+        "industrialisation-massive": "industrialisation_massive",
+        "efficacite-petrolifere": "efficacite_petrolifere"
     }
 
     ''' Characteristics '''
@@ -69,7 +69,7 @@ class SourceTechnology(models.Model):
             mine = player.buildings.get(slug="mine-de-charbon")
             mine.quantity_cap = math.inf
 
-    def specialisation_de_la_production_special_effect(self, player)
+    def efficacite_petrolifere_special_effect(self, player):
         if self.version == "jelly":
             usine_avancee = player.buildings.get(slug="usine-avancee")
             usine_avancee.quantity_cap = math.inf
