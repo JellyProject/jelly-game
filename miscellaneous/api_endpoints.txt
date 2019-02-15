@@ -192,3 +192,36 @@ Status : 200 OK
         "is_live": true
     }
 }
+
+
+Name : Purchase Technology
+HTTP Verb : PUT
+URI : http://127.0.0.1:8000/api/v1/player-states/<player_state_pk>/technologies/<slug>
+Headers : Authorization | Token <insert_token_here>
+Data example : {"technology":{"purchased":true}}
+Response example :
+Status : 200 OK
+{
+    "technology": {
+        "unlocked": true,
+        "slug": "taylorisme",
+        "purchased": true,
+        "state": 1
+    }
+}
+
+
+Name : Technology
+HTTP Verb : GET
+URI : http://127.0.0.1:8000/api/v1/player-states/<player_state_pk>/technologies/<slug>
+Headers : Authorization | Token <insert_token_here>
+Response example :
+Status : 200 OK
+{
+    "technology": {
+        "unlocked": true,
+        "slug": "taylorisme",
+        "purchased": true,
+        "state": 1
+    }
+}

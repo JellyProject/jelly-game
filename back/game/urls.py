@@ -108,7 +108,7 @@ urlpatterns = [
     ),
     path(
         'player-states/<int:player_state_pk>/technologies/<slug:slug>',
-        views.TechnologyDetail.as_view(),
+        views.TechnologyRetrieveUpdateAPIView.as_view(),
         name='technology-detail'
     ),
 ]

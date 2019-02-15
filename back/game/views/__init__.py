@@ -16,4 +16,4 @@ from .player_state import PlayerStateList, \
 from .building import BuildingList, \
                       BuildingDetail
 from .technology import TechnologyList, \
-                        TechnologyDetail
+                        TechnologyRetrieveUpdateAPIView
