@@ -1,58 +1,38 @@
 [
 {
-    "model": "authentication.user",
+    "model": "auth.user",
     "pk": 1,
     "fields": {
-        "password": "pbkdf2_sha256$100000$67BartRopeiW$V8adm437kkEdVjqbtJzT6WsOfTIpbCGmC84hoY3vim0=",
+        "password": "pbkdf2_sha256$100000$BVauVNXYYsnm$gkq8pKJxXqe+06MhUx4Bsz6zeA76SjKgl27rq0053Y0=",
         "last_login": null,
         "is_superuser": true,
         "username": "jeremy",
+        "first_name": "",
+        "last_name": "",
         "email": "jeremy.lauret@eleves.enpc.fr",
-        "is_active": true,
         "is_staff": true,
-        "created_at": "2019-02-10T17:43:44.171Z",
-        "updated_at": "2019-02-10T17:43:44.660Z",
+        "is_active": true,
+        "date_joined": "2019-01-10T18:23:20.219Z",
         "groups": [],
         "user_permissions": []
     }
 },
 {
-    "model": "profiles.profile",
-    "pk": 1,
-    "fields": {
-        "created_at": "2019-02-10T17:43:44.171Z",
-        "updated_at": "2019-02-10T17:43:44.660Z",
-        "user": 1,
-        "motto": "In the book of life, the answers aren't in the back.",
-        "image": ""
-    }
-},
-{
-    "model": "authentication.user",
+    "model": "auth.user",
     "pk": 2,
     "fields": {
         "password": "pbkdf2_sha256$100000$E2eLoD4FdLn9$H/UQhzmgiCSijdboEHx0Caqka7+33+TS3ZzIRHpo8Rk=",
         "last_login": null,
         "is_superuser": true,
         "username": "leo",
+        "first_name": "",
+        "last_name": "",
         "email": "leo.baty@eleves.enpc.fr",
-        "is_active": true,
         "is_staff": true,
-        "created_at": "2019-02-10T17:43:44.171Z",
-        "updated_at": "2019-02-10T17:43:44.660Z",
+        "is_active": true,
+        "date_joined": "2019-01-10T18:52:07.450Z",
         "groups": [],
         "user_permissions": []
-    }
-},
-{
-    "model": "profiles.profile",
-    "pk": 2,
-    "fields": {
-        "created_at": "2019-02-10T17:43:44.171Z",
-        "updated_at": "2019-02-10T17:43:44.660Z",
-        "user": 2,
-        "motto": "",
-        "image": ""
     }
 }
 ]
