@@ -31,7 +31,7 @@ Status : 200 OK
 Name : Current User
 HTTP Verb : GET
 URI :  http://127.0.0.1:8000/api/v1/user/
-Headers : Authorization | Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywiZXhwaXJlIjoxNTU1NDE1NTY5fQ.V4D63glMOS7IMi5HmXP2UlMA7P-BsF2ufxql3Q_ft9c
+Headers : Authorization | Token <insert_token_here>
 Response example :
 Status : 200 OK
 {
@@ -48,7 +48,7 @@ Status : 200 OK
 Name : Update User
 HTTP Verb : PUT
 URI :  http://127.0.0.1:8000/api/v1/user/
-Headers : Authorization | Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywiZXhwaXJlIjoxNTU1NDE1NTY5fQ.V4D63glMOS7IMi5HmXP2UlMA7P-BsF2ufxql3Q_ft9c
+Headers : Authorization | Token <insert_token_here>
 {"user":{"motto":"Cats are love."}}
 Response example :
 Status : 200 OK
@@ -66,7 +66,7 @@ Status : 200 OK
 Name : Profile
 HTTP Verb : GET
 URI :  http://127.0.0.1:8000/api/v1/profiles/JohnDoe/
-Headers : Authorization | Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywiZXhwaXJlIjoxNTU1NDE1NTY5fQ.V4D63glMOS7IMi5HmXP2UlMA7P-BsF2ufxql3Q_ft9c
+Headers : Authorization | Token <insert_token_here>
 Response example :
 Status : 200 OK
 {
@@ -84,7 +84,7 @@ Status : 200 OK
 Name : Create Game
 HTTP Verb : POST
 URI :  http://127.0.0.1:8000/api/v1/games/
-Headers : Authorization | Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywiZXhwaXJlIjoxNTU1NDE1NTY5fQ.V4D63glMOS7IMi5HmXP2UlMA7P-BsF2ufxql3Q_ft9c
+Headers : Authorization | Token <insert_token_here>
 Data example : {"game":{"version":"jelly"}}
 Response example :
 Status : 201 Created
@@ -97,4 +97,39 @@ Status : 201 Created
         "join_token": "a8a19b3d-7bde-4d8a-aeaa-16d6582ad2c8"
     }
 }
+
+
+Name : Add Player
+HTTP Verb : POST
+URI : http://127.0.0.1:8000/api/v1/players/
+Headers : Authorization | Token <insert_token_here>
+Data example : {"player":{"join_token":"2e47bf1d-afdd-4e2a-8345-194679ce650f"}}
+Response example :
+Status : 201 Created
+{
+    "player": {
+        "id": 5,
+        "state": {
+            "id": 5,
+            "balance": {
+                "economic": 50,
+                "social": 50,
+                "environmental": 100
+            },
+            "production": {
+                "money": 0,
+                "hydrocarbon": 1,
+                "food": 0,
+                "electricity": 0,
+                "pollution": 1,
+                "waste": 0
+            },
+            "resources": {
+                "money": 10,
+                "hydrocarbon": 0
+            }
+        }
+    }
+}
+
 

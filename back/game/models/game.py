@@ -38,7 +38,7 @@ class Game(models.Model):
     def __str__(self):
         text = "{0} (Players : ".format(self.pk)
         for player in self.players.all():
-            text += player.username() + ", "
+            text += player.username + ", "
         return text[:-2] + ")"
 
     @classmethod
@@ -96,6 +96,7 @@ class Game(models.Model):
             const = constant.HYDROCARBON_STOCKS_PER_PLAYER
             for pile_index in range(len(const)):
                 self.hydrocarbon_piles.get(index=pile_index).decrease(-const[pile_index][0])
+            return new_player
         else:    # For debugging purposes, should be deleted or modified
             print("A player already has this user name, please choose another one.")    # Print in console
 

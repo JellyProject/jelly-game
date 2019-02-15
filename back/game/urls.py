@@ -52,15 +52,20 @@ urlpatterns = [
         name='game-creation'
     ),
     # Player
-    path(
-        'players/',
-        views.PlayerList.as_view(),
-        name='player-list'
-    ),
+    # path(
+    #     'players/',
+    #     views.PlayerList.as_view(),
+    #     name='player-list'
+    # ),
     path(
         'players/<int:pk>',
         views.PlayerDetail.as_view(),
         name='player-detail'
+    ),
+    path(
+        'players/',
+        views.PlayerAddAPIView.as_view(),
+        name='player-add'
     ),
     # ShadowPlayer
     path(

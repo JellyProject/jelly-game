@@ -8,7 +8,8 @@ from .game import GameList, \
                   GameDetail, \
                   GameCreateAPIView
 from .player import PlayerList, \
-                    PlayerDetail
+                    PlayerDetail, \
+                    PlayerAddAPIView
 from .shadow_player import ShadowPlayerList, \
                     ShadowPlayerDetail
 from .player_state import PlayerStateList, \
