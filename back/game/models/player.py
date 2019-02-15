@@ -90,6 +90,7 @@ class Player(models.Model):
         """
         self.resources.money += self.production.money
         self.balance.environmental -= self.production.pollution
+        self.balance.environmental -= self.production.waste
         self.green_income()
         # Cas des hydrocarbures
         hydrocarbon_stock = self.game.hydrocarbon_piles.get(index=self.game.current_index_pile)

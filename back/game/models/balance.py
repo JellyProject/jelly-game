@@ -41,3 +41,7 @@ class Balance(models.Model):
         self.environmental += self.environmental // constant.ENVIRONMENTAL_REGENERATION_LEVEL
         self.environmental = min(self.environmental, constant.MAX_STATE_VALUE)
         self.save()
+
+    def increase_economic(self, value):
+        self.economic += value
+        self.save()

@@ -5,9 +5,10 @@ from .. import game_settings as settings
 from profiles.models import Profile
 
 
+
 class RulesTest(TestCase):
     """ Tests on the Building class """
-    fixtures = ['users', 'source_technologies', 'source_buildings']
+    fixtures = ['users', 'source_technologies', 'source_buildings', 'source_events']
 
     @classmethod
     def setUpTestData(cls):
@@ -98,8 +99,6 @@ class RulesTest(TestCase):
         advanced_factory = self.player.state.buildings.get(slug='usine-avancee')
         self.assertFalse(advanced_factory.unlocked)
         (technology, error) = self.player.purchase_technology("taylorisme")
-        advanced_factory = self.player.state.buildings.get(slug='usine-avancee')
-        print(error+'e')
         self.assertTrue(advanced_factory.unlocked)
 
     """ Tests on the Shadowplayer class """
