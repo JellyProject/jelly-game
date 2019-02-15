@@ -6,7 +6,7 @@
             "slug": "nouveau-gisement-bis",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "+3 hydrocarbures par joueur dans la pile courante"
         }
     },
     {
@@ -16,7 +16,7 @@
             "slug": "fuites-de-décharges",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "Rien pour l'instant"
         }
     },
     {
@@ -26,7 +26,7 @@
             "slug": "dechets-nucleaires",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "-10 environmental pour chaque joueur possédant une centrale nucléaire"
         }
     },
     {
@@ -36,7 +36,7 @@
             "slug": "maree-noire-bis",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "Le joueur possédant le plus d'hydrocarbures gagne 5 pollution"
         }
     },
     {
@@ -46,7 +46,7 @@
             "slug": "boom-demographique-bis",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "Evènement économique individuel\n-3 de nourriture si <= 30\n-2 de nourriture si <= 50\n-1 de nourriture si <= 70"
         }
     },
     {
@@ -56,7 +56,7 @@
             "slug": "tensions-internationales",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "Rien pour l'instant"
         }
     },
     {
@@ -66,7 +66,7 @@
             "slug": "aide-internationale",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "Evènement économique individuel, -5 social si affecté\n+12 UM si <= 20\n+9 UM si <= 30\n+6 UM si <= 40"
         }
     },
     {
@@ -76,7 +76,7 @@
             "slug": "mouvements-sociaux-bis",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "Evènement social individuel\n-5 en économie si <= 70\n-10 en économie si <= 50\n-20 en économie si <= 30"
         }
     },
     {
@@ -86,7 +86,7 @@
             "slug": "secheresse",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "Evènement environemental moyenné\n-1 de nourriture si <= 40\n-2 en social si <= 30\n-3 en social si <= 20"
         }
     },
     {
@@ -96,7 +96,7 @@
             "slug": "pollution-des-sols",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "Evènement environemental individuel\n-1 de nourriture si <= 40\n-2 de nourriture si <= 30\n-3 de nourriture si <= 20"
         }
     },
     {
@@ -106,7 +106,7 @@
             "slug": "boom-economique",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "Evènement économique individuel\n+10 en économie si <= 50\n+10 en économie si <= 30"
         }
     },
     {
@@ -116,7 +116,7 @@
             "slug": "mondialisation",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "Evènement économique individuel\n-10 en économie si <= 30\n+10 en économie si >= 70"
         }
     },
     {
@@ -126,7 +126,7 @@
             "slug": "reestimation-des-stocks",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "Rien pour l'instant"
         }
     },
     {
@@ -136,7 +136,7 @@
             "slug": "black-out",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "-1 UM pour chaque consommation d'électricité"
         }
     },
     {
@@ -146,7 +146,7 @@
             "slug": "explosion-de-depots-petroliers",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "-50% sur les reserves d'hydrocarbures de chaque joueur"
         }
     },
     {
@@ -156,7 +156,7 @@
             "slug": "elections-presidentielles",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "Evènement social individuel\n+10 économie si >= 80\n-10 économie si <= 40"
         }
     },
     {
@@ -166,7 +166,7 @@
             "slug": "desertification",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "Evènement environemental individuel\n-10 en social si <= 50\n-20 en social si <= 30"
         }
     },
     {
@@ -176,7 +176,7 @@
             "slug": "pollution-de-l-air",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "Evènement environemental individuel\n-10 en économie si <= 70\n-10 en économie et -10 en social si <= 50\n-20 en économie et -10 en social en social si <= 30"
         }
     },
     {
@@ -186,7 +186,7 @@
             "slug": "canicule",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "Evènement environemental individuel\n-10 en économie si <= 70\n-10 en économie et -10 en social si <= 50\n-20 en économie et -10 en social en social si <= 30"
         }
     },
     {
@@ -196,7 +196,7 @@
             "slug": "crise-economique-bis",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "Evènement économique individuel\n-10 en social si <= 50\n-20 en social si <= 30"
         }
     },
     {
@@ -206,7 +206,7 @@
             "slug": "crise-mondiale-bis",
             "version": "jelly",
             "era": 2,
-            "description": ""
+            "description": "Evènement économique moyenné\n-10 en social si <= 50\n-20 en social si <= 30"
         }
     },
     {
@@ -217,7 +217,7 @@
             "version": "jelly",
             "era": 2,
             "is_final": true,
-            "description": ""
+            "description": "Déclenche le dernier tour"
         }
     }
 ]

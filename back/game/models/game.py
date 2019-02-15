@@ -107,7 +107,7 @@ class Game(models.Model):
             if (not rand_event.is_final) and (deck_size == constant.EVENT_DECK_MAX_SIZE['era' + str(era)] - 1):
                 continue
             deck_size += 1
-            Event.objects.create(source=rand_event, game=self, index=deck_size)
+            Event.objects.create(source=rand_event, game=self, index=self.events.count() + 1)
             # If we chose a final event, the era event deck is complete
             if rand_event.is_final:
                 break
@@ -151,17 +151,34 @@ class Game(models.Model):
             hydrocarbon_piles[self.current_index_pile - 1].set_to(0)
         self.save()
 
-    def income_phase(self):
-        """ Run income phase for each player"""
+    def _end_game():
+        """ End of the game """
+        pass
+
+    def _income_phase(self):
+        """ Run income phase for each player """
         # income for each player
         for player in self.players.all():
             player.earn_income()
         # update of the current pile index
         self.update_index_pile()
 
-    def main_phase(self):
+    def _main_phase(self):
         """ Main phase """
         pass
 
-    def event_phase(self):
-        pass
+    def _event_phase(self):
+        """ Event phase : trigger an event if the game is not finished """
+        # If it was the last turn, trigger the end of the game
+        if self.turn > self.events.count():
+            self._end_game()
+        # Else, trigger the appropriate event
+        else:
+            self.events.get(index=self.turn).execute_effect()
+            self.turn += 1
+
+    def run_game(self):
+        for i in range(0, self.events.count() + 1):
+            self._income_phase()
+            self._main_phase()
+            self._event_phase()

@@ -46,8 +46,8 @@ class GameTest(TestCase):
                              game.source_technologies.get(slug=version_source_technology.slug))
 
         # Events initialization test
-        self.assertTrue(game.events.count() >= (settings.EVENT_DECK_MIN_SIZE['era1'] + settings.EVENT_DECK_MIN_SIZE['era1']))
-        self.assertTrue(game.events.count() <= (settings.EVENT_DECK_MAX_SIZE['era1'] + settings.EVENT_DECK_MAX_SIZE['era1']))
+        self.assertGreaterEqual(game.events.count(), settings.EVENT_DECK_MIN_SIZE['era1'] + settings.EVENT_DECK_MIN_SIZE['era2'])
+        self.assertGreaterEqual(settings.EVENT_DECK_MAX_SIZE['era1'] + settings.EVENT_DECK_MAX_SIZE['era2'], game.events.count())
 
     def test_add_player(self):
         """ Test the add_player method """
