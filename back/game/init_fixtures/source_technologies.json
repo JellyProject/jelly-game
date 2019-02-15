@@ -75,7 +75,7 @@
         "social_modifier": 0,
         "environmental_modifier": 0
     }
-}
+},
 {
     "model": "game.sourcetechnology",
     "pk": 6,
@@ -91,7 +91,7 @@
         "social_modifier": 0,
         "environmental_modifier": 0
     }
-}
+},
 {
     "model": "game.sourcetechnology",
     "pk": 7,

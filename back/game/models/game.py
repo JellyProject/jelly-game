@@ -1,7 +1,6 @@
 from django.db import models
-
 from .. import game_settings as constant
-
+import uuid
 from .player import Player
 from .hydrocarbon_supply_pile import HydrocarbonSupplyPile
 from .source_building import SourceBuilding
@@ -24,13 +23,13 @@ class Game(models.Model):
         players (ForeignKey <- Player) : query set of players in the game
         hydrocarbon_piles (ForeignKey <- HydrocarbonSupplyPile) : query set of hydrocarbon supply piles in the game
     """
-
     version = models.CharField(max_length=20, default='jelly')  # Game version
     creation_date = models.DateTimeField(auto_now_add=True)
     last_save_date = models.DateTimeField(auto_now=True)
     turn = models.IntegerField(default=1)
     era = models.IntegerField(default=1)
     current_index_pile = models.IntegerField(default=0)
+    join_token = models.UUIDField(default=uuid.uuid4, editable=False) # Enables joining new games
     is_live = models.BooleanField(default=False)
     source_buildings = models.ManyToManyField('SourceBuilding')
     # source_events = models.ManyToManyField('Event')
@@ -48,7 +47,7 @@ class Game(models.Model):
         Create a new Game
 
         Args :
-            name (string) : name of the new game
+            version (string) : version of the new game.
         """
         game = cls(version=version)
         game.save()
