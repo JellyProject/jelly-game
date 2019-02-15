@@ -99,4 +99,14 @@ class RulesTest(TestCase):
         self.assertFalse(advanced_factory.unlocked)
         (technology, error) = self.player.purchase_technology("taylorisme")
         advanced_factory = self.player.state.buildings.get(slug='usine-avancee')
+        print(error+'e')
         self.assertTrue(advanced_factory.unlocked)
+
+    """ Tests on the Shadowplayer class """
+
+    def test_shadowplayer_recover(self):
+        """ ShadowPlayer Recover test. """
+        self.shadowplayer = models.ShadowPlayer.objects.get(player=self.player)
+        building_init = self.player.state.buildings.get(slug='centrale-thermique')
+        self.shadowplayer.recover(self.player)
+        self.assertIs(building_init.copies, 0)
