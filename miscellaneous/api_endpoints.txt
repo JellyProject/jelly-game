@@ -1,0 +1,100 @@
+Name : Register
+HTTP Verb : POST
+URI :  http://127.0.0.1:8000/api/v1/users/
+Data example : {"user":{"username":"JohnDoe", "email":"john@doe.com", "password":"password"}}
+Response example :
+Status : 201 Created
+{
+    "user": {
+        "username": "JohnDoe",
+        "email": "john@doe.com",
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywiZXhwaXJlIjoxNTU1NDE1NTY5fQ.V4D63glMOS7IMi5HmXP2UlMA7P-BsF2ufxql3Q_ft9c"
+    }
+}
+
+
+Name : Login
+HTTP Verb : POST
+URI :  http://127.0.0.1:8000/api/v1/users/login/
+Data example : {"user":{"username":"JohnDoe", "password":"password"}}
+Response example :
+Status : 200 OK
+{
+    "user": {
+        "username": "JohnDoe",
+        "email": "john@doe.com",
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywiZXhwaXJlIjoxNTU1NDE1NTY5fQ.V4D63glMOS7IMi5HmXP2UlMA7P-BsF2ufxql3Q_ft9c"
+    }
+}
+
+
+Name : Current User
+HTTP Verb : GET
+URI :  http://127.0.0.1:8000/api/v1/user/
+Headers : Authorization | Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywiZXhwaXJlIjoxNTU1NDE1NTY5fQ.V4D63glMOS7IMi5HmXP2UlMA7P-BsF2ufxql3Q_ft9c
+Response example :
+Status : 200 OK
+{
+    "user": {
+        "username": "JohnDoe",
+        "email": "john@doe.com",
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywiZXhwaXJlIjoxNTU1NDE1NzMxfQ.o-lVaUDmIQv5vRVQfWHFe7S6R8w2pNMiINrwkYHb_74",
+        "motto": "",
+        "image": ""
+    }
+}
+
+
+Name : Update User
+HTTP Verb : PUT
+URI :  http://127.0.0.1:8000/api/v1/user/
+Headers : Authorization | Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywiZXhwaXJlIjoxNTU1NDE1NTY5fQ.V4D63glMOS7IMi5HmXP2UlMA7P-BsF2ufxql3Q_ft9c
+{"user":{"motto":"Cats are love."}}
+Response example :
+Status : 200 OK
+{
+    "user": {
+        "username": "John",
+        "email": "john@doe.com",
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywiZXhwaXJlIjoxNTU1NDE1ODc2fQ.H3tppBLzbUQRW6JQGGaxgPsTtQZUTQIM0e88T68LnKg",
+        "motto": "Cats are love!",
+        "image": ""
+    }
+}
+
+
+Name : Profile
+HTTP Verb : GET
+URI :  http://127.0.0.1:8000/api/v1/profiles/JohnDoe/
+Headers : Authorization | Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywiZXhwaXJlIjoxNTU1NDE1NTY5fQ.V4D63glMOS7IMi5HmXP2UlMA7P-BsF2ufxql3Q_ft9c
+Response example :
+Status : 200 OK
+{
+    "profile": {
+        "username": "JohnDoe",
+        "motto": "Cats are love!",
+        "image": "https://static.productionready.io/images/smiley-cyrus.jpg",
+        "players": [
+            1
+        ]
+    }
+}
+
+
+Name : Create Game
+HTTP Verb : POST
+URI :  http://127.0.0.1:8000/api/v1/games/
+Headers : Authorization | Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywiZXhwaXJlIjoxNTU1NDE1NTY5fQ.V4D63glMOS7IMi5HmXP2UlMA7P-BsF2ufxql3Q_ft9c
+Data example : {"game":{"version":"jelly"}}
+Response example :
+Status : 201 Created
+{
+    "game": {
+        "id": 1,
+        "creation_date": "2019-02-15T12:02:18.836387Z",
+        "is_live": false,
+        "version": "jelly",
+        "join_token": "a8a19b3d-7bde-4d8a-aeaa-16d6582ad2c8"
+    }
+}
+
