@@ -34,7 +34,7 @@ class SourceBuilding(models.Model):
     description = models.TextField(default='A rather plain building.', editable=False)
     cost = models.IntegerField(default=1, editable=False)
     parent_technology = models.ForeignKey('SourceTechnology', on_delete=models.SET_NULL, null=True,
-                                             related_name='child_buildings', editable=False)
+                                          related_name='child_buildings', editable=False)
     initial_quantity_cap = models.IntegerField(default=1, editable=False)
 
     ''' Production modifiers '''

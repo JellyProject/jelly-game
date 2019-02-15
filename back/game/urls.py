@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 # API endpoints.
@@ -36,26 +36,36 @@ urlpatterns = [
         name='source-building-version-detail'
     ),
     # Game
+    # path(
+    #     'games/',
+    #     views.GameList.as_view(),
+    #     name='game-list'
+    # ),
+    path(
+        'games/<uuid:join_token>/',
+        views.GameRetrieveUpdateAPIView.as_view(),
+        name='game-retrieve-update'
+    ),
     path(
         'games/',
-        views.GameList.as_view(),
-        name='game-list'
-    ),
-    path(
-        'games/<int:pk>',
-        views.GameDetail.as_view(),
-        name='game-detail'
+        views.GameCreateAPIView.as_view(),
+        name='game-creation'
     ),
     # Player
-    path(
-        'players/',
-        views.PlayerList.as_view(),
-        name='player-list'
-    ),
+    # path(
+    #     'players/',
+    #     views.PlayerList.as_view(),
+    #     name='player-list'
+    # ),
     path(
         'players/<int:pk>',
         views.PlayerDetail.as_view(),
         name='player-detail'
+    ),
+    path(
+        'players/',
+        views.PlayerAddAPIView.as_view(),
+        name='player-add'
     ),
     # ShadowPlayer
     path(
