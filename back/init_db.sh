@@ -6,7 +6,8 @@ INIT_FIXTURES_DIR="${SCRIPT_DIR}/game/init_fixtures"
 
 BUILDINGS_FILE1="source_buildings_era1.json"
 BUILDINGS_FILE2="source_buildings_era2.json"
-EVENTS_FILE="source_events.json"
+EVENTS_FILE1="source_events_era1.json"
+EVENTS_FILE2="source_events_era2.json"
 SUPERUSERS_FILE="superusers.json"
 TECHNOLOGIES_FILE="source_technologies.json"
 
@@ -26,8 +27,8 @@ fi
 
 read -p "Do you wish to create an empty database? Fixtures may be loaded afterwards. [yes|No] " -r
 if [[ $REPLY =~ ^[Yy]es$ ]]; then
-    python "${SCRIPT_DIR}/"manage.py makemigrations
-    python "${SCRIPT_DIR}/"manage.py migrate
+    python3 "${SCRIPT_DIR}/"manage.py makemigrations
+    python3 "${SCRIPT_DIR}/"manage.py migrate
     echo "Database creation complete."
     echo
 else
@@ -35,17 +36,19 @@ else
     echo
 fi
 
-#python "${SCRIPT_DIR}/"manage.py flush
+#python3 "${SCRIPT_DIR}/"manage.py flush
 #echo
 
 read -p "Do you wish to load the initial fixtures (not creating a database beforehand will result in an error)? [yes|No] " -r
 if [[ $REPLY =~ ^[Yy]es$ ]]; then
-    python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$EVENTS_FILE
+    python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$EVENTS_FILE1
+    python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$EVENTS_FILE2
     python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$SUPERUSERS_FILE
     python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$TECHNOLOGIES_FILE
+
     # buildings come after technologies
-    python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$BUILDINGS_FILE1
-    python "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$BUILDINGS_FILE2
+    python3 "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$BUILDINGS_FILE1
+    python3 "${SCRIPT_DIR}/"manage.py loaddata "${INIT_FIXTURES_DIR}/"$BUILDINGS_FILE2
     echo "Fixture load complete."
     #echo
 else

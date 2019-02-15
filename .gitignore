@@ -118,3 +118,5 @@ venv.bak/
 
 # Migration files
 back/game/migrations/
+back/authentication/migrations/
+back/profiles/migrations/

@@ -1,0 +1,223 @@
+[
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Nouveau gisement",
+            "slug": "nouveau-gisement-bis",
+            "version": "jelly",
+            "era": 2,
+            "description": "+3 hydrocarbures par joueur dans la pile courante"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Fuites de décharges",
+            "slug": "fuites-de-décharges",
+            "version": "jelly",
+            "era": 2,
+            "description": "Rien pour l'instant"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Déchets nucléaires",
+            "slug": "dechets-nucleaires",
+            "version": "jelly",
+            "era": 2,
+            "description": "-10 environmental pour chaque joueur possédant une centrale nucléaire"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Marée noire",
+            "slug": "maree-noire-bis",
+            "version": "jelly",
+            "era": 2,
+            "description": "Le joueur possédant le plus d'hydrocarbures gagne 5 pollution"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Boom démographique",
+            "slug": "boom-demographique-bis",
+            "version": "jelly",
+            "era": 2,
+            "description": "Evènement économique individuel\n-3 de nourriture si <= 30\n-2 de nourriture si <= 50\n-1 de nourriture si <= 70"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Tensions internationales",
+            "slug": "tensions-internationales",
+            "version": "jelly",
+            "era": 2,
+            "description": "Rien pour l'instant"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Aide internationale",
+            "slug": "aide-internationale",
+            "version": "jelly",
+            "era": 2,
+            "description": "Evènement économique individuel, -5 social si affecté\n+12 UM si <= 20\n+9 UM si <= 30\n+6 UM si <= 40"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Mouvements sociaux",
+            "slug": "mouvements-sociaux-bis",
+            "version": "jelly",
+            "era": 2,
+            "description": "Evènement social individuel\n-5 en économie si <= 70\n-10 en économie si <= 50\n-20 en économie si <= 30"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Sécheresse",
+            "slug": "secheresse",
+            "version": "jelly",
+            "era": 2,
+            "description": "Evènement environemental moyenné\n-1 de nourriture si <= 40\n-2 en social si <= 30\n-3 en social si <= 20"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Pollution des sols",
+            "slug": "pollution-des-sols",
+            "version": "jelly",
+            "era": 2,
+            "description": "Evènement environemental individuel\n-1 de nourriture si <= 40\n-2 de nourriture si <= 30\n-3 de nourriture si <= 20"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Boom économique",
+            "slug": "boom-economique",
+            "version": "jelly",
+            "era": 2,
+            "description": "Evènement économique individuel\n+10 en économie si <= 50\n+10 en économie si <= 30"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Mondialisation",
+            "slug": "mondialisation",
+            "version": "jelly",
+            "era": 2,
+            "description": "Evènement économique individuel\n-10 en économie si <= 30\n+10 en économie si >= 70"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Réestimation des stocks",
+            "slug": "reestimation-des-stocks",
+            "version": "jelly",
+            "era": 2,
+            "description": "Rien pour l'instant"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Black-out",
+            "slug": "black-out",
+            "version": "jelly",
+            "era": 2,
+            "description": "-1 UM pour chaque consommation d'électricité"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Explosion de dépôts pétroliers",
+            "slug": "explosion-de-depots-petroliers",
+            "version": "jelly",
+            "era": 2,
+            "description": "-50% sur les reserves d'hydrocarbures de chaque joueur"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Elections présidentielles",
+            "slug": "elections-presidentielles",
+            "version": "jelly",
+            "era": 2,
+            "description": "Evènement social individuel\n+10 économie si >= 80\n-10 économie si <= 40"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Désertification",
+            "slug": "desertification",
+            "version": "jelly",
+            "era": 2,
+            "description": "Evènement environemental individuel\n-10 en social si <= 50\n-20 en social si <= 30"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Pollution de l'air",
+            "slug": "pollution-de-l-air",
+            "version": "jelly",
+            "era": 2,
+            "description": "Evènement environemental individuel\n-10 en économie si <= 70\n-10 en économie et -10 en social si <= 50\n-20 en économie et -10 en social en social si <= 30"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Canicule",
+            "slug": "canicule",
+            "version": "jelly",
+            "era": 2,
+            "description": "Evènement environemental individuel\n-10 en économie si <= 70\n-10 en économie et -10 en social si <= 50\n-20 en économie et -10 en social en social si <= 30"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Crise économique",
+            "slug": "crise-economique-bis",
+            "version": "jelly",
+            "era": 2,
+            "description": "Evènement économique individuel\n-10 en social si <= 50\n-20 en social si <= 30"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Crise mondiale",
+            "slug": "crise-mondiale-bis",
+            "version": "jelly",
+            "era": 2,
+            "description": "Evènement économique moyenné\n-10 en social si <= 50\n-20 en social si <= 30"
+        }
+    },
+    {
+        "model": "game.sourceevent",
+        "fields": {
+            "name": "Dernier tour",
+            "slug": "dernier-tour",
+            "version": "jelly",
+            "era": 2,
+            "is_final": true,
+            "description": "Déclenche le dernier tour"
+        }
+    }
+]

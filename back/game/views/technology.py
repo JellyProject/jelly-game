@@ -2,31 +2,38 @@ from .. import models
 from .. import serializers
 from rest_framework import generics
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import status
+from rest_framework.generics import RetrieveUpdateAPIView
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
+from .. import renderers
 
 
 class TechnologyList(generics.ListAPIView):
     """
      * Resource : set of technologies with given player.
      * Supported HTTP verbs : GET.
-     * Related URI : api/players/<player_pk>/technologies
+     * Related URI : api/player-states/<player_state_pk>/technologies
     """
     serializer_class = serializers.TechnologySerializer
 
     def get_queryset(self):
-        return models.Technology.objects.filter(player__pk=self.kwargs['player_pk'])
+        return models.Technology.objects.filter(state__pk=self.kwargs['player_state_pk'])
 
 
+'''
 class TechnologyDetail(generics.RetrieveUpdateAPIView):
     """
      * Resource : technology with given player and slug.
      * Supported HTTP verbs : GET, PUT, PATCH.
-     * Related URI : api/players/<player_pk>/technologies/<slug>
+     * Related URI : api/player-states/<player_state_pk>/technologies/<slug>
     """
     serializer_class = serializers.TechnologySerializer
-    lookup_field='slug'
+    lookup_field = 'slug'
 
     def get_queryset(self):
-        return models.Technology.objects.filter(player__pk=self.kwargs['player_pk'])
+        return models.Technology.objects.filter(state__pk=self.kwargs['player_state_pk'])
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -37,3 +44,26 @@ class TechnologyDetail(generics.RetrieveUpdateAPIView):
             return Response({"error":error_message})
         super(TechnologyDetail, self).update(request, *args, **kwargs)
         instance.trigger_post_purchase_effects()
+'''
+
+
+class TechnologyRetrieveUpdateAPIView(RetrieveUpdateAPIView):
+    permission_classes = (IsAuthenticated,)
+    renderer_classes = (renderers.TechnologyJSONRenderer,)
+    serializer_class = serializers.TechnologySerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        technology = models.Technology.objects.get(state__pk=self.kwargs['player_state_pk'],
+                                                   slug=self.kwargs['slug'])
+        serializer = self.serializer_class(technology)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def update(self, request, *args, **kwargs):
+        """ Start game. """
+        technology = request.data.get('technology', {})
+        instance = models.Technology.objects.get(state__pk=self.kwargs['player_state_pk'],
+                                                 slug=self.kwargs['slug'])
+        serializer = self.serializer_class(instance, data=technology)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
