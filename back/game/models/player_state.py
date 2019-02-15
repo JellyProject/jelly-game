@@ -58,7 +58,7 @@ class PlayerState(models.Model):
 
         for source_building in self.player.game.source_buildings.all():
             unlocked = (source_building.parent_technology is None)
-            Building.objects.create(state=self, slug=source_building.slug, unlocked=unlocked)
+            Building.objects.create(state=self, slug=source_building.slug, unlocked=unlocked, quantity_cap=source_building.initial_quantity_cap)
 
         for source_technology in self.player.game.source_technologies.all():
             unlocked = (source_technology.parent_technology is None)

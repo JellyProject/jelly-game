@@ -104,4 +104,4 @@ class Technology(models.Model):
             pass
 
         # Execute self special effect.
-        source.execute_special_effect()
+        source.execute_special_effect(self.player)

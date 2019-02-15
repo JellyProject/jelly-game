@@ -26,13 +26,13 @@ class SourceTechnology(models.Model):
 
     ''' Characteristics '''
     name = models.CharField(max_length=40, default='Fire discovery', editable=False)
-    slug = models.SlugField(unique=True, max_length=40, default='fire-discovery', editable=False)
+    slug = models.CharField(max_length=40, default='fire-discovery', editable=False)
     version = models.CharField(max_length=20, default='jelly', editable=False)
     era = models.IntegerField(default=1, editable=False)
     description = models.TextField(default='Food may now be cooked.', editable=False)
     cost = models.IntegerField(default=1, editable=False)
-    parent_technology = models.OneToOneField('SourceTechnology', on_delete=models.SET_NULL, null=True,
-                                             related_name='child_technology', editable=False)
+    parent_technology = models.ForeignKey('SourceTechnology', on_delete=models.SET_NULL, null=True,
+                                             related_name='child_technologies', editable=False)
 
     ''' Production modifiers '''
     money_modifier = models.IntegerField(default=0, editable=False)
