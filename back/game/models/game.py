@@ -25,12 +25,13 @@ class Game(models.Model):
         hydrocarbon_piles (ForeignKey <- HydrocarbonSupplyPile) : query set of hydrocarbon supply piles in the game
     """
 
-    version = models.CharField(max_length=20, default='jelly', editable=False)  # Game version
+    version = models.CharField(max_length=20, default='jelly')  # Game version
     creation_date = models.DateTimeField(auto_now_add=True)
     last_save_date = models.DateTimeField(auto_now=True)
     turn = models.IntegerField(default=1)
     era = models.IntegerField(default=1)
     current_index_pile = models.IntegerField(default=0)
+    is_live = models.BooleanField(default=False)
     source_buildings = models.ManyToManyField('SourceBuilding')
     # source_events = models.ManyToManyField('Event')
     source_technologies = models.ManyToManyField('SourceTechnology')

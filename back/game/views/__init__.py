@@ -5,7 +5,8 @@ from .source_building import SourceBuildingList, \
                              SourceBuildingVersionList, \
                              SourceBuildingVersionDetail
 from .game import GameList, \
-                  GameDetail
+                  GameDetail, \
+                  GameCreateAPIView
 from .player import PlayerList, \
                     PlayerDetail
 from .shadow_player import ShadowPlayerList, \

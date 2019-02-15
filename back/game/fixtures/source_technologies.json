@@ -13,7 +13,7 @@
         "social_modifier": -1,
         "environmental_modifier": 0
     }
-}
+},
 {
     "model": "game.sourcetechnology",
     "pk": 2,
@@ -60,7 +60,7 @@
         "social_modifier": 0,
         "environmental_modifier": 0
     }
-}
+},
 {
     "model": "game.sourcetechnology",
     "pk": 5,
@@ -76,7 +76,7 @@
         "social_modifier": 0,
         "environmental_modifier": 0
     }
-}
+},
 {
     "model": "game.sourcetechnology",
     "pk": 6,
@@ -92,7 +92,7 @@
         "social_modifier": 0,
         "environmental_modifier": 0
     }
-}
+},
 {
     "model": "game.sourcetechnology",
     "pk": 7,
@@ -108,7 +108,7 @@
         "social_modifier": 0,
         "environmental_modifier": 0
     }
-}
+},
 {
     "model": "game.sourcetechnology",
     "pk": 8,
@@ -124,7 +124,7 @@
         "social_modifier": 0,
         "environmental_modifier": 0
     }
-}
+},
 {
     "model": "game.sourcetechnology",
     "pk": 9,
