@@ -8,12 +8,12 @@ class Technology(models.Model):
     Technology model
 
     Fields :
-        * state (OneToOne -> PlayerState) : global state of the player related to the balance
-        * index (int) : A unique index to link this technology to a source technology.
-        * unlocked (bool) : True -> This technology may be purchased by the player.
-        * purchased (bool) : True -> This technology has been purchased by the player.
+        player (ForeignKey -> Player) : The player who may own this technology.
+        index (int) : A unique index to link this technology to a source technology.
+        unlocked (bool) : True -> This technology may be purchased by the player.
+        purchased (bool) : True -> This technology has been purchased by the player.
     """
-    state = models.ForeignKey('PlayerState', on_delete=models.CASCADE, related_name='technologies', editable=False)
+    player = models.ForeignKey('Player', on_delete=models.CASCADE, related_name='technologies', editable=False)
     slug = models.CharField(max_length=40, default='fire-discovery', editable=False)
     unlocked = models.BooleanField(default=False)
     purchased = models.BooleanField(default=False)
@@ -21,7 +21,7 @@ class Technology(models.Model):
     def __str__(self):
         return "{0} (Game : {1}, Player : {2})".format(self.source().name,
                                                        self.player.game.pk,
-                                                       self.player.pk)
+                                                       self.player.username())
 
     class Meta:
         verbose_name = "Technology"
@@ -32,10 +32,6 @@ class Technology(models.Model):
                 self.slug == other.slug and
                 self.unlocked == other.unlocked and
                 self.purchased == other.purchased)
-
-    @property
-    def player(self):
-        return self.state.player
 
     def source(self):
         return self.player.game.source_technologies.get(slug=self.slug)
@@ -56,7 +52,7 @@ class Technology(models.Model):
         if source.cost > self.player.resources.money:
             return (False, "Fonds insuffisants.")
         # Has been purchased check
-        if self.purchased:
+        if self.purchased == True:
             return (False, "Technologie déjà acquise.")
         return (True, "")
 
@@ -88,7 +84,7 @@ class Technology(models.Model):
         # Unlock child technologies
         try:
             for child_tech_source in source.child_technologies.all():
-                child_tech = self.player.technologies.get(slug=child_tech_source.slug)
+                child_tech = self.player.technologies.get(slug=child_tech_source.slug).unlocked = True
                 child_tech.unlocked = True
                 child_tech.save()
         except:
@@ -96,12 +92,12 @@ class Technology(models.Model):
 
         # Unlock child building
         try:
-            for child_build_source in source.child_buildings.all():
-                child_build = self.player.buildings.get(slug=child_build_source.slug)
-                child_build.unlocked = True
-                child_build.save()
+            child_build_source = self.source().child_building
+            child_build = self.player.buildings.get(slug=child_build_source.slug)
+            child_build.unlocked = True
+            child_build.save()
         except:
             pass
 
         # Execute self special effect.
-        source.execute_special_effect(self.player)
+        source.execute_special_effect()

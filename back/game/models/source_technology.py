@@ -1,7 +1,7 @@
 from django.db import models
 
 from .. import game_settings as constant
-import math
+
 
 class SourceTechnology(models.Model):
     """
@@ -20,8 +20,6 @@ class SourceTechnology(models.Model):
             economic_modifier, social_modifier, environmental_modifier (int) : Balance modifiers.
     """
     special_effect_technologies = {
-        "industrialisation-massive": "industrialisation_massive",
-        "efficacite-petrolifere": "efficacite_petrolifere"
     }
 
     ''' Characteristics '''
@@ -31,8 +29,8 @@ class SourceTechnology(models.Model):
     era = models.IntegerField(default=1, editable=False)
     description = models.TextField(default='Food may now be cooked.', editable=False)
     cost = models.IntegerField(default=1, editable=False)
-    parent_technology = models.ForeignKey('SourceTechnology', on_delete=models.SET_NULL, null=True,
-                                          related_name='child_technologies', editable=False)
+    parent_technology = models.OneToOneField('SourceTechnology', on_delete=models.SET_NULL, null=True,
+                                             related_name='child_technology', editable=False)
 
     ''' Production modifiers '''
     money_modifier = models.IntegerField(default=0, editable=False)
@@ -54,25 +52,10 @@ class SourceTechnology(models.Model):
         verbose_name = "Source technology"
         verbose_name_plural = "Source technologies"
 
-    def execute_special_effect(self, player):
+    def execute_special_effect(self):
         '''
             Call a callback function for technologies with a special effect
         '''
         method_prefix = self.special_effect_technologies.get(self.slug, "no_special_effect")
         if method_prefix != "no_special_effect":
-            exec("self." + method_prefix + "_special_effect(player)")
-
-    def industrialisation_massive_special_effect(self, player):
-        if self.version == "jelly":
-            usine = player.buildings.get(slug="usine")
-            usine.quantity_cap = math.inf
-            mine = player.buildings.get(slug="mine-de-charbon")
-            mine.quantity_cap = math.inf
-
-    def efficacite_petrolifere_special_effect(self, player):
-        if self.version == "jelly":
-            usine_avancee = player.buildings.get(slug="usine-avancee")
-            usine_avancee.quantity_cap = math.inf
-            raffinerie = player.buildings.get(slug="raffinerie")
-            raffinerie.quantity_cap = math.inf
-
+            exec("self." + method_prefix + "_special_effect(self.version)")
