@@ -42,9 +42,9 @@ urlpatterns = [
     #     name='game-list'
     # ),
     path(
-        'games/<int:pk>',
-        views.GameDetail.as_view(),
-        name='game-detail'
+        'games/<uuid:join_token>/',
+        views.GameRetrieveUpdateAPIView.as_view(),
+        name='game-retrieve-update'
     ),
     path(
         'games/',

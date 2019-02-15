@@ -133,3 +133,62 @@ Status : 201 Created
 }
 
 
+Name : Start Game
+HTTP Verb : PUT
+URI : http://127.0.0.1:8000/api/v1/games/<join_token>/
+Headers : Authorization | Token <insert_token_here>
+Data example : {"game":{"is_live":true}}
+Response example :
+Status : 200 OK
+{
+    "game": {
+        "version": "jelly",
+        "creation_date": "2019-02-15T17:13:47.792182Z",
+        "last_save_date": "2019-02-15T19:50:14.588483Z",
+        "turn": 1,
+        "era": 1,
+        "current_index_pile": 0,
+        "players": [
+            3,
+            4,
+            5
+        ],
+        "hydrocarbon_piles": [
+            4,
+            5,
+            6
+        ],
+        "join_token": "2e47bf1d-afdd-4e2a-8345-194679ce650f",
+        "is_live": true
+    }
+}
+
+
+Name : Game
+HTTP Verb : GET
+URI : http://127.0.0.1:8000/api/v1/games/<join_token>/
+Headers : Authorization | Token <insert_token_here>
+Response example :
+Status : 200 OK
+{
+    "game": {
+        "version": "jelly",
+        "creation_date": "2019-02-15T17:13:47.792182Z",
+        "last_save_date": "2019-02-15T19:50:14.588483Z",
+        "turn": 1,
+        "era": 1,
+        "current_index_pile": 0,
+        "players": [
+            3,
+            4,
+            5
+        ],
+        "hydrocarbon_piles": [
+            4,
+            5,
+            6
+        ],
+        "join_token": "2e47bf1d-afdd-4e2a-8345-194679ce650f",
+        "is_live": true
+    }
+}

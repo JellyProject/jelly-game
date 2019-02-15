@@ -29,6 +29,7 @@ class Game(models.Model):
     turn = models.IntegerField(default=1)
     era = models.IntegerField(default=1)
     current_index_pile = models.IntegerField(default=0)
+    # TO DO : join_token as primary key
     join_token = models.UUIDField(default=uuid.uuid4, editable=False) # Enables joining new games
     is_live = models.BooleanField(default=False)
     source_buildings = models.ManyToManyField('SourceBuilding')

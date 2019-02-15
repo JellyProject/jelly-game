@@ -9,8 +9,43 @@ class GameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Game
-        fields = ('id', 'version', 'creation_date', 'last_save_date', 'turn', 'era', 'current_index_pile',
-                  'players', 'hydrocarbon_piles')
+        fields = ('version', 'creation_date', 'last_save_date',
+                  'turn', 'era', 'current_index_pile',
+                  'players', 'hydrocarbon_piles',
+                  'join_token', 'is_live')
+        read_only_fields = ('version', 'creation_date', 'last_save_date',
+                            'turn', 'era', 'current_index_pile',
+                            'players', 'hydrocarbon_piles',
+                            'join_token')
+
+    def validate(self, data):
+        """
+        Check if is_live is valid, and return the current instance.
+
+        validate() should only be used for updates.
+        """
+        is_live = data.get('is_live', None)
+
+        if is_live is None:
+            raise serializers.ValidationError(
+                '"is_live" field missing.'
+            )
+
+        if not is_live:
+            raise serializers.ValidationError(
+                '"is_live" should be true.'
+            )
+
+        return {
+            'is_live': is_live,
+        }
+
+    def update(self, instance, validated_data):
+        """ Start a Game. """
+        setattr(instance, "is_live", validated_data["is_live"])
+        instance.save()
+        return instance
+
 
 class GameCreateSerializer(serializers.ModelSerializer):
     """ Handle creation of a Game instance. """

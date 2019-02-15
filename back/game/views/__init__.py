@@ -4,8 +4,7 @@ from .source_technology import SourceTechnologyList, \
 from .source_building import SourceBuildingList, \
                              SourceBuildingVersionList, \
                              SourceBuildingVersionDetail
-from .game import GameList, \
-                  GameDetail, \
+from .game import GameRetrieveUpdateAPIView, \
                   GameCreateAPIView
 from .player import PlayerList, \
                     PlayerDetail, \
