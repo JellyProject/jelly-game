@@ -99,6 +99,7 @@ class RulesTest(TestCase):
         advanced_factory = self.player.state.buildings.get(slug='usine-avancee')
         self.assertFalse(advanced_factory.unlocked)
         (technology, error) = self.player.purchase_technology("taylorisme")
+        advanced_factory = self.player.state.buildings.get(slug='usine-avancee')
         self.assertTrue(advanced_factory.unlocked)
 
     """ Tests on the Shadowplayer class """

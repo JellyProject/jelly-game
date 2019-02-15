@@ -88,7 +88,7 @@ class Technology(models.Model):
         # Unlock child technologies
         try:
             for child_tech_source in source.child_technologies.all():
-                child_tech = self.player.technologies.get(slug=child_tech_source.slug).unlocked = True
+                child_tech = self.player.technologies.get(slug=child_tech_source.slug)
                 child_tech.unlocked = True
                 child_tech.save()
         except:
@@ -96,10 +96,10 @@ class Technology(models.Model):
 
         # Unlock child building
         try:
-            child_build_source = self.source().child_building
-            child_build = self.player.buildings.get(slug=child_build_source.slug)
-            child_build.unlocked = True
-            child_build.save()
+            for child_build_source in source.child_buildings.all():
+                child_build = self.player.buildings.get(slug=child_build_source.slug)
+                child_build.unlocked = True
+                child_build.save()
         except:
             pass
 

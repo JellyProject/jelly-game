@@ -100,6 +100,7 @@ class ProfileTests(APITestCase):
 '''
 
 
+'''
 class GameTests(APITestCase):
     fixtures = ['users', 'games', 'players']
 
@@ -120,8 +121,9 @@ class GameTests(APITestCase):
     def test_invalid_detail_game(self):
         response = self.client.get(reverse('game-detail', kwargs={"pk": 10}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+'''
 
-
+'''
 class PlayerTests(APITestCase):
     fixtures = ['users', 'games', 'players']
 
@@ -142,7 +144,7 @@ class PlayerTests(APITestCase):
     def test_invalid_detail_player(self):
         response = self.client.get(reverse('player-detail', kwargs={"pk": 10}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-
+'''
 
 class TechnologyTests(APITestCase):
     fixtures = ['source_technologies', 'source_buildings', 'users', 'games', 'players']
