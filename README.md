@@ -12,6 +12,8 @@ The game website is powered by a Django backend and a Javascript GUI.
 
 `git clone https://github.com/JellyProject/jelly-game.git`
 
+`cd jelly-game`
+
 `git checkout master-dev`
 
 ##Back
@@ -25,7 +27,7 @@ django-extensions installed on your machine.
 
 **Migrate the database**
 
-`cd jelly-game/back/`
+`cd back/`
 
 `python manage.py makemigrations`
 
