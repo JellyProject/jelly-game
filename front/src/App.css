@@ -1,0 +1,14 @@
+:root {
+  --br: 1em; /* border-radius */
+  --displayHeight: 30em;
+  --displayWidth: 30em;
+}
+
+html {
+  background: url("https://uploads.codesandbox.io/uploads/user/4d6d5766-3f43-4e45-be51-31820caaa940/exOc-bg.jpg")
+    no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
