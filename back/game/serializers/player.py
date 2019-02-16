@@ -1,12 +1,15 @@
 from rest_framework import serializers
 from .. import models
-from profiles.models import Profile
-from .player_state import PlayerStateSerializer
+from .balance import BalanceSerializer
+from .production import ProductionSerializer
+from .resources import ResourcesSerializer
 
 
 class PlayerSerializer(serializers.ModelSerializer):
     profile = serializers.ReadOnlyField(source='profile.user.username')
-    state = PlayerStateSerializer(read_only=True)
+    balance = BalanceSerializer(read_only=True)
+    production = ProductionSerializer(read_only=True)
+    resources = ResourcesSerializer(read_only=True)
 
     class Meta:
         model = models.Player

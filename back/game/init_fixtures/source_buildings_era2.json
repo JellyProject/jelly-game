@@ -8,7 +8,6 @@
             "era": 2,
             "cost": 6,
             "description": "",
-            "initial_quantity_cap": 5,
             "hydrocarbon_modifier": 2,
             "pollution_modifier": 1
         }
@@ -22,7 +21,6 @@
             "era": 2,
             "cost": 8,
             "description": "",
-            "initial_quantity_cap": 5,
             "money_modifier": 5,
             "electricity_modifier": -1,
             "hydrocarbon_modifier": 2,
@@ -39,7 +37,6 @@
             "era": 2,
             "cost": 15,
             "description": "",
-            "initial_quantity_cap": 5,
             "money_modifier": 5,
             "electricity_modifier": 6,
             "social_modifier": -1
@@ -54,7 +51,6 @@
             "era": 2,
             "cost": 5,
             "description": "",
-            "initial_quantity_cap": 5,
             "money_modifier": 4,
             "hydrocarbon_modifier": -1,
             "waste_modifier": 2
@@ -68,8 +64,7 @@
             "version": "jelly",
             "era": 2,
             "cost": 3,
-            "description": "Spécial",
-            "initial_quantity_cap": 5
+            "description": "Spécial"
         }
     },
     {
@@ -81,7 +76,6 @@
             "era": 2,
             "cost": 7,
             "description": "",
-            "initial_quantity_cap": 5,
             "money_modifier": 4,
             "electricity_modifier": -2,
             "waste_modifier": 1
@@ -96,7 +90,6 @@
             "era": 2,
             "cost": 8,
             "description": "",
-            "initial_quantity_cap": 5,
             "electricity_modifier": 4,
             "hydrocarbon_modifier": -2,
             "pollution_modifier": 2
@@ -111,7 +104,6 @@
             "era": 2,
             "cost": 5,
             "description": "",
-            "initial_quantity_cap": 5,
             "electricity_modifier": 2
         }
     },
@@ -124,7 +116,6 @@
             "era": 2,
             "cost": 3,
             "description": "",
-            "initial_quantity_cap": 5,
             "electricity_modifier": 1
         }
     }

@@ -4,7 +4,6 @@ from rest_framework.test import APITestCase
 from .. import models
 from .. import serializers
 
-
 class SourceTechnologyTests(APITestCase):
     fixtures = ['source_technologies']
 
@@ -76,8 +75,9 @@ class SourceBuildingTests(APITestCase):
                                            kwargs={"version": "jelly", "slug": "head-patting"}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-'''
+
 class ProfileTests(APITestCase):
+    """ TO DO : USER/PROFILE CLEAN IMPLEMENTATION """
     fixtures = ['users', 'games', 'players']
 
     def test_list_profiles(self):
@@ -97,10 +97,8 @@ class ProfileTests(APITestCase):
     """def test_invalid_detail_profile(self):
         response = self.client.get(reverse('profile-detail', kwargs={"username": "Jane Doe"}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)"""
-'''
 
 
-'''
 class GameTests(APITestCase):
     fixtures = ['users', 'games', 'players']
 
@@ -121,9 +119,8 @@ class GameTests(APITestCase):
     def test_invalid_detail_game(self):
         response = self.client.get(reverse('game-detail', kwargs={"pk": 10}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-'''
 
-'''
+
 class PlayerTests(APITestCase):
     fixtures = ['users', 'games', 'players']
 
@@ -144,7 +141,7 @@ class PlayerTests(APITestCase):
     def test_invalid_detail_player(self):
         response = self.client.get(reverse('player-detail', kwargs={"pk": 10}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-'''
+
 
 class TechnologyTests(APITestCase):
     fixtures = ['source_technologies', 'source_buildings', 'users', 'games', 'players']
@@ -152,19 +149,19 @@ class TechnologyTests(APITestCase):
     def test_list_technologies(self):
         technologies = models.Technology.objects.all()
         serializer = serializers.TechnologySerializer(technologies, many=True)
-        response = self.client.get(reverse('technology-list', kwargs={"player_state_pk": 1}))
+        response = self.client.get(reverse('technology-list', kwargs={"player_pk": 1}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
     def test_valid_detail_technology(self):
         technology = models.Technology.objects.get(slug="taylorisme")
         serializer = serializers.TechnologySerializer(technology)
-        response = self.client.get(reverse('technology-detail', kwargs={"player_state_pk": 1, "slug": "taylorisme"}))
+        response = self.client.get(reverse('technology-detail', kwargs={"player_pk": 1, "slug": "taylorisme"}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
     def test_invalid_detail_technology(self):
-        response = self.client.get(reverse('technology-detail', kwargs={"player_state_pk": 1, "slug": "head-patting"}))
+        response = self.client.get(reverse('technology-detail', kwargs={"player_pk": 1, "slug": "head-patting"}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     """def test_valid_update_technology(self):
@@ -185,17 +182,17 @@ class BuildingTests(APITestCase):
     def test_list_buildings(self):
         buildings = models.Building.objects.all()
         serializer = serializers.BuildingSerializer(buildings, many=True)
-        response = self.client.get(reverse('building-list', kwargs={"player_state_pk": 1}))
+        response = self.client.get(reverse('building-list', kwargs={"player_pk": 1}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
     def test_valid_detail_building(self):
         building = models.Building.objects.get(pk=1)
         serializer = serializers.BuildingSerializer(building)
-        response = self.client.get(reverse('building-detail', kwargs={"player_state_pk": 1, "slug": "usine"}))
+        response = self.client.get(reverse('building-detail', kwargs={"player_pk": 1, "slug": "usine"}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
     def test_invalid_detail_building(self):
-        response = self.client.get(reverse('building-detail', kwargs={"player_state_pk": 1, "slug": "head-patting"}))
+        response = self.client.get(reverse('building-detail', kwargs={"player_pk": 1, "slug": "head-patting"}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

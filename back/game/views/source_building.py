@@ -34,7 +34,7 @@ class SourceBuildingVersionDetail(generics.RetrieveAPIView):
     It is tied to the /api/source_building/<version>/<slug>/ endpoint.
     """
     serializer_class = serializers.SourceBuildingSerializer
-    lookup_field = 'slug'
+    lookup_field='slug'
 
     def get_queryset(self):
         return models.SourceBuilding.objects.filter(version=self.kwargs['version'])

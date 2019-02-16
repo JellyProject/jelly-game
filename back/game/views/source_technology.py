@@ -34,7 +34,7 @@ class SourceTechnologyVersionDetail(generics.RetrieveAPIView):
     It is tied to the /api/source_technology/<version>/<slug>/ endpoint.
     """
     serializer_class = serializers.SourceTechnologySerializer
-    lookup_field = 'slug'
+    lookup_field='slug'
 
     def get_queryset(self):
         return models.SourceTechnology.objects.filter(version=self.kwargs['version'])
