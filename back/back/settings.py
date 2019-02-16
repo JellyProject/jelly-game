@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',          # django-cors-headers
     'django_extensions',    # python manage.py shell_plus
     'authentication',       # custom authentication app
-    'profiles',              # user extension app
+    'profiles',             # user extension app
     'game',                 # game app
 ]
 
