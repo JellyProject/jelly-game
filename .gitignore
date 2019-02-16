@@ -118,9 +118,3 @@ venv.bak/
 
 # Migration files
 back/game/migrations/
-back/authentication/migrations/
-back/profiles/migrations/
-
-# Node modules
-front/node_modules/
-front/package-lock.json

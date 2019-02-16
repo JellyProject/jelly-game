@@ -1,7 +1,6 @@
 from .. import models
 from .. import serializers
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
 
 
 class SourceBuildingList(generics.ListAPIView):
@@ -20,7 +19,6 @@ class SourceBuildingVersionList(generics.ListAPIView):
 
     It is tied to the /api/source_building/<version>/ endpoint.
     """
-    permission_classes = (IsAuthenticated,)
     serializer_class = serializers.SourceBuildingSerializer
 
     def get_queryset(self):
