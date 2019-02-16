@@ -32,7 +32,7 @@ class WelcomePage extends Component {
         />
       );
     } else {
-      return <Login handleStepChange={this.handleStepChange} saveToken={this.props.saveToken} />; //par défaut, la page est sur login, à revoir
+      return <Login handleStepChange={this.handleStepChange} saveToken={this.props.saveToken} />;
     }
   };
   render() {
@@ -148,7 +148,7 @@ class Signup extends Component {
   }
 
   handleSubmit(event) {
-    if (true || this.state.check) { // !!!!!!!!!!!!!!!!!!!!!!!
+    if (true || this.state.check) {
       axios.post('http://127.0.0.1:8000/api/v1/users/', {
         "user": {
           "username": this.state.username,
@@ -231,9 +231,6 @@ class Signup extends Component {
 }
 
 class MainMenu extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div className="main-menu">
@@ -252,9 +249,6 @@ class MainMenu extends Component {
 }
 
 class Button extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div className="main-menu-button hover" onClick={this.props.onClick}>
@@ -391,12 +385,9 @@ class JoinGame extends Component {
 }
 
 class BackButton extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
-      <div className="back-button hover" onClick={this.props.onClick}>
+      <div className="menu-box hover" onClick={this.props.onClick}>
         Back
       </div>
     );

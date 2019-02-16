@@ -6,7 +6,7 @@ import imageUrl from "./imageUrl";
 class Game extends Component {
   constructor(props) {
     super(props);
-    this.state = { data: Data }; //A REMPLACER PAR REQUETE INITIALE!!!!!!!!!!!!
+    this.state = { data: Data }; //Ã  remplacer par reqÃ»ete initiale
   }
   getGameData = () => {
     return this.state.data;
@@ -40,7 +40,7 @@ class MainGrid extends Component {
       let new_state = this.state;
       new_state.current_action_queue.push(
         <ActionIcon url={imageUrl[object.name]} />
-      ); //ajout d'une action à la file
+      ); //ajout d'une action ï¿½ la file
       this.setState(new_state);
     }
   };
@@ -161,7 +161,7 @@ class MenuMonitor extends Component {
           text={this.read(this.props.getGameData().player.production)}
         />
         <MenuMonitorStats
-          header="Réserves d'hydrocarbures"
+          header="Rï¿½serves d'hydrocarbures"
           text={this.read(this.props.getGameData().player.resources)}
         />
       </div>
@@ -659,7 +659,7 @@ class TechFooterButtons extends Component {
     }
   }
 }
-// components from other players' stats
+// components from game info
 
 class GameInfoPanel extends Component {
   render() {
