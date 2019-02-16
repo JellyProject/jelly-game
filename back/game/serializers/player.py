@@ -47,7 +47,6 @@ class PlayerAddSerializer(serializers.ModelSerializer):
             )
 
         try:
-            print(self.context['request'].user.username)
             profile = Profile.objects.get(user=self.context['request'].user)
         except:
             raise serializers.ValidationError(

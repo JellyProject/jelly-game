@@ -13,7 +13,7 @@ class Event(models.Model):
         * index (int) : index of this event in the 'event deck'
     """
     game = models.ForeignKey('Game', on_delete=models.CASCADE, related_name="events", editable=False)
-    source = models.OneToOneField('SourceEvent', null=True, on_delete=models.SET_NULL)
+    source = models.ForeignKey('SourceEvent', null=True, on_delete=models.SET_NULL, related_name="events")
 
     index = models.IntegerField(default=0, editable=False)
 
