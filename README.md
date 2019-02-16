@@ -31,8 +31,7 @@ django-extensions installed on your machine.
 
 **Load initial fixtures**
 
-`python manage.py loaddata source_events_era1.json source_events_era2.json
-source_technologies.json source_buildings_era1.json source_buildings_era2.json`
+`python manage.py loaddata game/init_fixtures/source_events_era1.json game/init_fixtures/source_events_era2.json game/init_fixtures/source_technologies.json game/init_fixtures/source_buildings_era1.json game/init_fixtures/source_buildings_era2.json`
 
 **Run server**
 
@@ -57,4 +56,4 @@ The axios package is also needed.
 
 **Run development server**
 
-`npm run`
+`npm start`
