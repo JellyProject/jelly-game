@@ -161,10 +161,27 @@ TechGrid correspond à l’onglet « Technologies » et permet d’afficher le m
 Finalement, GameInfoPanel devrait, à terme, afficher des statistiques globales du jeu, des évènements et d’autres informations utiles telles que le code de la partie, mais cette page est pour l’instant vide.
 
 \section{El\'ements r\'ealis\'es}
-\todo[inline]{(il est usuel d'avoir un delta avec les objectifs initiaux)}
+
+\subsection{Impl\'ementation du backend}
+
+Au niveau du backend, tous les mod\`eles d\'ecrits dans la section pr\'ec\'edente sont impl\'ement\'es. Il manque ainsi l'impl\'ementation des accords d'importation et d'exportation que nous n'avons pas eu le temps de traiter. L'impl\'ementation des int\'eractions entre les mod\`eles existants est compl\`ete. Nous n'avons pas cod\'e tous les b\^atiments et technologies pr\'evues dans les fixtures, mais nous en avons une s\'election repr\'esentative. Certains endpoints de l'API sont op\'erationnels. Ainsi, un visiteur est capable de créer une compte, s'authentifier, créer une partie, en rejoindre une, et lancer une partie. Il manque donc les endpoints servant au d\'eroulement de la partie, que nous n'avons pas eu le temps d'impl\'ementer. Le travail restant pour atteindre une version fonctionnelle du jeu serait cependant une répétition du travail déjà effectué, ce qui ne poserait pas de difficultés supplémentaires.\\
+Le système d'authentification retenu repose sur un \'echange de jetons jwt entre le client et le serveur, ce qui permet de contrôler l'accès aux ressources servies par l'API (on souhaite par exemple qu'un joueur donné ne puisse pas accéder aux actions considérées par un autre joueur lors d'un tour). 
+
+\subsection{Impl\'ementation du frontend}
+
+L'interface graphique est impl\'ement\'ee et fonctionnelle.
 
 \section{Probl\`emes rencontr\'es}
-\todo[inline]{(afin que nous capitalisions de l'expérience en vue des prochaines promos)}
+
+Durant ce projet, nous avons \'et\'es confront\'es \`a plusieurs difficult\'es. Nous avons mis beaucoup de temps \`a mettre un place une API adaptée au projet, en cons\'equence de quoi l'ensemble des liens que nous souhaitions établir entre frontend et backend n'ont pas pu être faits dans les temps. A posteriori, une approche plus progressive et peut-être moins ambitieuse dans laquelle les fonctionnalités élémentaires auraient été implémentées une à une en conservant le lien entre backend et frontend aurait été préférable à celle que nous avons adoptée. Le choix de développer en parallèle les deux parties du projet en visant à obtenir un ensemble de fonctionnalités somme toute assez élaborées s'est avéré contestable, d'autant que les équipes chargées des différentes missions se sont perdues de vue plusieurs fois, rendant les liaisons encore plus difficiles.
+
+
+
+
+
+
+
+
 
 
 \end{document}
