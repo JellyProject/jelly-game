@@ -131,11 +131,11 @@ Voici le diagramme UML repr\'esentant la majeure partie des mod\`eles du projet 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=15cm]{../global_uml.pdf}
+\includegraphics[width=16cm]{../global_uml.pdf}
 \caption{Diagramme UML des mod\`eles}
 \end{figure}
 
-Comme indiqu\'e sur le diagramme, on a tout d'abord une classe centrale \textbf{Game}, \`a laquelle sont reli\'ees les fixtures (\'ecrites dans des fichiers .json puis charg\'ees en tant qu'instances de mod\`eles) qui d\'ecrivent les instances de \textbf{SourceBuilding} (b\^atiments), \textbf{SourceTechnology} (technologies), et \textbf{SourceEvent} (\'ev\`enements). Puis, \`a \textbf{Game} sont reli\'es avec une relation ForeignKey (many-to-one) les mod\`eles \textbf{HydrocarbonSupplyPile} (piles d'hydrocarbures, qui sont ordonn\'ees par leur index) et \textbf{Event} ("deck" d'\'ev\`enemements pour cette partie, ordonn\'es par leur index, et li\'es en OneToOne aux \textbf{SourceEvent}). Le deuxi\`eme mod\`ele central de l'architecture du backend est le mod\`ele \textbf{Player} qui est reli\'e \`a \textbf{Game} par une ForeignKey. Chaque \textbf{Player} poss\`ede un \textbf{PlayerState}, auquel sont reli\'es les mod\`eles \textbf{Resources}, \textbf{Production}, \textbf{Balance}, \textbf{Technology}, et \textbf{Building}. De plus, chaque \textbf{Player} est li\'e \`a un \textbf{ShadowPlayer}, qui est lui m\^eme li\'e \`a un \textbf{PlayerState}. Cela permet d'impl\'ementer la pile d'action : au d\'ebut de la phase principale de chaque joueur, on copie le Player dans le ShadowPlayer. Puis, pendant toute la phase les actions effectuée ne modifient que le ShadowPlayer. En cas d'annulation de la pile d'actions, le Player est de nouveau copié dans le ShadowPlayer. Enfin, le Player est mis \`a jour \`a la fin du tour en lui attribuant les nouvelles propriétés du ShadowPlayer.
+Comme indiqu\'e sur le diagramme, on a tout d'abord une classe centrale \textbf{Game}, \`a laquelle sont reli\'ees les fixtures (\'ecrites dans des fichiers .json puis charg\'ees en tant qu'instances de mod\`eles) qui d\'ecrivent les instances de \textbf{SourceBuilding} (b\^atiments), \textbf{SourceTechnology} (technologies), et \textbf{SourceEvent} (\'ev\`enements). Puis, \`a \textbf{Game} sont reli\'es avec une relation ForeignKey (many-to-one) les mod\`eles \textbf{HydrocarbonSupplyPile} (piles d'hydrocarbures, qui sont ordonn\'ees par leur index) et \textbf{Event} ("deck" d'\'ev\`enemements pour cette partie, ordonn\'es par leur index, et li\'es en ForeignKey aux \textbf{SourceEvent}). Le deuxi\`eme mod\`ele central de l'architecture du backend est le mod\`ele \textbf{Player} qui est reli\'e \`a \textbf{Game} par une ForeignKey. Chaque \textbf{Player} poss\`ede un \textbf{PlayerState}, auquel sont reli\'es les mod\`eles \textbf{Resources}, \textbf{Production}, \textbf{Balance}, \textbf{Technology}, et \textbf{Building}. De plus, chaque \textbf{Player} est li\'e \`a un \textbf{ShadowPlayer}, qui est lui m\^eme li\'e \`a un \textbf{PlayerState}. Cela permet d'impl\'ementer la pile d'action : au d\'ebut de la phase principale de chaque joueur, on copie le Player dans le ShadowPlayer. Puis, pendant toute la phase les actions effectuée ne modifient que le ShadowPlayer. En cas d'annulation de la pile d'actions, le Player est de nouveau copié dans le ShadowPlayer. Enfin, le Player est mis \`a jour \`a la fin du tour en lui attribuant les nouvelles propriétés du ShadowPlayer.
 
 \subsection{Frontend React}
 
@@ -169,7 +169,9 @@ Le système d'authentification retenu repose sur un \'echange de jetons jwt entr
 
 \subsection{Impl\'ementation du frontend}
 
-L'interface graphique est impl\'ement\'ee et fonctionnelle.
+A ce jour, les fonctionnalités du projet qui sont opérationnelles sont la création de compte, la connexion, la création d'une partie et l'accès à une partie déjà créée.
+Plus précisément, il est possible à un utilisateur d'accéder au menu principal du projet, soit en s'étant connecté grâce à des identifiants figurant dans la base de données, soit en lui soumettant de nouveaux identifiants associés à une adresse mail. Une fois sur le menu principal, il est possible de créér ou de rejoindre une partie. Le backend est capable de fournir en quelques secondes un token identifiant la partie créée à la demande de l'utilisateur ou bien, un token lui étant donné, de connecter l'utilisateur à une partie en cours. 
+Une fois dans l'interface de jeu, les agissements des boutons n'entraînent pour le moment pas d'échanges avec le backend. La fonctionnalité en cours d'implémentation au moment du rendu est la récupération des données du jeu (statistiques des actions et technologies) pour l'affichage. Par ailleurs, les différentes technologies ne disposent pour le moment pas toutes d'images.
 
 \section{Probl\`emes rencontr\'es}
 
