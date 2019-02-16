@@ -12,6 +12,8 @@ The game website is powered by a Django backend and a Javascript GUI.
 
 `git clone https://github.com/JellyProject/jelly-game.git`
 
+`git checkout master-dev`
+
 ##Back
 
 **Requirements**
