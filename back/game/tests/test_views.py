@@ -146,6 +146,7 @@ class PlayerTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 '''
 
+
 class TechnologyTests(APITestCase):
     fixtures = ['source_technologies', 'source_buildings', 'users', 'games', 'players']
 
@@ -180,7 +181,7 @@ class TechnologyTests(APITestCase):
 
 
 class BuildingTests(APITestCase):
-    fixtures = ['users', 'games', 'players']
+    fixtures = ['source_buildings', 'source_technologies', 'users', 'games', 'players']
 
     def test_list_buildings(self):
         buildings = models.Building.objects.all()

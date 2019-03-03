@@ -19,7 +19,7 @@
     "pk": 1,
     "fields": {
         "state": 1,
-        "slug": "usine",
+        "source": 1,
         "unlocked": true,
         "copies": 0
     }
@@ -29,7 +29,7 @@
     "pk": 2,
     "fields": {
         "state": 1,
-        "slug": "usine-avancee",
+        "source": 2,
         "unlocked": false,
         "copies": 0
     }
@@ -39,7 +39,7 @@
     "pk": 3,
     "fields": {
         "state": 1,
-        "slug": "centrale-thermique",
+        "source": 3,
         "unlocked": true,
         "copies": 0
     }

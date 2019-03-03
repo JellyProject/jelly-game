@@ -5,7 +5,6 @@ from .. import game_settings as settings
 from profiles.models import Profile
 
 
-
 class RulesTest(TestCase):
     """ Tests on the Building class """
     fixtures = ['users', 'source_technologies', 'source_buildings', 'source_events']
@@ -27,8 +26,8 @@ class RulesTest(TestCase):
 
     def test_building_purchase(self):
         """ Building purchase test : the player purchases a factory. """
-        first_building_init = self.player.state.buildings.get(slug='usine')
-        source_building = first_building_init.source()
+        first_building_init = self.player.state.buildings.get(source__slug='usine')
+        source_building = first_building_init.source
         self.assertLessEqual(source_building.cost, self.player.state.resources.money)
         (first_building_current, error_message) = self.player.purchase_building("usine")
         self.assertIs(error_message, "")
@@ -58,7 +57,7 @@ class RulesTest(TestCase):
         balance_init = self.player.state.balance
         resources_init = self.player.state.resources
         production_init = self.player.state.production
-        first_building_init = self.player.state.buildings.get(slug='usine')
+        first_building_init = self.player.state.buildings.get(source__slug='usine')
         a = self.player.state.purchase_building("usine")
         (first_building, error_message) = a
         self.assertEqual(error_message, "Fonds insuffisants")
@@ -72,7 +71,7 @@ class RulesTest(TestCase):
         balance_init = self.player.balance
         resources_init = self.player.resources
         production_init = self.player.production
-        second_building_init = self.player.buildings.get(slug='usine-avancee')
+        second_building_init = self.player.buildings.get(source__slug='usine-avancee')
         (second_building, error_message) = self.player.purchase_building("usine-avancee")
         self.assertEqual(error_message, "Technologie(s) nécessaire(s)")
         self.assertEqual(self.player.balance, balance_init)
@@ -85,7 +84,7 @@ class RulesTest(TestCase):
         balance_init = self.player.state.balance
         resources_init = self.player.state.resources
         production_init = self.player.state.production
-        third_building_init = self.player.state.buildings.get(slug='centrale-thermique')
+        third_building_init = self.player.state.buildings.get(source__slug='centrale-thermique')
         (third_building, error_message) = self.player.purchase_building("centrale-thermique")
         self.assertEqual(error_message, "Ère trop précoce")
         self.assertEqual(self.player.state.balance, balance_init)
@@ -96,10 +95,10 @@ class RulesTest(TestCase):
     def test_building_unlock(self):
         """ Building unlock test. """
         self.player.resources.money = 1000
-        advanced_factory = self.player.state.buildings.get(slug='usine-avancee')
+        advanced_factory = self.player.state.buildings.get(source__slug='usine-avancee')
         self.assertFalse(advanced_factory.unlocked)
         (technology, error) = self.player.purchase_technology("taylorisme")
-        advanced_factory = self.player.state.buildings.get(slug='usine-avancee')
+        advanced_factory = self.player.state.buildings.get(source__slug='usine-avancee')
         self.assertTrue(advanced_factory.unlocked)
 
     """ Tests on the Shadowplayer class """
@@ -107,6 +106,6 @@ class RulesTest(TestCase):
     def test_shadowplayer_recover(self):
         """ ShadowPlayer Recover test. """
         self.shadowplayer = models.ShadowPlayer.objects.get(player=self.player)
-        building_init = self.player.state.buildings.get(slug='centrale-thermique')
+        building_init = self.player.state.buildings.get(source__slug='centrale-thermique')
         self.shadowplayer.recover(self.player)
         self.assertIs(building_init.copies, 0)

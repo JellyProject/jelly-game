@@ -58,7 +58,7 @@ class PlayerState(models.Model):
 
         for source_building in self.player.game.source_buildings.all():
             unlocked = (source_building.parent_technology is None)
-            Building.objects.create(state=self, slug=source_building.slug, unlocked=unlocked, quantity_cap=source_building.initial_quantity_cap)
+            Building.objects.create(state=self, source=source_building, unlocked=unlocked, quantity_cap=source_building.initial_quantity_cap)
 
         for source_technology in self.player.game.source_technologies.all():
             unlocked = (source_technology.parent_technology is None)
@@ -82,7 +82,7 @@ class PlayerState(models.Model):
 
     def purchase_building(self, slug):
         """ Purchase the building with given slug if possible. If not, return an error string. """
-        building = self.buildings.get(slug=slug)
+        building = self.buildings.get(source__slug=slug)
         (is_purchasable, error_message) = building.is_purchasable()
         if is_purchasable:
             building.copies += 1
