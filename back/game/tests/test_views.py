@@ -158,7 +158,7 @@ class TechnologyTests(APITestCase):
         self.assertEqual(response.data, serializer.data)
 
     def test_valid_detail_technology(self):
-        technology = models.Technology.objects.get(slug="taylorisme")
+        technology = models.Technology.objects.get(source__slug="taylorisme")
         serializer = serializers.TechnologySerializer(technology)
         response = self.client.get(reverse('technology-detail', kwargs={"player_state_pk": 1, "slug": "taylorisme"}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)

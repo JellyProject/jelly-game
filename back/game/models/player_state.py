@@ -62,7 +62,7 @@ class PlayerState(models.Model):
 
         for source_technology in self.player.game.source_technologies.all():
             unlocked = (source_technology.parent_technology is None)
-            Technology.objects.create(state=self, slug=source_technology.slug, unlocked=unlocked)
+            Technology.objects.create(state=self, source=source_technology, unlocked=unlocked)
 
         self.save()
 
@@ -92,7 +92,7 @@ class PlayerState(models.Model):
 
     def purchase_technology(self, slug):
         """ Purchase the technology with given slug if possible. If not, return an error string. """
-        technology = self.technologies.get(slug=slug)
+        technology = self.technologies.get(source__slug=slug)
         (is_purchasable, error_message) = technology.is_purchasable()
         if is_purchasable:
             technology.purchased = True

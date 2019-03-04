@@ -9,17 +9,18 @@ class Technology(models.Model):
 
     Fields :
         * state (OneToOne -> PlayerState) : global state of the player related to the balance
-        * index (int) : A unique index to link this technology to a source technology.
         * unlocked (bool) : True -> This technology may be purchased by the player.
         * purchased (bool) : True -> This technology has been purchased by the player.
+        * source (ForeignKey -> SourceTechnology) : source event corresponding
     """
     state = models.ForeignKey('PlayerState', on_delete=models.CASCADE, related_name='technologies', editable=False)
-    slug = models.CharField(max_length=40, default='fire-discovery', editable=False)
+    # slug = models.CharField(max_length=40, default='fire-discovery', editable=False)
     unlocked = models.BooleanField(default=False)
     purchased = models.BooleanField(default=False)
+    source = models.ForeignKey('SourceTechnology', null=True, on_delete=models.SET_NULL, related_name="technologies")
 
     def __str__(self):
-        return "{0} (Game : {1}, Player : {2})".format(self.source().name,
+        return "{0} (Game : {1}, Player : {2})".format(self.source.name,
                                                        self.player.game.pk,
                                                        self.player.pk)
 
@@ -37,15 +38,12 @@ class Technology(models.Model):
     def player(self):
         return self.state.player
 
-    def source(self):
-        return self.player.game.source_technologies.get(slug=self.slug)
-
     def is_purchasable(self):
         """
         Return the tuple (is_purchasable, error_message).
         error_message will be left empty if is_purchasable is true.
         """
-        source = self.source()
+        source = self.source
         # Era check
         if self.player.game.era < source.era:
             return (False, "Ère trop précoce.")
@@ -66,7 +64,7 @@ class Technology(models.Model):
         WARNING : the actual purchase should be done in a separate function.
         """
         # Load self source_technology
-        source = self.source()
+        source = self.source
 
         # Spend money.
         self.player.resources.money -= source.cost
