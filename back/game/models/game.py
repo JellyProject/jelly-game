@@ -32,7 +32,7 @@ class Game(models.Model):
     era = models.IntegerField(default=1)
     current_index_pile = models.IntegerField(default=0)
     # TO DO : join_token as primary key
-    join_token = models.UUIDField(default=uuid.uuid4, editable=False) # Enables joining new games
+    join_token = models.UUIDField(default=uuid.uuid4, editable=False)  # Enables joining new games
     is_live = models.BooleanField(default=False)
     source_buildings = models.ManyToManyField('SourceBuilding')
     source_events = models.ManyToManyField('SourceEvent')
@@ -129,12 +129,9 @@ class Game(models.Model):
         """
         # Check if a player already has this profile
         if not Player.objects.filter(game=self, profile=profile):
-            # new_player = Player.objects.create(game=self, user=user)
-            # Resources.objects.create(player=new_player)
-            # Production.objects.create(player=new_player)
-            # Balance.objects.create(player=new_player)
             new_player = Player.create(profile=profile, game=self)
-            # ajustement du stock mondial d'hydrocarbures
+
+            # Ajustement du stock mondial d'hydrocarbures
             const = constant.HYDROCARBON_STOCKS_PER_PLAYER
             for pile_index in range(len(const)):
                 self.hydrocarbon_piles.get(index=pile_index).decrease(-const[pile_index][0])

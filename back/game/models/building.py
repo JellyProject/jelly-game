@@ -20,7 +20,13 @@ class Building(models.Model):
     unlocked = models.BooleanField(default=False)
     copies = models.IntegerField(default=0)
     quantity_cap = models.IntegerField(default=0)
-    source = models.ForeignKey('SourceBuilding', null=True, on_delete=models.SET_NULL, related_name="buildings")
+    source = models.ForeignKey(
+        'SourceBuilding',
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="buildings",
+        editable=False
+    )
 
     def __str__(self):
         return "{0} (Game : {1}, Player : {2})".format(self.source.name,

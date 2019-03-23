@@ -21,6 +21,10 @@ class PlayerState(models.Model):
         * production (OneToOneField <- Production): player production at the beginning of each generation
         * technologies (ForeignKey <- PlayerTechnology): technologies
         * buildings (ForeignKey <- PlayerBuilding): buildings
+
+        * player : corresponds to exactly one of these two fields :
+            * _player (OneToOneField -> Player)
+            * _shadow_player (OneToOneField -> ShadowPlayer)
     """
 
     _player = models.OneToOneField('Player', null=True, blank=True, related_name='state',
@@ -45,15 +49,15 @@ class PlayerState(models.Model):
         # We test if player is a Player or a ShadowPlayer
         if hasattr(new_player, 'profile'):  # player is a Player (player has a 'profile' field)
             new_state = cls(_player=new_player)
-            new_state.save()  # Peut-on faire mieux ?
+            new_state.save()
             new_state._init_state()
         else:  # player is a ShadowPlayer (has no 'profile' field)
             new_state = cls(_shadow_player=new_player)
-            new_state.save()  # Peut-on faire mieux ?
+            new_state.save()
             new_state._init_state()
 
     def _init_state(self):
-        """ doc """
+        """ Initialize the player state with starting resources, production, balance, technologies, and buildings """
         # We create Resources, Production, Balance, Buildings and Technologies associated
         Resources.objects.create(state=self)
         Production.objects.create(state=self)
@@ -61,13 +65,14 @@ class PlayerState(models.Model):
 
         for source_building in self.player.game.source_buildings.all():
             unlocked = (source_building.parent_technology is None)
-            Building.objects.create(state=self, source=source_building, unlocked=unlocked, quantity_cap=source_building.initial_quantity_cap)
+            Building.objects.create(state=self, source=source_building, unlocked=unlocked,
+                                    quantity_cap=source_building.initial_quantity_cap)
 
         for source_technology in self.player.game.source_technologies.all():
             unlocked = (source_technology.parent_technology is None)
             Technology.objects.create(state=self, source=source_technology, unlocked=unlocked)
 
-        self.save()
+        self.save()  # inutile ?? --> a tester
 
     def has_same_possessions(self, other):
         """ doc """
@@ -76,10 +81,10 @@ class PlayerState(models.Model):
            self.resources != other.resources):
             return False
         for building in self.buildings.all():
-            if building != Building.objects.get(index=building.index, player=other):
+            if building != Building.objects.get(source=building.source, state=other):
                 return False
         for technology in self.technologies.all():
-            if technology != Technology.objects.get(index=technology.index, player=other):
+            if technology != Technology.objects.get(source=technology.source, state=other):
                 return False
         return True
 
