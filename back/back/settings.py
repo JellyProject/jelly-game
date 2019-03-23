@@ -40,12 +40,14 @@ INSTALLED_APPS = [
     'rest_framework',       # django-rest-framework
     'corsheaders',          # django-cors-headers
     'django_extensions',    # python manage.py shell_plus
+    'silk',                 # django-silk
     'authentication',       # custom authentication app
     'profiles',             # user extension app
     'game',                 # game app
 ]
 
 MIDDLEWARE = [
+    'silk.middleware.SilkyMiddleware',  # profiling
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -126,7 +128,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 REST_FRAMEWORK = {
     # to keep things simple we’ll allow anyone to make changes to the API since it will only be consumed locally.
@@ -147,7 +150,7 @@ REST_FRAMEWORK = {
 # Hosts allowed to make cross-site HTTP requests
 CORS_ORIGIN_WHITELIST = (
     'localhost:3000',
-    '127.0.0.1:3000' # Set react port here
+    '127.0.0.1:3000'  # Set react port here
 )
 
 # Allowed CORS methods
@@ -162,7 +165,7 @@ CORS_ALLOW_METHODS = (
 
 CSRF_TRUSTED_ORIGINS = (
     'localhost:3000',
-    '127.0.0.1:3000' # Set react port here
+    '127.0.0.1:3000'  # Set react port here
 )
 
 AUTH_USER_MODEL = 'authentication.User'

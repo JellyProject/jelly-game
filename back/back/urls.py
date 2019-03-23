@@ -6,4 +6,5 @@ urlpatterns = [
     path('api/v1/', include('game.urls')),
     path('api/v1/', include('authentication.urls')),
     path('api/v1/', include('profiles.urls')),
+    path('silk/', include('silk.urls', namespace='silk')),
 ]
