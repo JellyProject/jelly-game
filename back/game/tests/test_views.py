@@ -146,6 +146,7 @@ class PlayerTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 '''
 
+
 class TechnologyTests(APITestCase):
     fixtures = ['source_technologies', 'source_buildings', 'users', 'games', 'players']
 
@@ -157,7 +158,7 @@ class TechnologyTests(APITestCase):
         self.assertEqual(response.data, serializer.data)
 
     def test_valid_detail_technology(self):
-        technology = models.Technology.objects.get(slug="taylorisme")
+        technology = models.Technology.objects.get(source__slug="taylorisme")
         serializer = serializers.TechnologySerializer(technology)
         response = self.client.get(reverse('technology-detail', kwargs={"player_state_pk": 1, "slug": "taylorisme"}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -180,7 +181,7 @@ class TechnologyTests(APITestCase):
 
 
 class BuildingTests(APITestCase):
-    fixtures = ['users', 'games', 'players']
+    fixtures = ['source_buildings', 'source_technologies', 'users', 'games', 'players']
 
     def test_list_buildings(self):
         buildings = models.Building.objects.all()

@@ -3,21 +3,23 @@ from django.db import models
 from .. import game_settings as constant
 import math
 
+
 class SourceTechnology(models.Model):
     """
         Source technology model.
 
         Fields :
-            name (char) : A unique human-readable name.
-            slug (char) : A simple and unique string to identify self.
-            version (char) : The game version self belongs to.
-            era (char) : The era self belongs to.
-            description (text) : A human-readable description.
-            cost (int) : Money needed for purchase.
-            parent_technology (OneToOne -> SourceTechnology) : A technology required before self may be purchased.
-            money_modifier, hydrocarbon_modifier, food_modifier, electricity_modifier, pollution_modifier,
-            waste_modifier (int) : Production modifiers.
-            economic_modifier, social_modifier, environmental_modifier (int) : Balance modifiers.
+            * name (char) : A unique human-readable name.
+            * slug (char) : A simple and unique string to identify self.
+            * version (char) : The game version self belongs to.
+            * era (char) : The era self belongs to.
+            * description (text) : A human-readable description.
+            * cost (int) : Money needed for purchase.
+            * parent_technology (OneToOne -> SourceTechnology) : A technology required before self may be purchased.
+            * money_modifier, hydrocarbon_modifier, food_modifier, electricity_modifier, pollution_modifier,
+            * waste_modifier (int) : Production modifiers.
+            * economic_modifier, social_modifier, environmental_modifier (int) : Balance modifiers.
+            * technologies (ForeignKey <- Technology)
     """
     special_effect_technologies = {
         "industrialisation-massive": "industrialisation_massive",
@@ -75,4 +77,3 @@ class SourceTechnology(models.Model):
             usine_avancee.quantity_cap = math.inf
             raffinerie = player.buildings.get(slug="raffinerie")
             raffinerie.quantity_cap = math.inf
-
