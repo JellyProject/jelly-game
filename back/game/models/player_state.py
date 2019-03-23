@@ -28,6 +28,9 @@ class PlayerState(models.Model):
     _shadow_player = models.OneToOneField('ShadowPlayer', null=True, blank=True, related_name='state',
                                           on_delete=models.CASCADE)
 
+    def __str__(self):
+        return "{0}'s state (Game : {1})".format(self.player.username, self.player.game.pk)
+
     @property
     def player(self):
         if self._player is not None:

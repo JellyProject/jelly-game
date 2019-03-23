@@ -18,7 +18,7 @@ class Resources(models.Model):
     hydrocarbon = models.IntegerField(default=settings.HYDROCARBON_INITIAL_STOCK)
 
     def __str__(self):
-        return "Resources (Game : {0}, Player : {1})".format(self.player.game.pk, self.player.pk)
+        return "{0}'s resources (Game : {1})".format(self.player.username, self.player.game.pk)
 
     class Meta:
         verbose_name = "Resources"
