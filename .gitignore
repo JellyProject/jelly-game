@@ -117,3 +117,9 @@ back/profiles/migrations/
 # Node modules
 front/node_modules/
 front/package-lock.json
+
+# Vscode dettings file
+*.vscode
+
+# Static files
+*static
