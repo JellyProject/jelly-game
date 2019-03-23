@@ -13,6 +13,9 @@ class ShadowPlayer(models.Model):
     """
     player = models.OneToOneField('Player', on_delete=models.CASCADE, editable=False)
 
+    def __str__(self):
+        return "{0}'s shadow (Game : {1})".format(self.player.username, self.player.game.pk)
+
     @classmethod
     def create(cls, player):
         """

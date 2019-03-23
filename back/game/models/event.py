@@ -18,7 +18,7 @@ class Event(models.Model):
     index = models.IntegerField(default=0, editable=False)
 
     def __str__(self):
-        return "{0} (Game : {1}), {2}".format(self.source.name, self.game.pk, self.index)
+        return "{0} (Game : {1}, index : {2})".format(self.source.name, self.game.pk, self.index)
 
     def execute_effect(self):
         self.source.execute_effect(self.game)

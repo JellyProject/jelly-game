@@ -30,8 +30,9 @@ class Production(models.Model):
     pollution = models.IntegerField(default=constant.POLLUTION_INITIAL_PRODUCTION)
     waste = models.IntegerField(default=constant.WASTE_INITIAL_PRODUCTION)
 
+
     def __str__(self):
-        return "Production (Game : {0}, Player : {1})".format(self.player.game.pk, self.player.pk)
+        return "{0}'s production (Game : {1})".format(self.player.username, self.player.game.pk)
 
     class Meta:
         verbose_name = "Production"
