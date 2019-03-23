@@ -96,7 +96,7 @@ urlpatterns = [
         name='building-list'
     ),
     path(
-        'player-states/<int:player_state_pk>/buildings/<slug:slug>',
+        'player-states/<int:player_state_pk>/buildings/<slug:source_slug>',
         views.BuildingDetail.as_view(),
         name='building-detail'
     ),
