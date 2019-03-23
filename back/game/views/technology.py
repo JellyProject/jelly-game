@@ -11,45 +11,27 @@ from rest_framework.response import Response
 
 class TechnologyList(generics.ListAPIView):
     """
-     * Resource : set of technologies with given player.
+     * Resource : a set of all technologies with corresponding player.
      * Supported HTTP verbs : GET.
-     * Related URI : api/player-states/<player_state_pk>/technologies
+     * Related URI : api/v1/player-states/<int:player_state_pk>/technologies
     """
+    permission_classes = (IsAuthenticated,)
     serializer_class = serializers.TechnologySerializer
 
-    def get_queryset(self):
-        try:
-            return models.Technology.objects.filter(state__pk=self.kwargs['player_state_pk'])
-        except models.Technology.DoesNotExist:
-            raise TechnologyDoesNotExist
-
-
-'''
-class TechnologyDetail(generics.RetrieveUpdateAPIView):
-    """
-     * Resource : technology with given player and slug.
-     * Supported HTTP verbs : GET, PUT, PATCH.
-     * Related URI : api/player-states/<player_state_pk>/technologies/<slug>
-    """
-    serializer_class = serializers.TechnologySerializer
-    lookup_field = 'slug'
-
-    def get_queryset(self):
-        return models.Technology.objects.filter(state__pk=self.kwargs['player_state_pk'])
-
-    def update(self, request, *args, **kwargs):
-        instance = self.get_object()
-        if not request.data.get('purchased', False):
-            return Response({"error":"'purchased' should be set to True"})
-        (is_purchasable, error_message) = instance.is_purchasable()
-        if not is_purchasable:
-            return Response({"error":error_message})
-        super(TechnologyDetail, self).update(request, *args, **kwargs)
-        instance.trigger_post_purchase_effects()
-'''
+    def list(self, request, *args, **kwargs):
+        technologies = models.Technology.objects.filter(
+            state__pk=self.kwargs['player_state_pk']
+        )
+        serializer = self.serializer_class(technologies, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class TechnologyRetrieveUpdateAPIView(RetrieveUpdateAPIView):
+    """
+     * Resource : a technology with corresponding player and source slug.
+     * Supported HTTP verbs : GET, PUT, PATCH.
+     * Related URI : api/v1/player-states/<int:player_state_pk>/technologies/<slug:source_slug>
+    """
     permission_classes = (IsAuthenticated,)
     renderer_classes = (renderers.TechnologyJSONRenderer,)
     serializer_class = serializers.TechnologySerializer

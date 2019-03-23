@@ -1,12 +1,15 @@
 from rest_framework import serializers
 from .. import models
+from .source_technology import SourceTechnologySerializer
 
 
 class TechnologySerializer(serializers.ModelSerializer):
+    slug = serializers.SlugField(source='source.slug')
+
     class Meta:
         model = models.Technology
-        fields = ('unlocked', 'source', 'purchased', 'state')
-        read_only_fields = ('unlocked', 'source', 'state')
+        fields = ('unlocked', 'slug', 'purchased', 'state')
+        read_only_fields = ('unlocked', 'slug', 'state')
 
     def validate(self, data):
         """

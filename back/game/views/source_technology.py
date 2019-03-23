@@ -1,40 +1,47 @@
 from .. import models
 from .. import serializers
+from .. import renderers
+from ..exceptions import SourceTechnologyDoesNotExist
 from rest_framework import generics
+from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 
 class SourceTechnologyList(generics.ListAPIView):
     """
-    This view provides a `list` action with read_only enabled to the whole set of source technologies.
-
-    It is tied to the /api/source_technology/ endpoint.
-    """
-    queryset = models.SourceTechnology.objects.all()
-    serializer_class = serializers.SourceTechnologySerializer
-
-
-class SourceTechnologyVersionList(generics.ListAPIView):
-    """
-    This view provides a `list` action with read_only enabled to the set of source technologies with given version.
-
-    It is tied to the /api/source_technology/<version>/ endpoint.
+     * Resource : a set of all source technologies with corresponding version.
+     * Supported HTTP verbs : GET.
+     * Related URI : /api/v1/source_technology/<version>
     """
     permission_classes = (IsAuthenticated,)
     serializer_class = serializers.SourceTechnologySerializer
 
-    def get_queryset(self):
-        return models.SourceTechnology.objects.filter(version=self.kwargs['version'])
+    def list(self, request, *args, **kwargs):
+        source_technologies = models.SourceTechnology.objects.filter(
+            version=self.kwargs['version']
+        )
+        serializer = self.serializer_class(source_technologies, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class SourceTechnologyVersionDetail(generics.RetrieveAPIView):
+class SourceTechnologyDetail(generics.RetrieveAPIView):
     """
-    This view provides a `retrieve` action with read_only enabled to the source technology with given version and slug.
-
-    It is tied to the /api/source_technology/<version>/<slug>/ endpoint.
+     * Resource : a source technology with corresponding version and slug.
+     * Supported HTTP verbs : GET.
+     * Related URI : /api/v1/source_technology/<version>/<slug:slug>
     """
+    permission_classes = (IsAuthenticated,)
+    renderer_classes = (renderers.SourceTechnologyJSONRenderer,)
     serializer_class = serializers.SourceTechnologySerializer
-    lookup_field = 'slug'
 
-    def get_queryset(self):
-        return models.SourceTechnology.objects.filter(version=self.kwargs['version'])
+    def retrieve(self, request, *args, **kwargs):
+        try:
+            source_technology = models.SourceTechnology.objects.get(
+                version=self.kwargs['version'],
+                slug=self.kwargs['slug']
+            )
+        except models.SourceTechnology.DoesNotExist:
+            raise SourceTechnologyDoesNotExist
+        serializer = self.serializer_class(source_technology)
+        return Response(serializer.data, status=status.HTTP_200_OK)

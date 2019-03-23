@@ -1,6 +1,5 @@
 from .source_technology import SourceTechnologyList, \
-                               SourceTechnologyVersionList, \
-                               SourceTechnologyVersionDetail
+                               SourceTechnologyDetail
 from .source_building import SourceBuildingList, \
                              SourceBuildingVersionList, \
                              SourceBuildingVersionDetail

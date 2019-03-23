@@ -7,7 +7,11 @@ from authentication.models import User
 
 
 class SourceTechnologyTests(APITestCase):
-    fixtures = ['source_technologies']
+    fixtures = ['source_technologies', 'users']
+
+    def setUp(self):
+        user = User.objects.all()[0] # Requests will be authenticated by this user.
+        self.client.force_authenticate(user=user)
 
     def test_list_source_technologies(self):
         source_technologies = models.SourceTechnology.objects.all()
@@ -43,7 +47,11 @@ class SourceTechnologyTests(APITestCase):
 
 
 class SourceBuildingTests(APITestCase):
-    fixtures = ['source_technologies', 'source_buildings']
+    fixtures = ['source_technologies', 'source_buildings', 'users']
+
+    def setUp(self):
+        user = User.objects.all()[0] # Requests will be authenticated by this user.
+        self.client.force_authenticate(user=user)
 
     def test_list_source_buildings(self):
         source_buildings = models.SourceBuilding.objects.all()

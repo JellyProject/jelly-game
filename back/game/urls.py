@@ -5,19 +5,14 @@ from . import views
 urlpatterns = [
     # SourceTechnology
     path(
-        'source-technologies/',
+        'source-technologies/<slug:version>/',
         views.SourceTechnologyList.as_view(),
         name='source-technology-list'
     ),
     path(
-        'source-technologies/<slug:version>/',
-        views.SourceTechnologyVersionList.as_view(),
-        name='source-technology-version-list'
-    ),
-    path(
         'source-technologies/<slug:version>/<slug:slug>',
-        views.SourceTechnologyVersionDetail.as_view(),
-        name='source-technology-version-detail'
+        views.SourceTechnologyDetail.as_view(),
+        name='source-technology-detail'
     ),
     # SourceBuilding
     path(
