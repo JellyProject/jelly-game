@@ -5,14 +5,12 @@ from .. import models
 class TechnologySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Technology
-        fields = ('unlocked', 'slug', 'purchased', 'state')
-        read_only_fields = ('unlocked', 'slug', 'state')
+        fields = ('unlocked', 'source', 'purchased', 'state')
+        read_only_fields = ('unlocked', 'source', 'state')
 
     def validate(self, data):
         """
-        Check if purchased is valid, and return the current instance.
-
-        validate() should only be used for updates.
+        Check if data has a (purchased, True) key-value pair.
         """
         purchased = data.get('purchased', None)
 

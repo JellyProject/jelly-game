@@ -1,13 +1,12 @@
 from .. import models
 from .. import serializers
+from .. import renderers
+from ..exceptions import TechnologyDoesNotExist
 from rest_framework import generics
-from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.generics import RetrieveUpdateAPIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from .. import renderers
 
 
 class TechnologyList(generics.ListAPIView):
@@ -19,7 +18,10 @@ class TechnologyList(generics.ListAPIView):
     serializer_class = serializers.TechnologySerializer
 
     def get_queryset(self):
-        return models.Technology.objects.filter(state__pk=self.kwargs['player_state_pk'])
+        try:
+            return models.Technology.objects.filter(state__pk=self.kwargs['player_state_pk'])
+        except models.Technology.DoesNotExist:
+            raise TechnologyDoesNotExist
 
 
 '''
@@ -53,16 +55,26 @@ class TechnologyRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     serializer_class = serializers.TechnologySerializer
 
     def retrieve(self, request, *args, **kwargs):
-        technology = models.Technology.objects.get(state__pk=self.kwargs['player_state_pk'],
-                                                   slug=self.kwargs['slug'])
+        try:
+            technology = models.Technology.objects.get(
+                state__pk=self.kwargs['player_state_pk'],
+                source__slug=self.kwargs['source_slug']
+            )
+        except models.Technology.DoesNotExist:
+            raise TechnologyDoesNotExist
         serializer = self.serializer_class(technology)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def update(self, request, *args, **kwargs):
-        """ Start game. """
+        """ Purchase technology. """
         technology = request.data.get('technology', {})
-        instance = models.Technology.objects.get(state__pk=self.kwargs['player_state_pk'],
-                                                 slug=self.kwargs['slug'])
+        try:
+            instance = models.Technology.objects.get(
+                state__pk=self.kwargs['player_state_pk'],
+                source__slug=self.kwargs['source_slug']
+            )
+        except models.Technology.DoesNotExist:
+            raise TechnologyDoesNotExist
         serializer = self.serializer_class(instance, data=technology)
         serializer.is_valid(raise_exception=True)
         serializer.save()

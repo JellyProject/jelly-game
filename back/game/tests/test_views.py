@@ -1,8 +1,9 @@
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, force_authenticate
 from .. import models
 from .. import serializers
+from authentication.models import User
 
 
 class SourceTechnologyTests(APITestCase):
@@ -150,6 +151,10 @@ class PlayerTests(APITestCase):
 class TechnologyTests(APITestCase):
     fixtures = ['source_technologies', 'source_buildings', 'users', 'games', 'players']
 
+    def setUp(self):
+        user = User.objects.all()[0] # Requests will be authenticated by this user.
+        self.client.force_authenticate(user=user)
+
     def test_list_technologies(self):
         technologies = models.Technology.objects.all()
         serializer = serializers.TechnologySerializer(technologies, many=True)
@@ -160,13 +165,19 @@ class TechnologyTests(APITestCase):
     def test_valid_detail_technology(self):
         technology = models.Technology.objects.get(source__slug="taylorisme")
         serializer = serializers.TechnologySerializer(technology)
-        response = self.client.get(reverse('technology-detail', kwargs={"player_state_pk": 1, "slug": "taylorisme"}))
+        response = self.client.get(reverse(
+            'technology-detail',
+            kwargs={"player_state_pk": 1, "source_slug": "taylorisme"}
+        ))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
     def test_invalid_detail_technology(self):
-        response = self.client.get(reverse('technology-detail', kwargs={"player_state_pk": 1, "slug": "head-patting"}))
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        response = self.client.get(reverse(
+            'technology-detail',
+            kwargs={"player_state_pk": 1, "source_slug": "head-patting"}
+        ))
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     """def test_valid_update_technology(self):
         technology = models.Technology.objects.get(slug="taylorisme")
