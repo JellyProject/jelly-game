@@ -13,37 +13,34 @@ class SourceTechnologyTests(APITestCase):
         user = User.objects.all()[0] # Requests will be authenticated by this user.
         self.client.force_authenticate(user=user)
 
-    def test_list_source_technologies(self):
-        source_technologies = models.SourceTechnology.objects.all()
-        serializer = serializers.SourceTechnologySerializer(source_technologies, many=True)
-        response = self.client.get(reverse('source-technology-list'))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, serializer.data)
-
-    def test_valid_list_version_source_technologies(self):
+    def test_valid_list_source_technologies(self):
         source_technologies = models.SourceTechnology.objects.filter(version="jelly")
         serializer = serializers.SourceTechnologySerializer(source_technologies, many=True)
-        response = self.client.get(reverse('source-technology-version-list', kwargs={"version": "jelly"}))
+        response = self.client.get(reverse('source-technology-list', kwargs={"version": "jelly"}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
-    def test_invalid_list_version_source_technologies(self):
-        response = self.client.get(reverse('source-technology-version-list', kwargs={"version": "raccoon"}))
+    def test_invalid_list_source_technologies(self):
+        response = self.client.get(reverse('source-technology-list', kwargs={"version": "raccoon"}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 0)
 
-    def test_valid_detail_version_source_technology(self):
+    def test_valid_detail_source_technology(self):
         source_technology = models.SourceTechnology.objects.get(version="jelly", slug="taylorisme")
         serializer = serializers.SourceTechnologySerializer(source_technology)
-        response = self.client.get(reverse('source-technology-version-detail',
-                                           kwargs={"version": "jelly", "slug": "taylorisme"}))
+        response = self.client.get(reverse(
+            'source-technology-detail',
+            kwargs={"version": "jelly", "slug": "taylorisme"}
+        ))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
-    def test_invalid_detail__version_source_technology(self):
-        response = self.client.get(reverse('source-technology-version-detail',
-                                           kwargs={"version": "jelly", "slug": "head-patting"}))
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+    def test_invalid_detail_source_technology(self):
+        response = self.client.get(reverse(
+            'source-technology-detail',
+            kwargs={"version": "jelly", "slug": "head-patting"}
+        ))
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 
 class SourceBuildingTests(APITestCase):
