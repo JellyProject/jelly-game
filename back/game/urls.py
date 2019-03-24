@@ -16,19 +16,14 @@ urlpatterns = [
     ),
     # SourceBuilding
     path(
-        'source-buildings/',
-        views.SourceBuildingList.as_view(),
-        name='source-building-list',
-    ),
-    path(
         'source-buildings/<slug:version>/',
-        views.SourceBuildingVersionList.as_view(),
-        name='source-building-version-list'
+        views.SourceBuildingList.as_view(),
+        name='source-building-list'
     ),
     path(
         'source-buildings/<slug:version>/<slug:slug>',
-        views.SourceBuildingVersionDetail.as_view(),
-        name='source-building-version-detail'
+        views.SourceBuildingDetail.as_view(),
+        name='source-building-detail'
     ),
     # Game
     # path(

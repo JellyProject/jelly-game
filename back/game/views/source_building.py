@@ -1,40 +1,47 @@
 from .. import models
 from .. import serializers
+from .. import renderers
+from ..exceptions import SourceBuildingDoesNotExist
 from rest_framework import generics
+from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 
 class SourceBuildingList(generics.ListAPIView):
     """
-    This view provides a `list` action with read_only enabled to the whole set of source buildings.
-
-    It is tied to the /api/source_building/ endpoint.
-    """
-    queryset = models.SourceBuilding.objects.all()
-    serializer_class = serializers.SourceBuildingSerializer
-
-
-class SourceBuildingVersionList(generics.ListAPIView):
-    """
-    This view provides a `list` action with read_only enabled to the set of source buildings with given version.
-
-    It is tied to the /api/source_building/<version>/ endpoint.
+     * Resource : a set of all source buildings with corresponding version.
+     * Supported HTTP verbs : GET.
+     * Related URI : /api/v1/source_building/<version>
     """
     permission_classes = (IsAuthenticated,)
     serializer_class = serializers.SourceBuildingSerializer
 
-    def get_queryset(self):
-        return models.SourceBuilding.objects.filter(version=self.kwargs['version'])
+    def list(self, request, *args, **kwargs):
+        source_buildings = models.SourceBuilding.objects.filter(
+            version=self.kwargs['version']
+        )
+        serializer = self.serializer_class(source_buildings, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class SourceBuildingVersionDetail(generics.RetrieveAPIView):
+class SourceBuildingDetail(generics.RetrieveAPIView):
     """
-    This view provides a `retrieve` action with read_only enabled to the source building with given version and slug.
-
-    It is tied to the /api/source_building/<version>/<slug>/ endpoint.
+     * Resource : a source building with corresponding version and slug.
+     * Supported HTTP verbs : GET.
+     * Related URI : /api/v1/source_building/<version>/<slug:slug>
     """
+    permission_classes = (IsAuthenticated,)
+    renderer_classes = (renderers.SourceBuildingJSONRenderer,)
     serializer_class = serializers.SourceBuildingSerializer
-    lookup_field = 'slug'
 
-    def get_queryset(self):
-        return models.SourceBuilding.objects.filter(version=self.kwargs['version'])
+    def retrieve(self, request, *args, **kwargs):
+        try:
+            source_building = models.SourceBuilding.objects.get(
+                version=self.kwargs['version'],
+                slug=self.kwargs['slug']
+            )
+        except models.SourceBuilding.DoesNotExist:
+            raise SourceBuildingDoesNotExist
+        serializer = self.serializer_class(source_building)
+        return Response(serializer.data, status=status.HTTP_200_OK)
