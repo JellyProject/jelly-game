@@ -17,10 +17,9 @@ class PlayerTest(TestCase):
 
     def setUp(self):
         self.player = models.Player.objects.all()[0]
-        pass
 
     def test_player_creation(self):
-        """ Create a player (and shadow player associated) and very the initialization """
+        """ Create a player (and shadow player associated) and verify the initialization """
         self.assertTrue(self.player.state.has_same_possessions(self.player.shadow.state))
 
     def test_shadow_player_modification(self):
@@ -37,6 +36,9 @@ class PlayerTest(TestCase):
 
         player = models.Player.objects.all()[0]
         self.assertTrue(player.shadow.state.buildings.get(source__slug='usine-avancee').unlocked)
+
+        # verification that player.state has not changed
+        self.assertTrue(player.state.has_same_possessions(self.player.state))
 
         self.player.update()
         player = models.Player.objects.all()[0]
