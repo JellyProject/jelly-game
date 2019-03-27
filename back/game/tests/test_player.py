@@ -20,11 +20,11 @@ class PlayerTest(TestCase):
         pass
 
     def test_player_creation(self):
-        """ doc """
+        """ Create a player (and shadow player associated) and very the initialization """
         self.assertTrue(self.player.state.has_same_possessions(self.player.shadow.state))
 
     def test_shadow_player_modification(self):
-        """ doc """
+        """ Test modification of shadow player and update method """
         self.player.shadow.state.balance.economic += 1
         self.player.shadow.state.balance.save()
 
@@ -43,4 +43,20 @@ class PlayerTest(TestCase):
         self.assertTrue(player.state.has_same_possessions(player.shadow.state))
 
     def test_player_modification(self):
-        pass
+        """ Test modification of player and reset method """
+        self.player.state.balance.economic += 1
+        self.player.state.balance.save()
+
+        player = models.Player.objects.all()[0]
+        self.assertFalse(player.state.has_same_possessions(player.shadow.state))
+
+        building = self.player.state.buildings.get(source__slug='usine-avancee')
+        building.unlocked = True
+        building.save()
+
+        player = models.Player.objects.all()[0]
+        self.assertFalse(player.shadow.state.buildings.get(source__slug='usine-avancee').unlocked)
+
+        self.player.shadow.reset()
+        player = models.Player.objects.all()[0]
+        self.assertTrue(player.state.has_same_possessions(player.shadow.state))

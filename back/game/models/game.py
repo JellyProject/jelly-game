@@ -16,8 +16,15 @@ class Game(models.Model):
     Game model, representing a "world"
 
     Fields :
-        * name (string) : name of the game
+        * version (string) : Game version
+        * creation_date (DateTimeField)
+        * last_save_date (DateTimeField)
+        * turn (int) : current turn number
+        * era (int) : current era
         * current_index_pile (int) : index of the current hydrocarbon pile in which players take ressources
+        * join_token () : enables joining new games
+        * is_live (bool) : tells if the game is running
+
         * source_events (ManyToMany -> SourceEvent):
         * source_buildings (ManyToMany -> SourceBuilding):
         * source_technologies (ManyToMany -> SourceTechnology):
@@ -25,14 +32,14 @@ class Game(models.Model):
         * players (ForeignKey <- Player) : query set of players in the game
         * hydrocarbon_piles (ForeignKey <- HydrocarbonSupplyPile) : query set of hydrocarbon supply piles in the game
     """
-    version = models.CharField(max_length=20, default='jelly')  # Game version
+    version = models.CharField(max_length=20, default='jelly')
     creation_date = models.DateTimeField(auto_now_add=True)
     last_save_date = models.DateTimeField(auto_now=True)
     turn = models.IntegerField(default=1)
     era = models.IntegerField(default=1)
     current_index_pile = models.IntegerField(default=0)
     # TO DO : join_token as primary key
-    join_token = models.UUIDField(default=uuid.uuid4, editable=False)  # Enables joining new games
+    join_token = models.UUIDField(default=uuid.uuid4, editable=False)
     is_live = models.BooleanField(default=False)
     source_buildings = models.ManyToManyField('SourceBuilding')
     source_events = models.ManyToManyField('SourceEvent')
@@ -50,7 +57,7 @@ class Game(models.Model):
         Create a new Game
 
         Args :
-            version (string) : version of the new game.
+            * version (string) : version of the new game.
         """
         game = cls(version=version)
         game.save()
@@ -60,6 +67,10 @@ class Game(models.Model):
         game._create_event_deck()
         game._init_supply()
         return game
+
+    @property
+    def number_of_turns():
+        return self.events.count() + 1
 
     def _init_source_buildings(self):
         """ Links the game to its version source buildings. """
@@ -177,6 +188,11 @@ class Game(models.Model):
             self.turn += 1
 
     def run_game(self):
+        """
+        Run the game from turn 0 to end
+
+        TODO : save mechanic and run from turn n to turn undefined
+        """
         for i in range(0, self.events.count() + 1):
             self._income_phase()
             self._main_phase()

@@ -3,6 +3,8 @@ from django.db import models
 from .. import game_settings as constant
 
 from .player_state import PlayerState
+from .building import Building
+from .technology import Technology
 
 
 class ShadowPlayer(models.Model):
