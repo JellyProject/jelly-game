@@ -30,7 +30,6 @@ class Production(models.Model):
     pollution = models.IntegerField(default=constant.POLLUTION_INITIAL_PRODUCTION)
     waste = models.IntegerField(default=constant.WASTE_INITIAL_PRODUCTION)
 
-
     def __str__(self):
         return "{0}'s production (Game : {1})".format(self.player.username, self.player.game.pk)
 

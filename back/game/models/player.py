@@ -21,6 +21,8 @@ class Player(models.Model):
     New fields :
         * game (Game) : ForeignKey link to the game in which the player plays
         * profile (Profile) : profile which controls the player
+
+        * shadow (OneToOne <- ShadowPlayer)
         * state (OneToOne <- PlayerState)
     """
     game = models.ForeignKey('Game', on_delete=models.CASCADE, related_name="players", editable=False)
@@ -36,20 +38,16 @@ class Player(models.Model):
     @classmethod
     def create(cls, profile, game):
         """
-        Create and return a new Player of profile in game
+        Create and return a new Player linked to profile in game
 
         Args :
-            profile (Profile) : profile which will control this player
-            game (Game) : game in which the player will play
+            * profile (Profile) : profile which will control this player
+            * game (Game) : game in which the player will play
         """
-        # source_building = models.SourceBuilding.objects.all()[0]
         new_player = cls(game=game, profile=profile)
         new_player.save()  # Peut-on faire mieux ?
         player_state = PlayerState.create(new_player)
         shadow_player = ShadowPlayer.create(new_player)
-        
-
-
         return new_player
 
     @property
@@ -91,7 +89,7 @@ class Player(models.Model):
         self.resources.money += self.production.money
         self.balance.environmental -= self.production.pollution
         self.balance.environmental -= self.production.waste
-        self.green_income()
+        self.balance.green_income()  # environment generation income
         # Cas des hydrocarbures
         hydrocarbon_stock = self.game.hydrocarbon_piles.get(index=self.game.current_index_pile)
         self.resources.hydrocarbon += self.production.hydrocarbon * hydrocarbon_stock.multiplier
@@ -100,15 +98,33 @@ class Player(models.Model):
         self.resources.save()
         self.balance.save()
 
-    def green_income(self):
-        """ Apply the environment generation income to the environment balance """
-        self.balance.green_income()
+    def update(self):
+        """ Copy shadow in player """
+        self.state.balance.economic = self.shadow.state.balance.economic
+        self.state.balance.social = self.shadow.state.balance.social
+        self.state.balance.environmental = self.shadow.state.balance.environmental
+        self.state.balance.save()
 
-    def purchase_building(self, slug):
-        return self.state.purchase_building(slug)
+        self.state.resources.money = self.shadow.state.resources.money
+        self.state.resources.hydrocarbon = self.shadow.state.resources.hydrocarbon
+        self.resources.save()
 
-    def purchase_technology(self, slug):
-        return self.state.purchase_technology(slug)
+        self.state.production.money = self.shadow.production.money
+        self.state.production.hydrocarbon = self.shadow.production.hydrocarbon
+        self.state.production.hydrocarbon_consumption = self.shadow.production.hydrocarbon_consumption
+        self.state.production.food = self.shadow.production.food
+        self.state.production.electricity = self.shadow.production.electricity
+        self.state.production.pollution = self.shadow.production.pollution
+        self.state.production.waste = self.shadow.production.waste
+        self.production.save()
 
-    def clonage(self, shadow_player):
-        self.state = shadow_player.state
+        for building in self.state.buildings.all():
+            building.unlocked = Building.objects.get(source=building.source, state=self.shadow.state).unlocked
+            building.copies = Building.objects.get(source=building.source, state=self.shadow.state).copies
+            building.quantity_cap = Building.objects.get(source=building.source, state=self.shadow.state).quantity_cap
+            building.save()
+
+        for technology in self.state.technologies.all():
+            technology.unlocked = Technology.objects.get(source=technology.source, state=self.shadow.state).unlocked
+            technology.purchased = Technology.objects.get(source=technology.source, state=self.shadow.state).purchased
+            technology.save()

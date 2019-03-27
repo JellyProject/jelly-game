@@ -17,7 +17,13 @@ class Technology(models.Model):
     # slug = models.CharField(max_length=40, default='fire-discovery', editable=False)
     unlocked = models.BooleanField(default=False)
     purchased = models.BooleanField(default=False)
-    source = models.ForeignKey('SourceTechnology', null=True, on_delete=models.SET_NULL, related_name="technologies")
+    source = models.ForeignKey(
+        'SourceTechnology',
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="technologies",
+        editable=False
+    )
 
     def __str__(self):
         return "{0} (Game : {1}, Player : {2})".format(self.source.name,
@@ -30,7 +36,7 @@ class Technology(models.Model):
 
     def __eq__(self, other):
         return (self.player.id == other.player.id and
-                self.slug == other.slug and
+                self.source == other.source and
                 self.unlocked == other.unlocked and
                 self.purchased == other.purchased)
 
