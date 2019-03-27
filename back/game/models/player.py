@@ -82,6 +82,18 @@ class Player(models.Model):
         """ Return the technologies of this player. """
         return self.state.technologies
 
+    @property
+    def score(self):
+        """ Return the current score of the player """
+        score = 0
+        economic = self.balance.economic
+        environmental = self.balance.environmental
+        social = self.balance.social
+
+        balance = [economic, environmental, social]
+        balance.sort()
+        return balance[0] * 3 + balance[1] * 2 + balance[2]
+
     def earn_income(self):
         """
         Apply the (beginning of generation) income phase to player
