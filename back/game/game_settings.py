@@ -33,5 +33,7 @@ WASTE_INITIAL_PRODUCTION = 0
 EVENT_DECK_MIN_SIZE = {'era1': 4, 'era2': 4}
 EVENT_DECK_MAX_SIZE = {'era1': 6, 'era2': 6}
 
+IMPORTATION_COST = 2  # constant dans un premier temps
+
 """ Versions du jeu """
 VERSIONS = ["jelly"]

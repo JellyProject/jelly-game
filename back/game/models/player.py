@@ -90,10 +90,21 @@ class Player(models.Model):
         self.balance.environmental -= self.production.pollution
         self.balance.environmental -= self.production.waste
         self.balance.green_income()  # environment generation income
+
         # Cas des hydrocarbures
         hydrocarbon_stock = self.game.hydrocarbon_piles.get(index=self.game.current_index_pile)
         self.resources.hydrocarbon += self.production.hydrocarbon * hydrocarbon_stock.multiplier
         hydrocarbon_stock.decrease(self.production.hydrocarbon * hydrocarbon_stock.multiplier)
+        self.resources.hydrocarbon -= self.production.hydrocarbon_consumption
+
+        # importations of missing resources
+        if self.production.food < 0:
+            self.resources.money += self.production.food * constant.IMPORTATION_COST
+        if self.production.electricity < 0:
+            self.production.money += self.production.electricity * constant.IMPORTATION_COST
+        if self.resources.hydrocarbon < 0:
+            self.resources.money += self.resources.hydrocarbon * constant.IMPORTATION_COST
+            self.resources.hydrocarbon = 0
 
         self.resources.save()
         self.balance.save()
