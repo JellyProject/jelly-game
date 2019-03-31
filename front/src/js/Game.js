@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "./Game.css";
+import "../css/Game.css";
 import Data from "./Data";
 import imageUrl from "./imageUrl";
 

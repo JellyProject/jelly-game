@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./WelcomePage.css";
+import "../css/WelcomePage.css";
 import axios from "axios";
 
 class WelcomePage extends Component {
