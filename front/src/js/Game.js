@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "../css/Game.css";
 import Data from "./Data";
-import imageUrl from "./imageUrl";
+import images from "./images.js"
 
 class Game extends Component {
   constructor(props) {
@@ -82,7 +82,7 @@ class MainGrid extends Component {
     } else if (object.name && object.family) {
       let new_state = this.state;
       new_state.current_action_queue.push(
-        <ActionIcon url={imageUrl[object.name]} />
+        <ActionIcon url={images[object.name + '.png']} />
       ); //ajout d'une action à la file
       this.setState(new_state);
     }
@@ -327,7 +327,7 @@ class MenuFooterActions extends Component {
         actionsList.push(
           <Action
             name={action_name}
-            url={imageUrl[action_name]}
+            url={images[action_name + '.png']}
             handleSelection={this.props.handleSelection}
             handleActionQueue={this.props.handleActionQueue}
             getGameData={this.props.getGameData}

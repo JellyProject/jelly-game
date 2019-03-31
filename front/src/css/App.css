@@ -10,7 +10,7 @@
 }
 
 html {
-  background: url("https://uploads.codesandbox.io/uploads/user/4d6d5766-3f43-4e45-be51-31820caaa940/exOc-bg.jpg")
+  background: url("../images/bg.jpg")
     no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
