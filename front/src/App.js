@@ -8,12 +8,17 @@ class App extends Component {
     super(props);
     this.state = {
       page: "welcome_page",
-      token: undefined
+      token: null,
+      join_token: null
     };
   }
 
   saveToken = token => {
     this.setState({token});
+  }
+
+  saveJoinToken = join_token => {
+    this.setState({join_token});
   }
 
   handlePageChange(page_name) {
@@ -23,10 +28,10 @@ class App extends Component {
   }
   render() {
     if (this.state.page === "game") {
-      return <Game token={this.state.token}/>;
+      return <Game token={this.state.token} join_token={this.state.join_token}/>;
     } else {
       return (
-        <WelcomePage handlePageChange={() => this.handlePageChange("game")} saveToken={this.saveToken} token={this.state.token}/>
+        <WelcomePage handlePageChange={() => this.handlePageChange("game")} saveToken={this.saveToken} token={this.state.token} join_token={this.state.join_token}/>
       );
     }
   }

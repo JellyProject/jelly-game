@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import "./Game.css";
 import Data from "./Data";
 import imageUrl from "./imageUrl";
@@ -6,11 +7,53 @@ import imageUrl from "./imageUrl";
 class Game extends Component {
   constructor(props) {
     super(props);
-    this.state = { data: Data }; //à remplacer par reqûete initiale
+    this.state = {
+      data: {
+        player: Data.player,
+        game: Data.game
+      }
+    };
   }
+
+  beginTurn = () => {
+    let player = Data.player; // !!!!!!!!!!!!!!!!!!!!!!!!!
+    let game;
+    axios
+      .get(
+        "http://127.0.0.1:8000/api/v1/games/" + this.props.join_token + "/",
+        {
+          headers: {
+            Authorization: "Token " + this.props.token
+          }
+        }
+      )
+      .then(response => {
+        game = response.data.game;
+        let report = "";
+        for (let key in response.data.user) {
+          report += "\n" + key + " : " + response.data.user[key];
+        }
+        console.log(report);
+      })
+      .catch(error => {
+        let report = "";
+        for (let key in error.response.data.errors) {
+          report += "\n" + key + " : " + error.response.data.errors[key];
+        }
+        console.log(report);
+      });
+    this.setState({
+      data: {
+        player,
+        game
+      }
+    });
+  }
+
   getGameData = () => {
     return this.state.data;
   };
+
   render() {
     return (
       <MainGrid
@@ -40,7 +83,7 @@ class MainGrid extends Component {
       let new_state = this.state;
       new_state.current_action_queue.push(
         <ActionIcon url={imageUrl[object.name]} />
-      ); //ajout d'une action � la file
+      ); //ajout d'une action à la file
       this.setState(new_state);
     }
   };
@@ -161,8 +204,8 @@ class MenuMonitor extends Component {
           text={this.read(this.props.getGameData().player.production)}
         />
         <MenuMonitorStats
-          header="R�serves d'hydrocarbures"
-          text={this.read(this.props.getGameData().player.resources)}
+          header="Réserves d'hydrocarbures"
+          text={this.read(this.props.getGameData().game.hydrocarbon_piles)}
         />
       </div>
     );
@@ -659,7 +702,7 @@ class TechFooterButtons extends Component {
     }
   }
 }
-// components from game info
+// components from other players' stats
 
 class GameInfoPanel extends Component {
   render() {

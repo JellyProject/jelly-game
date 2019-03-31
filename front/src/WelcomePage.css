@@ -1,14 +1,3 @@
-:root {
-  --br: 1em; /* border-radius */
-  --displayHeight: 30em;
-  --displayWidth: 30em;
-  --bgColorLight: #303030;
-  --bgColorDark: #1f2229;
-  --textColor1: #ffbb00;
-  --textColor2: #ffffff;
-  --hoverColor: #0ef;
-}
-
 .welcome-grid {
   display: grid;
   height: 80vh;

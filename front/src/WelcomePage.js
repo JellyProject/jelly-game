@@ -14,7 +14,12 @@ class WelcomePage extends Component {
 
   content = step_name => {
     if (this.state.step === "signup") {
-      return <Signup handleStepChange={this.handleStepChange} saveToken={this.props.saveToken} />;
+      return (
+        <Signup
+          handleStepChange={this.handleStepChange}
+          saveToken={this.props.saveToken}
+        />
+      );
     } else if (this.state.step === "main_menu") {
       return (
         <MainMenu
@@ -29,11 +34,17 @@ class WelcomePage extends Component {
           handleStepChange={this.handleStepChange}
           handlePageChange={this.props.handlePageChange}
           token={this.props.token}
+          saveJoinToken={this.props.saveJoinToken}
         />
       );
-    } else {
-      return <Login handleStepChange={this.handleStepChange} saveToken={this.props.saveToken} />;
-    }
+    } else if (this.state.step === "login") {
+      return (
+        <Login
+          handleStepChange={this.handleStepChange}
+          saveToken={this.props.saveToken}
+        />
+      );
+    } else alert("Shit is happening");
   };
   render() {
     return <div className="welcome-grid">{this.content(this.state.step)}</div>;
@@ -59,25 +70,26 @@ class Login extends Component {
   }
 
   handleSubmit(event) {
-    axios.post('http://127.0.0.1:8000/api/v1/users/login/', {
-      "user": {
-        "username": this.state.username,
-        "password": this.state.password
-      }
-    })
+    axios
+      .post("http://127.0.0.1:8000/api/v1/users/login/", {
+        user: {
+          username: this.state.username,
+          password: this.state.password
+        }
+      })
       .then(response => {
-        let report = '';
+        let report = "";
         for (let key in response.data.user) {
-          report += "\n" + key + ' : ' + response.data.user[key];
-        };
+          report += "\n" + key + " : " + response.data.user[key];
+        }
         console.log(report);
-        this.props.handleStepChange('main_menu');
+        this.props.handleStepChange("main_menu");
         this.props.saveToken(response.data.user.token);
       })
       .catch(error => {
-        let report = '';
+        let report = "";
         for (let key in error.response.data.errors) {
-          report += "\n" + key + ' : ' + error.response.data.errors[key];
+          report += "\n" + key + " : " + error.response.data.errors[key];
         }
         console.log(report);
       });
@@ -149,26 +161,28 @@ class Signup extends Component {
 
   handleSubmit(event) {
     if (true || this.state.check) {
-      axios.post('http://127.0.0.1:8000/api/v1/users/', {
-        "user": {
-          "username": this.state.username,
-          "email": this.state.email,
-          "password": this.state.password
-        }
-      })
+      // !!!!!!!!!!!!!!!!!!!!!!!
+      axios
+        .post("http://127.0.0.1:8000/api/v1/users/", {
+          user: {
+            username: this.state.username,
+            email: this.state.email,
+            password: this.state.password
+          }
+        })
         .then(response => {
-          let report = '';
+          let report = "";
           for (let key in response.data.user) {
-            report += "\n" + key + ' : ' + response.data.user[key];
+            report += "\n" + key + " : " + response.data.user[key];
           }
           console.log(report);
-          this.props.handleStepChange('main_menu');
+          this.props.handleStepChange("main_menu");
           this.props.saveToken(response.data.user.token);
         })
         .catch(error => {
-          let report = '';
+          let report = "";
           for (let key in error.response.data.errors) {
-            report += "\n" + key + ' : ' + error.response.data.errors[key];
+            report += "\n" + key + " : " + error.response.data.errors[key];
           }
           console.log(report);
         });
@@ -231,6 +245,9 @@ class Signup extends Component {
 }
 
 class MainMenu extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div className="main-menu">
@@ -249,6 +266,9 @@ class MainMenu extends Component {
 }
 
 class Button extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div className="main-menu-button hover" onClick={this.props.onClick}>
@@ -267,24 +287,30 @@ class Creategame extends Component {
     };
   }
   handleGameCreation = () => {
-    axios.post('http://127.0.0.1:8000/api/v1/games/', {
-      "game": { "version": "jelly" }
-    }, { headers: { "Authorization": "Token " + this.props.token } })
+    axios
+      .post(
+        "http://127.0.0.1:8000/api/v1/games/",
+        {
+          game: { version: "jelly" }
+        },
+        { headers: { Authorization: "Token " + this.props.token } }
+      )
       .then(response => {
         this.setState({
           game_was_created: true,
           join_token: response.data.game.join_token
-        })
-        let report = '';
+        });
+        this.props.saveJoinToken(response.data.game.join_token);
+        let report = "";
         for (let key in response.data.game) {
-          report += "\n" + key + ' : ' + response.data.game[key];
+          report += "\n" + key + " : " + response.data.game[key];
         }
         console.log(report);
       })
       .catch(error => {
-        let report = '';
+        let report = "";
         for (let key in error.response.data.errors) {
-          report += "\n" + key + ' : ' + error.response.data.errors[key];
+          report += "\n" + key + " : " + error.response.data.errors[key];
         }
         console.log(report);
       });
@@ -340,30 +366,35 @@ class JoinGame extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
-  };
+  }
   handleSubmit(event) {
-    axios.post('http://127.0.0.1:8000/api/v1/players/', {
-      "player": {
-        "join_token": this.state.join_token
-      }
-    }, { headers: { "Authorization": "Token " + this.props.token } })
+    axios
+      .post(
+        "http://127.0.0.1:8000/api/v1/players/",
+        {
+          player: {
+            join_token: this.state.join_token
+          }
+        },
+        { headers: { Authorization: "Token " + this.props.token } }
+      )
       .then(response => {
-        let report = '';
+        let report = "";
         for (let key in response.data.player) {
-          report += "\n" + key + ' : ' + response.data.player[key];
+          report += "\n" + key + " : " + response.data.player[key];
         }
         console.log(report);
         this.props.handlePageChange();
       })
       .catch(error => {
-        let report = '';
+        let report = "";
         for (let key in error.response.data.errors) {
-          report += "\n" + key + ' : ' + error.response.data.errors[key];
+          report += "\n" + key + " : " + error.response.data.errors[key];
         }
         console.log(report);
       });
     event.preventDefault();
-  };
+  }
   render() {
     return (
       <div className="menu-box">
@@ -385,9 +416,12 @@ class JoinGame extends Component {
 }
 
 class BackButton extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
-      <div className="menu-box hover" onClick={this.props.onClick}>
+      <div className="back-button hover" onClick={this.props.onClick}>
         Back
       </div>
     );

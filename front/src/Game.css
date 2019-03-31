@@ -180,7 +180,7 @@
   justify-content: center;
   border: 0.01em solid var(--textColor1);
   border-radius: var(--br);
-  background-color: var(--bgColorLight);
+  background-color: var(--bgColorDark);
 }
 
 .action:hover {
@@ -201,13 +201,13 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  background: var(--bgColorLight);
+  background: var(--bgColorDark);
   border: 0.01em solid var(--textColor1);
   border-radius: var(--br);
 }
 
 .action-image:hover {
-  background: var(--bgColorDark);
+  background: var(--bgColorLight);
   border: 0.01em solid var(--hoverColor);
 }
 
