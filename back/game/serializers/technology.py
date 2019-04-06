@@ -4,7 +4,7 @@ from .source_technology import SourceTechnologySerializer
 
 
 class TechnologySerializer(serializers.ModelSerializer):
-    slug = serializers.SlugField(source='source.slug')
+    slug = serializers.SlugField(source='source.slug', required=False)
 
     class Meta:
         model = models.Technology

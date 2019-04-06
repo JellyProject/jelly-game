@@ -67,26 +67,26 @@ class Technology(models.Model):
         source = self.source
 
         # Spend money.
-        self.player.resources.money -= source.cost
-        self.player.resources.save()
+        self.player.state.resources.money -= source.cost
+        self.player.state.resources.save()
 
         # Apply all modifiers.
-        self.player.production.money += source.money_modifier
-        self.player.production.food += source.food_modifier
-        self.player.production.hydrocarbon += source.hydrocarbon_modifier
-        self.player.production.electricity += source.electricity_modifier
-        self.player.production.pollution += source.pollution_modifier
-        self.player.production.waste += source.waste_modifier
-        self.player.production.save()
-        self.player.balance.economic += source.economic_modifier
-        self.player.balance.social += source.social_modifier
-        self.player.balance.environmental += source.environmental_modifier
-        self.player.balance.save()
+        self.player.state.production.money += source.money_modifier
+        self.player.state.production.food += source.food_modifier
+        self.player.state.production.hydrocarbon += source.hydrocarbon_modifier
+        self.player.state.production.electricity += source.electricity_modifier
+        self.player.state.production.pollution += source.pollution_modifier
+        self.player.state.production.waste += source.waste_modifier
+        self.player.state.production.save()
+        self.player.state.balance.economic += source.economic_modifier
+        self.player.state.balance.social += source.social_modifier
+        self.player.state.balance.environmental += source.environmental_modifier
+        self.player.state.balance.save()
 
         # Unlock child technologies
         try:
             for child_tech_source in source.child_technologies.all():
-                child_tech = self.player.technologies.get(slug=child_tech_source.slug)
+                child_tech = self.player.state.technologies.get(slug=child_tech_source.slug)
                 child_tech.unlocked = True
                 child_tech.save()
         except:
@@ -95,7 +95,7 @@ class Technology(models.Model):
         # Unlock child building
         try:
             for child_build_source in source.child_buildings.all():
-                child_build = self.player.buildings.get(slug=child_build_source.slug)
+                child_build = self.player.state.buildings.get(slug=child_build_source.slug)
                 child_build.unlocked = True
                 child_build.save()
         except:

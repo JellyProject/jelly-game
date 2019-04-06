@@ -182,16 +182,17 @@ class TechnologyTests(APITestCase):
         ))
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    """def test_valid_update_technology(self):
-        technology = models.Technology.objects.get(slug="taylorisme")
-        technology.player.resources.money = 50
-        technology.player.resources.save()
-        response = self.client.patch(reverse('technology-detail', kwargs={"player_pk": 1, "slug": "taylorisme"}),
-                                     {'purchased': True})
+    def test_valid_update_technology(self):
+        technology = models.Technology.objects.get(source__slug="taylorisme", state__pk=1)
+        technology.state.resources.money = technology.source.cost
+        technology.state.resources.save()
+        response = self.client.put(reverse(
+            'technology-detail',
+            kwargs={"player_state_pk": 1, "source_slug": "taylorisme"}
+        ), {'technology': {'purchased': True}})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertTrue(models.Technology.objects.get(slug="taylorisme").purchased)
-        self.assertEqual(technology.player.resources.money,
-                         50 - models.SourceTechnology.objects.get(slug="taylorisme").cost)"""
+        self.assertTrue(models.Technology.objects.get(source__slug="taylorisme", state__pk=1).purchased)
+        self.assertEqual(models.Resources.objects.get(state__pk=1).money, 0)
 
 """
 class BuildingTests(APITestCase):

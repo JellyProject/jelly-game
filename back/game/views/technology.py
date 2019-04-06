@@ -60,4 +60,5 @@ class TechnologyRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         serializer = self.serializer_class(instance, data=technology)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        instance.trigger_post_purchase_effects()
         return Response(serializer.data, status=status.HTTP_200_OK)
