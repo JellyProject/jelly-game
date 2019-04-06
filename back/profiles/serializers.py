@@ -6,11 +6,10 @@ class ProfileSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username')
     motto = serializers.CharField(allow_blank=True, required=False)
     image = serializers.SerializerMethodField()    # Linked to get_image
-    players = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Profile
-        fields = ('username', 'motto', 'image', 'players')
+        fields = ('username', 'motto', 'image')
         read_only_fields = ('username',)
 
     def get_image(self, obj):

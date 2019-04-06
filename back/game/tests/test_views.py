@@ -1,9 +1,11 @@
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.test import APITestCase, force_authenticate
+from rest_framework.test import APITestCase
 from .. import models
 from .. import serializers
 from authentication.models import User
+from profiles.models import Profile
+from profiles.serializers import ProfileSerializer
 
 
 class SourceTechnologyTests(APITestCase):
@@ -80,28 +82,37 @@ class SourceBuildingTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 
-'''
+
 class ProfileTests(APITestCase):
-    fixtures = ['users', 'games', 'players']
+    fixtures = ['source_technologies', 'source_buildings', 'users', 'games', 'players']
+
+    def setUp(self):
+        user = User.objects.all()[0] # Requests will be authenticated by this user.
+        self.client.force_authenticate(user=user)
 
     def test_list_profiles(self):
-        profiles = models.Profile.objects.all()
-        serializer = serializers.ProfileSerializer(profiles, many=True)
+        profiles = Profile.objects.all()
+        serializer = ProfileSerializer(profiles, many=True)
         response = self.client.get(reverse('profile-list'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
     def test_valid_detail_profile(self):
-        profile = models.Profile.objects.get(user__username="John Doe")
-        serializer = serializers.ProfileSerializer(profile)
-        response = self.client.get(reverse('profile-detail', kwargs={"username": "John Doe"}))
+        profile = Profile.objects.get(user__username="JohnDoe")
+        serializer = ProfileSerializer(profile)
+        response = self.client.get(reverse(
+            'profile-detail',
+            kwargs={"username": "JohnDoe"}
+        ))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
-    """def test_invalid_detail_profile(self):
-        response = self.client.get(reverse('profile-detail', kwargs={"username": "Jane Doe"}))
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)"""
-'''
+    def test_invalid_detail_profile(self):
+        response = self.client.get(reverse(
+            'profile-detail',
+            kwargs={"username": "JaneDoe"}
+        ))
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 
 '''
