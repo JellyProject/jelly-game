@@ -194,7 +194,7 @@ class TechnologyTests(APITestCase):
         self.assertTrue(models.Technology.objects.get(source__slug="taylorisme", state__pk=1).purchased)
         self.assertEqual(models.Resources.objects.get(state__pk=1).money, 0)
 
-"""
+
 class BuildingTests(APITestCase):
     fixtures = ['source_technologies', 'source_buildings', 'users', 'games', 'players']
 
@@ -225,4 +225,3 @@ class BuildingTests(APITestCase):
             kwargs={"player_state_pk": 1, "source_slug": "bird-nest"}
         ))
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-"""

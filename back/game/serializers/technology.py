@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .. import models
-from .source_technology import SourceTechnologySerializer
 
 
 class TechnologySerializer(serializers.ModelSerializer):
