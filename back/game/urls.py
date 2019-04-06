@@ -36,11 +36,6 @@ urlpatterns = [
         views.GameRetrieveUpdateAPIView.as_view(),
         name='game-retrieve-update'
     ),
-    path(
-        'games/',
-        views.GameCreateAPIView.as_view(),
-        name='game-creation'
-    ),
     # Player
     # path(
     #     'players/',

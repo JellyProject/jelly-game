@@ -114,17 +114,9 @@ class ProfileTests(APITestCase):
         ))
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-
 '''
 class GameTests(APITestCase):
-    fixtures = ['users', 'games', 'players']
-
-    def test_list_games(self):
-        games = models.Game.objects.all()
-        serializer = serializers.GameSerializer(games, many=True)
-        response = self.client.get(reverse('game-list'))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, serializer.data)
+    fixtures = ['source_technologies', 'source_buildings', 'users', 'games', 'players']
 
     def test_valid_detail_game(self):
         game = models.Game.objects.get(pk=1)

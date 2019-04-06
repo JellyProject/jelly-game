@@ -94,10 +94,10 @@ class RulesTest(TestCase):
 
     def test_building_unlock(self):
         """ Building unlock test. """
-        self.player.resources.money = 1000
+        self.player.state.resources.money = 1000
         advanced_factory = self.player.state.buildings.get(source__slug='usine-avancee')
         self.assertFalse(advanced_factory.unlocked)
-        (technology, error) = self.player.purchase_technology("taylorisme")
+        technology, error = self.player.purchase_technology("taylorisme")
         advanced_factory = self.player.state.buildings.get(source__slug='usine-avancee')
         self.assertTrue(advanced_factory.unlocked)
 

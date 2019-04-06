@@ -1,33 +1,12 @@
 from .. import models
 from .. import serializers
-from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.generics import RetrieveUpdateAPIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .. import renderers
 from profiles.models import Profile
-
-
-class GameList(generics.ListAPIView):
-    """
-    This view provides a `list` action with read_only enabled to the whole set of games.
-
-    It is tied to the /api/game/ endpoint.
-    """
-    queryset = models.Game.objects.all()
-    serializer_class = serializers.GameSerializer
-
-
-class GameDetail(generics.RetrieveAPIView):
-    """
-    This view provides a `retrieve` action with read_only enabled to the game with given primary key.
-
-    It is tied to the /api/game/<pk>/ endpoint.
-    """
-    queryset = models.Game.objects.all()
-    serializer_class = serializers.GameSerializer
 
 
 class GameCreateAPIView(APIView):
