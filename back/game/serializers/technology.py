@@ -3,6 +3,8 @@ from .. import models
 
 
 class TechnologySerializer(serializers.ModelSerializer):
+    slug = serializers.SlugField(source='source.slug', required=False)
+
     class Meta:
         model = models.Technology
         fields = ('unlocked', 'slug', 'purchased', 'state')
@@ -10,9 +12,7 @@ class TechnologySerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         """
-        Check if purchased is valid, and return the current instance.
-
-        validate() should only be used for updates.
+        Check if data has a (purchased, True) key-value pair.
         """
         purchased = data.get('purchased', None)
 

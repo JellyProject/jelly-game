@@ -1,7 +1,16 @@
-from django.conf.urls import url
-
-from .views import ProfileRetrieveAPIView
+from django.urls import path
+from .views import ProfileRetrieveAPIView, \
+                   ProfileList
 
 urlpatterns = [
-    url(r'^profiles/(?P<username>\w+)/?$', ProfileRetrieveAPIView.as_view()),
+    path(
+        'profiles/',
+        ProfileList.as_view(),
+        name='profile-list'
+    ),
+    path(
+        'profiles/<username>',
+        ProfileRetrieveAPIView.as_view(),
+        name='profile-detail'
+    ),
 ]

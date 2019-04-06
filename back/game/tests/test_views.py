@@ -3,113 +3,120 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from .. import models
 from .. import serializers
+from authentication.models import User
+from profiles.models import Profile
+from profiles.serializers import ProfileSerializer
 
 
 class SourceTechnologyTests(APITestCase):
-    fixtures = ['source_technologies']
+    fixtures = ['source_technologies', 'users']
 
-    def test_list_source_technologies(self):
-        source_technologies = models.SourceTechnology.objects.all()
-        serializer = serializers.SourceTechnologySerializer(source_technologies, many=True)
-        response = self.client.get(reverse('source-technology-list'))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, serializer.data)
+    def setUp(self):
+        user = User.objects.all()[0] # Requests will be authenticated by this user.
+        self.client.force_authenticate(user=user)
 
-    def test_valid_list_version_source_technologies(self):
+    def test_valid_list_source_technologies(self):
         source_technologies = models.SourceTechnology.objects.filter(version="jelly")
         serializer = serializers.SourceTechnologySerializer(source_technologies, many=True)
-        response = self.client.get(reverse('source-technology-version-list', kwargs={"version": "jelly"}))
+        response = self.client.get(reverse('source-technology-list', kwargs={"version": "jelly"}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
-    def test_invalid_list_version_source_technologies(self):
-        response = self.client.get(reverse('source-technology-version-list', kwargs={"version": "raccoon"}))
+    def test_invalid_list_source_technologies(self):
+        response = self.client.get(reverse('source-technology-list', kwargs={"version": "raccoon"}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 0)
 
-    def test_valid_detail_version_source_technology(self):
+    def test_valid_detail_source_technology(self):
         source_technology = models.SourceTechnology.objects.get(version="jelly", slug="taylorisme")
         serializer = serializers.SourceTechnologySerializer(source_technology)
-        response = self.client.get(reverse('source-technology-version-detail',
-                                           kwargs={"version": "jelly", "slug": "taylorisme"}))
+        response = self.client.get(reverse(
+            'source-technology-detail',
+            kwargs={"version": "jelly", "slug": "taylorisme"}
+        ))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
-    def test_invalid_detail__version_source_technology(self):
-        response = self.client.get(reverse('source-technology-version-detail',
-                                           kwargs={"version": "jelly", "slug": "head-patting"}))
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+    def test_invalid_detail_source_technology(self):
+        response = self.client.get(reverse(
+            'source-technology-detail',
+            kwargs={"version": "jelly", "slug": "head-patting"}
+        ))
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 
 class SourceBuildingTests(APITestCase):
-    fixtures = ['source_technologies', 'source_buildings']
+    fixtures = ['source_technologies', 'source_buildings', 'users']
 
-    def test_list_source_buildings(self):
-        source_buildings = models.SourceBuilding.objects.all()
-        serializer = serializers.SourceBuildingSerializer(source_buildings, many=True)
-        response = self.client.get(reverse('source-building-list'))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, serializer.data)
+    def setUp(self):
+        user = User.objects.all()[0] # Requests will be authenticated by this user.
+        self.client.force_authenticate(user=user)
 
-    def test_valid_list_version_source_buildings(self):
+    def test_valid_list_source_buildings(self):
         source_buildings = models.SourceBuilding.objects.filter(version="jelly")
         serializer = serializers.SourceBuildingSerializer(source_buildings, many=True)
-        response = self.client.get(reverse('source-building-version-list', kwargs={"version": "jelly"}))
+        response = self.client.get(reverse('source-building-list', kwargs={"version": "jelly"}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
-    def test_invalid_list_version_source_buildings(self):
-        response = self.client.get(reverse('source-building-version-list', kwargs={"version": "raccoon"}))
+    def test_invalid_list_source_buildings(self):
+        response = self.client.get(reverse('source-building-list', kwargs={"version": "raccoon"}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 0)
 
-    def test_valid_detail_version_source_building(self):
+    def test_valid_detail_source_building(self):
         source_building = models.SourceBuilding.objects.get(version="jelly", slug="usine")
         serializer = serializers.SourceBuildingSerializer(source_building)
-        response = self.client.get(reverse('source-building-version-detail',
-                                           kwargs={"version": "jelly", "slug": "usine"}))
+        response = self.client.get(reverse(
+            'source-building-detail',
+            kwargs={"version": "jelly", "slug": "usine"}
+        ))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
-    def test_invalid_detail_version_source_building(self):
-        response = self.client.get(reverse('source-building-version-detail',
-                                           kwargs={"version": "jelly", "slug": "head-patting"}))
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+    def test_invalid_detail_source_building(self):
+        response = self.client.get(reverse(
+            'source-building-detail',
+            kwargs={"version": "jelly", "slug": "head-patting"}
+        ))
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-'''
+
+
 class ProfileTests(APITestCase):
-    fixtures = ['users', 'games', 'players']
+    fixtures = ['source_technologies', 'source_buildings', 'users', 'games', 'players']
+
+    def setUp(self):
+        user = User.objects.all()[0] # Requests will be authenticated by this user.
+        self.client.force_authenticate(user=user)
 
     def test_list_profiles(self):
-        profiles = models.Profile.objects.all()
-        serializer = serializers.ProfileSerializer(profiles, many=True)
+        profiles = Profile.objects.all()
+        serializer = ProfileSerializer(profiles, many=True)
         response = self.client.get(reverse('profile-list'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
     def test_valid_detail_profile(self):
-        profile = models.Profile.objects.get(user__username="John Doe")
-        serializer = serializers.ProfileSerializer(profile)
-        response = self.client.get(reverse('profile-detail', kwargs={"username": "John Doe"}))
+        profile = Profile.objects.get(user__username="JohnDoe")
+        serializer = ProfileSerializer(profile)
+        response = self.client.get(reverse(
+            'profile-detail',
+            kwargs={"username": "JohnDoe"}
+        ))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
-    """def test_invalid_detail_profile(self):
-        response = self.client.get(reverse('profile-detail', kwargs={"username": "Jane Doe"}))
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)"""
-'''
-
+    def test_invalid_detail_profile(self):
+        response = self.client.get(reverse(
+            'profile-detail',
+            kwargs={"username": "JaneDoe"}
+        ))
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 '''
 class GameTests(APITestCase):
-    fixtures = ['users', 'games', 'players']
-
-    def test_list_games(self):
-        games = models.Game.objects.all()
-        serializer = serializers.GameSerializer(games, many=True)
-        response = self.client.get(reverse('game-list'))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, serializer.data)
+    fixtures = ['source_technologies', 'source_buildings', 'users', 'games', 'players']
 
     def test_valid_detail_game(self):
         game = models.Game.objects.get(pk=1)
@@ -150,6 +157,10 @@ class PlayerTests(APITestCase):
 class TechnologyTests(APITestCase):
     fixtures = ['source_technologies', 'source_buildings', 'users', 'games', 'players']
 
+    def setUp(self):
+        user = User.objects.all()[0] # Requests will be authenticated by this user.
+        self.client.force_authenticate(user=user)
+
     def test_list_technologies(self):
         technologies = models.Technology.objects.all()
         serializer = serializers.TechnologySerializer(technologies, many=True)
@@ -160,28 +171,39 @@ class TechnologyTests(APITestCase):
     def test_valid_detail_technology(self):
         technology = models.Technology.objects.get(source__slug="taylorisme")
         serializer = serializers.TechnologySerializer(technology)
-        response = self.client.get(reverse('technology-detail', kwargs={"player_state_pk": 1, "slug": "taylorisme"}))
+        response = self.client.get(reverse(
+            'technology-detail',
+            kwargs={"player_state_pk": 1, "source_slug": "taylorisme"}
+        ))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
     def test_invalid_detail_technology(self):
-        response = self.client.get(reverse('technology-detail', kwargs={"player_state_pk": 1, "slug": "head-patting"}))
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        response = self.client.get(reverse(
+            'technology-detail',
+            kwargs={"player_state_pk": 1, "source_slug": "head-patting"}
+        ))
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    """def test_valid_update_technology(self):
-        technology = models.Technology.objects.get(slug="taylorisme")
-        technology.player.resources.money = 50
-        technology.player.resources.save()
-        response = self.client.patch(reverse('technology-detail', kwargs={"player_pk": 1, "slug": "taylorisme"}),
-                                     {'purchased': True})
+    def test_valid_update_technology(self):
+        technology = models.Technology.objects.get(source__slug="taylorisme", state__pk=1)
+        technology.state.resources.money = technology.source.cost
+        technology.state.resources.save()
+        response = self.client.put(reverse(
+            'technology-detail',
+            kwargs={"player_state_pk": 1, "source_slug": "taylorisme"}
+        ), {'technology': {'purchased': True}})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertTrue(models.Technology.objects.get(slug="taylorisme").purchased)
-        self.assertEqual(technology.player.resources.money,
-                         50 - models.SourceTechnology.objects.get(slug="taylorisme").cost)"""
+        self.assertTrue(models.Technology.objects.get(source__slug="taylorisme", state__pk=1).purchased)
+        self.assertEqual(models.Resources.objects.get(state__pk=1).money, 0)
 
 
 class BuildingTests(APITestCase):
-    fixtures = ['source_buildings', 'source_technologies', 'users', 'games', 'players']
+    fixtures = ['source_technologies', 'source_buildings', 'users', 'games', 'players']
+
+    def setUp(self):
+        user = User.objects.all()[0] # Requests will be authenticated by this user.
+        self.client.force_authenticate(user=user)
 
     def test_list_buildings(self):
         buildings = models.Building.objects.all()
@@ -191,12 +213,18 @@ class BuildingTests(APITestCase):
         self.assertEqual(response.data, serializer.data)
 
     def test_valid_detail_building(self):
-        building = models.Building.objects.get(pk=1)
+        building = models.Building.objects.get(source__slug="usine")
         serializer = serializers.BuildingSerializer(building)
-        response = self.client.get(reverse('building-detail', kwargs={"player_state_pk": 1, "slug": "usine"}))
+        response = self.client.get(reverse(
+            'building-detail',
+            kwargs={"player_state_pk": 1, "source_slug": "usine"}
+        ))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
     def test_invalid_detail_building(self):
-        response = self.client.get(reverse('building-detail', kwargs={"player_state_pk": 1, "slug": "head-patting"}))
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        response = self.client.get(reverse(
+            'building-detail',
+            kwargs={"player_state_pk": 1, "source_slug": "bird-nest"}
+        ))
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

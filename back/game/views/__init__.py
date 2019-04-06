@@ -1,9 +1,7 @@
 from .source_technology import SourceTechnologyList, \
-                               SourceTechnologyVersionList, \
-                               SourceTechnologyVersionDetail
+                               SourceTechnologyDetail
 from .source_building import SourceBuildingList, \
-                             SourceBuildingVersionList, \
-                             SourceBuildingVersionDetail
+                             SourceBuildingDetail
 from .game import GameRetrieveUpdateAPIView, \
                   GameCreateAPIView
 from .player import PlayerList, \
@@ -14,6 +12,6 @@ from .shadow_player import ShadowPlayerList, \
 from .player_state import PlayerStateList, \
                     PlayerStateDetail
 from .building import BuildingList, \
-                      BuildingDetail
+                      BuildingRetrieveUpdateAPIView
 from .technology import TechnologyList, \
                         TechnologyRetrieveUpdateAPIView

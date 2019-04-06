@@ -1,39 +1,29 @@
-from django.urls import path, re_path
+from django.urls import path
 from . import views
 
 # API endpoints.
 urlpatterns = [
     # SourceTechnology
     path(
-        'source-technologies/',
+        'source-technologies/<slug:version>/',
         views.SourceTechnologyList.as_view(),
         name='source-technology-list'
     ),
     path(
-        'source-technologies/<slug:version>/',
-        views.SourceTechnologyVersionList.as_view(),
-        name='source-technology-version-list'
-    ),
-    path(
         'source-technologies/<slug:version>/<slug:slug>',
-        views.SourceTechnologyVersionDetail.as_view(),
-        name='source-technology-version-detail'
+        views.SourceTechnologyDetail.as_view(),
+        name='source-technology-detail'
     ),
     # SourceBuilding
     path(
-        'source-buildings/',
-        views.SourceBuildingList.as_view(),
-        name='source-building-list',
-    ),
-    path(
         'source-buildings/<slug:version>/',
-        views.SourceBuildingVersionList.as_view(),
-        name='source-building-version-list'
+        views.SourceBuildingList.as_view(),
+        name='source-building-list'
     ),
     path(
         'source-buildings/<slug:version>/<slug:slug>',
-        views.SourceBuildingVersionDetail.as_view(),
-        name='source-building-version-detail'
+        views.SourceBuildingDetail.as_view(),
+        name='source-building-detail'
     ),
     # Game
     # path(
@@ -45,11 +35,6 @@ urlpatterns = [
         'games/<uuid:join_token>/',
         views.GameRetrieveUpdateAPIView.as_view(),
         name='game-retrieve-update'
-    ),
-    path(
-        'games/',
-        views.GameCreateAPIView.as_view(),
-        name='game-creation'
     ),
     # Player
     # path(
@@ -96,8 +81,8 @@ urlpatterns = [
         name='building-list'
     ),
     path(
-        'player-states/<int:player_state_pk>/buildings/<slug:slug>',
-        views.BuildingDetail.as_view(),
+        'player-states/<int:player_state_pk>/buildings/<slug:source_slug>',
+        views.BuildingRetrieveUpdateAPIView.as_view(),
         name='building-detail'
     ),
     # Technology
@@ -107,7 +92,7 @@ urlpatterns = [
         name='technology-list'
     ),
     path(
-        'player-states/<int:player_state_pk>/technologies/<slug:slug>',
+        'player-states/<int:player_state_pk>/technologies/<slug:source_slug>',
         views.TechnologyRetrieveUpdateAPIView.as_view(),
         name='technology-detail'
     ),
